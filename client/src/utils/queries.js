@@ -15,46 +15,83 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+export const QUERY_CHARACTER = gql`
+  query character {
+    character {
+      name
+      hp
+      level
+      xp
+      skills {
+        strength
+        defense
+        constitution
+      }
+      equipment []
     }
   }
 `;
 
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
+export const GET_ENEMY = gql`
+  query enemy {
+    enemy {
+      description
+      background
+      name
+      hp
+      skills {
+        strength
+        defense
+        constitution
       }
+      equipment []
     }
   }
 `;
 
-export const QUERY_ME = gql`
-  query me {
-    me {
-      _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
-      }
+export const GET_INTERACTION = gql`
+  query interaction {
+    interaction {
+      description
+      background
+      options [
+        {
+          description
+          result [
+            {
+              xp
+              hp
+              addItem [
+                {
+                  name
+                  description
+                }
+              ]
+              nextEvent
+            }
+          ]
+        }
+      ]
+    }
+  }
+`;
+
+export const GET_MOVEMENT = gql`
+  query interaction {
+    interaction {
+      description
+      background
+      options [
+        {
+          description
+          result [
+            {
+              description
+              nextEvent
+            }
+          ]
+        }
+      ]
     }
   }
 `;
