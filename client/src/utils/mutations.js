@@ -24,33 +24,87 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
-  }
-`;
+/**
+ * More an example than an actual implementation
+ */ 
+// export const QUERY_CHARACTER = gql`
+//   query character {
+//     character {
+//       name
+//       hp
+//       level
+//       xp
+//       skills {
+//         strength
+//         defense
+//         constitution
+//       }
+//       equipment []
+//     }
+//   }
+// `;
+
+// export const GET_ENEMY = gql`
+//   query enemy {
+//     enemy {
+//       description
+//       background
+//       name
+//       hp
+//       skills {
+//         strength
+//         defense
+//         constitution
+//       }
+//       equipment []
+//     }
+//   }
+// `;
+
+// export const GET_INTERACTION = gql`
+//   query interaction {
+//     interaction {
+//       description
+//       background
+//       options [
+//         {
+//           description
+//           result [
+//             {
+//               xp
+//               hp
+//               addItem [
+//                 {
+//                   name
+//                   description
+//                 }
+//               ]
+//               nextEvent
+//             }
+//           ]
+//         }
+//       ]
+//     }
+//   }
+// `;
+
+// export const GET_MOVEMENT = gql`
+//   query interaction {
+//     interaction {
+//       description
+//       background
+//       options [
+//         {
+//           description
+//           result [
+//             {
+//               description
+//               nextEvent
+//             }
+//           ]
+//         }
+//       ]
+//     }
+//   }
+// `;
