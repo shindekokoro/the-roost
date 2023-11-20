@@ -15,7 +15,7 @@ const Login = (props) => {
 
     setFormState({
       ...formState,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -25,7 +25,7 @@ const Login = (props) => {
     console.log(formState);
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { ...formState }
       });
 
       Auth.login(data.login.token);
@@ -36,7 +36,7 @@ const Login = (props) => {
     // clear form values
     setFormState({
       email: '',
-      password: '',
+      password: ''
     });
   };
 
@@ -78,7 +78,7 @@ const Login = (props) => {
                 </button>
               </form>
             )}
-
+            
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}

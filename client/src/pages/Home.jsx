@@ -1,13 +1,5 @@
-//import { useQuery } from '@apollo/client';
+import { Typography } from '@mui/material';
 
-const Home = () => {
-  return (
-    <main>
-      <div className="flex-row justify-center vh-100">
-        Welcome to The Roost!
-      </div>
-    </main>
-  );
-};
-
-export default Home;
+export default function Home() {
+  return <Typography variant="body1">Welcome to the Roost!</Typography>;
+}
