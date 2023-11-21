@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const interactionOptionsSchema = new Schema ({
+const movementOptionsSchema = new Schema ({
     description:{
         type:String,
         required:true,
@@ -8,11 +8,11 @@ const interactionOptionsSchema = new Schema ({
     result: [
         {
             type:Schema.Types.ObjectId,
-            ref:'interactionResults'
+            ref:'movementResults'
         }
     ]
 });
 
-const InteractionOptions = model('interactionOptions', interactionOptionsSchema);
+const MovementOptions = model('movementOptions', movementOptionsSchema);
 
-module.exports = InteractionOptions;
+module.exports = MovementOptions;

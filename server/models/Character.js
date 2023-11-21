@@ -1,16 +1,14 @@
 const { Schema, model } = require('mongoose');
 
-const combatSchema = new Schema ({
-    description: {
-        type: String,
-    },
-    background: {
-        type: String,
-    },
+const charSchema = new Schema ({
     name:{
-        type: String,
+        type:String,
+        required:true
     },
     level:{
+        type:Number,
+    },
+    xp:{
         type:Number,
     },
     strength:{
@@ -27,15 +25,9 @@ const combatSchema = new Schema ({
             type:Schema.Types.ObjectId,
             ref:'items'
         }
-    ],
-    result:[
-        {
-            type:Schema.Types.ObjectId,
-            ref:'combatResults'
-        }
     ]
 });
 
-const Combat = model('combat', combatSchema);
+const Character = model('character', charSchema);
 
-module.exports = Combat;
+module.exports = Character;
