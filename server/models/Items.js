@@ -9,12 +9,15 @@ const itemSchema = new Schema({
         type:String,
         required: true,
     },
-    stats: [
-        {
-            type:Schema.Types.ObjectId,
-            ref:'skills'
-        }
-    ]
+    strength:{
+        type:Number,
+    },
+    defense: {
+        type:Number,
+    },
+    constitution: {
+        type:Number,
+    }
 });
 
 const Item = model('items', itemSchema);
