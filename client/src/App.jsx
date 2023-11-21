@@ -36,14 +36,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-function App() {
+function App(error) {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header />
-        <Container container="main">
-          <Outlet />
+        <Container container="main" sx={{ mt: 2 }}>
+          {error?.error || <Outlet />}
         </Container>
         <Box sx={{ pb: 7 }}>
           <Footer />
