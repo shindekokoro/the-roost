@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Paper
-} from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { GiAncientSword } from 'react-icons/gi';
@@ -12,6 +8,8 @@ import { GiHeartShield } from 'react-icons/gi';
 
 export default function Footer() {
   const [value, setValue] = useState(0);
+
+  const iconStyle = { width: '2em', height: '2em' };
 
   return (
     <Paper
@@ -25,9 +23,18 @@ export default function Footer() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Attack" icon={<GiAncientSword />} />
-        <BottomNavigationAction label="Move" icon={<GiMove />} />
-        <BottomNavigationAction label="Defend" icon={<GiHeartShield />} />
+        <BottomNavigationAction
+          label="Attack"
+          icon={<GiAncientSword style={iconStyle} />}
+        />
+        <BottomNavigationAction
+          label="Move"
+          icon={<GiMove style={iconStyle} />}
+        />
+        <BottomNavigationAction
+          label="Defend"
+          icon={<GiHeartShield style={iconStyle} />}
+        />
       </BottomNavigation>
     </Paper>
   );

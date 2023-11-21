@@ -4,33 +4,51 @@ import { createTheme } from '@mui/material/styles';
 let theme = createTheme({
   palette: {
     text: {
-      main: '#180202'
+      main: "#fde7e7",
     },
     background: {
-      main: '#fafafa'
+      main: "#050505",
     },
     primary: {
-      main: '#ff6d4d',
-      textContrast: '#180202'
+      main: "#b32100",
+      textContrast: "#fde7e7",
     },
     secondary: {
-      main: '#e6e6e5',
-      textContrast: '#180202'
+      main: "#1a1a19",
+      textContrast: "#fde7e7",
     },
     accent: {
-      main: '#d12600',
-      textContrast: '#fafafa'
-    }
+      main: "#ff542e",
+      textContrast: "#050505",
+    },
   }
 });
 
 theme = createTheme(theme, {
   components: {
+    MuiCssBaseline:{
+      styleOverrides:{
+        body:{
+          color: theme.palette.text.main,
+          backgroundImage: `url('../zombie_turkey_king.png')`,
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment:'fixed',
+          backgroundPositionY :'52px',
+          backgroundSize: 'cover'
+        }
+      }
+    },
     MuiBottomNavigation: {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.secondary.main,
-          color: theme.palette.secondary.textContrast
+        }
+      }
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.contrastText,
         }
       }
     }
