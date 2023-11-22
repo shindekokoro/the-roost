@@ -15,11 +15,11 @@ const typeDefs = `
   type Character {
     _id: ID
     name: String!
-    level: Number
-    xp: Number
-    strength: Number
-    defense: Number
-    constitution: Number
+    level: Int
+    xp: Int
+    strength: Int
+    defense: Int
+    constitution: Int
     inventory: [Item]
   }
 
@@ -27,9 +27,9 @@ const typeDefs = `
     _id: ID
     name: String!
     description: String!
-    strength: Number
-    defense: Number
-    constitution: Number
+    strength: Int
+    defense: Int
+    constitution: Int
   }
 
   type Combat {
@@ -37,7 +37,7 @@ const typeDefs = `
     description: String
     background: String
     name: String
-    level: Number
+    level: Int
     strength: String
     defense: String
     constitution: String
@@ -97,11 +97,11 @@ const typeDefs = `
   input CharacterObject {
     _id: ID
     name: String!
-    level: Number
-    xp: Number
-    strength: Number
-    defense: Number
-    constitution: Number
+    level: Int
+    xp: Int
+    strength: Int
+    defense: Int
+    constitution: Int
     inventory: [Item]
   }
 
