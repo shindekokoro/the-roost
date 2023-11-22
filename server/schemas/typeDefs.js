@@ -94,6 +94,15 @@ const typeDefs = `
     nextEvent: String
   }
 
+  input ItemInput {
+    _id: ID
+    name: String!
+    description: String!
+    strength: Int
+    defense: Int
+    constitution: Int
+  }
+
   input CharacterObject {
     _id: ID
     name: String!
@@ -102,7 +111,7 @@ const typeDefs = `
     strength: Int
     defense: Int
     constitution: Int
-    inventory: [Item]
+    inventory: [ItemInput]
   }
 
   type Query {
