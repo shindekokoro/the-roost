@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Combat, Movement, Interaction } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -15,7 +15,17 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-  },
+    combat: async () => { 
+      return Combat.find();
+    },
+    movement: async () => { 
+      return Movement.find();
+    },
+    interaction: async () => { 
+      return Interaction.find();
+    }
+
+  }, 
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
@@ -39,6 +49,17 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    saveCharacter: async (parent, { characterData }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user.id },
+          { $set: { character: characterData } },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw AuthenticationError;
     },
   },
 };
