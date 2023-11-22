@@ -1,10 +1,27 @@
 MVP
 
 event system
+ - combat events
+    - scaled on the front end based on user stats
+    - attack, defend, run (movement)
+ - movement events
+    - possible actions come down from event, nested in single movement icon
+ - interaction events
+    - two options for mvp, interact and don't interact (run, movement icon)
+ - event rewards are calculated on the front end
+
 character 
  - xp system, leveling skills
-items
+ - items
+
 enemies
+ - skills
+ - items
+ 
+tailwind setup, eventually
+add and delete users
+leaderboard 
+enforced unique accounts names
 
 -------------------------------------------------------------------
 
@@ -22,16 +39,29 @@ INITIAL SCAFFOLDING
 PHASE 2
 
 FRONT END
- - [] mui + tailwind setup
+ - [x] mui 
  - [x] clean up front end folders 
 
 BACK END
  - [x] Events object shape
  - [x] character object shape
- - [] mongoose models
- - [] graphql defs setup
+ - [x] mongoose models
+ - [] graphql queries
+    - [] event query
+    - [] character query
  - [] graphql mutations
+    - [] update character
 
 -------------------------------------------------------------------
 
 PHASE 3
+
+BACK END
+ - [] graphql resolvers
+
+GAMEPLAY
+ - [] Seeds
+    - [] sample movement events 
+    - [] sample combat events 
+    - [] sample interaction events 
+
