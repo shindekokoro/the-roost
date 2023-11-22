@@ -25,7 +25,10 @@ const charSchema = new Schema ({
             type:Schema.Types.ObjectId,
             ref:'items'
         }
-    ]
+    ],
+    gold: {
+        type:Number,
+    }
 });
 
 const Character = model('character', charSchema);

@@ -24,87 +24,29 @@ export const ADD_USER = gql`
   }
 `;
 
-
-/**
- * More an example than an actual implementation
- */ 
-// export const QUERY_CHARACTER = gql`
-//   query character {
-//     character {
-//       name
-//       hp
-//       level
-//       xp
-//       skills {
-//         strength
-//         defense
-//         constitution
-//       }
-//       equipment []
-//     }
-//   }
-// `;
-
-// export const GET_ENEMY = gql`
-//   query enemy {
-//     enemy {
-//       description
-//       background
-//       name
-//       hp
-//       skills {
-//         strength
-//         defense
-//         constitution
-//       }
-//       equipment []
-//     }
-//   }
-// `;
-
-// export const GET_INTERACTION = gql`
-//   query interaction {
-//     interaction {
-//       description
-//       background
-//       options [
-//         {
-//           description
-//           result [
-//             {
-//               xp
-//               hp
-//               addItem [
-//                 {
-//                   name
-//                   description
-//                 }
-//               ]
-//               nextEvent
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//   }
-// `;
-
-// export const GET_MOVEMENT = gql`
-//   query interaction {
-//     interaction {
-//       description
-//       background
-//       options [
-//         {
-//           description
-//           result [
-//             {
-//               description
-//               nextEvent
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//   }
-// `;
+export const SAVE_CHARACTER = gql`
+  mutation saveCharacter($id: ID $characterData: CharacterInput!) {
+    saveCharacter(_id: $id characterData: $characterData) {
+      _id
+      character {
+        _id
+        name
+        level
+        xp
+        strength
+        defense
+        constitution
+        gold
+        inventory {
+          _id
+          name
+          isEquipped
+          description
+          strength
+          defense
+          constitution
+        }
+      }
+    }
+  }
+`;

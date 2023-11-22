@@ -21,10 +21,12 @@ const typeDefs = `
     defense: Int
     constitution: Int
     inventory: [Item]
+    gold: Int
   }
 
   type Item {
     _id: ID
+    isEquipped: Boolean
     name: String!
     description: String!
     strength: Int
@@ -97,6 +99,7 @@ const typeDefs = `
   input ItemInput {
     _id: ID
     name: String!
+    isEquipped: Boolean!
     description: String!
     strength: Int
     defense: Int
@@ -112,6 +115,7 @@ const typeDefs = `
     defense: Int
     constitution: Int
     inventory: [ItemInput]
+    gold: Int
   }
 
   type Query {

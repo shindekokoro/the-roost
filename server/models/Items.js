@@ -1,22 +1,26 @@
 const { Schema, model } = require('mongoose');
 
 const itemSchema = new Schema({
-    name:{
-        type:String,
+    name: {
+        type: String,
         required: true,
     },
     description: {
-        type:String,
+        type: String,
         required: true,
     },
-    strength:{
-        type:Number,
+    isEquipped: {
+        type: Boolean,
+        default: false,
+    },
+    strength: {
+        type: Number,
     },
     defense: {
-        type:Number,
+        type: Number,
     },
     constitution: {
-        type:Number,
+        type: Number,
     }
 });
 
