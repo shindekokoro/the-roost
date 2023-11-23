@@ -1,15 +1,26 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Alert,
+  Button,
+  FormControl,
+  Grid,
+  Link,
+  OutlinedInput,
+  Snackbar,
+  Typography
+} from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [formState, setFormState] = useState({ email: '', password: '' });
 
   // update state based on form input changes
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -40,54 +51,81 @@ const Login = (props) => {
     });
   };
 
+  const [open, setOpen] = useState(true);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
-    <main className="flex-row justify-center mb-4 vh-100">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
+    <>
+      {data ? (
+        <Typography>
+          Success! You may now head{' '}
+          <Link component={RouterLink} to="/">
+            back to the homepage.
+          </Link>
+        </Typography>
+      ) : (
+        <Grid container>
+          <form onSubmit={handleFormSubmit}>
+            <Grid item>
+              <FormControl variant="filled" size="small">
+                <OutlinedInput
                   placeholder="Your email"
-                  name="email"
+                  id="email-input"
                   type="email"
-                  value={formState.email}
+                  name="email"
+                  label="E-Mail"
+                  defaultValue={formState.email}
                   onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
+                ></OutlinedInput>
+              </FormControl>
+              <br />
+              <FormControl variant="filled" size="small">
+                <OutlinedInput
+                  placeholder="Your Password"
+                  id="password-input"
                   type="password"
-                  value={formState.password}
+                  name="password"
+                  label="Password"
+                  defaultValue={formState.password}
                   onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-            
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
+                ></OutlinedInput>
+              </FormControl>
+            </Grid>
+            <Grid item alignItems="stretch">
+              <Button
+                type="submit"
+                variant="outlined"
+                sx={{ marginRight: '5px' }}
+              >
+                Submit
+              </Button>
+              <Button component={RouterLink} to="/Signup" variant="outlined">
+                Signup
+              </Button>
+            </Grid>
+          </form>
+        </Grid>
+      )}
+
+      {error && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          sx={{ bottom: 90 }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {error.message}
+          </Alert>
+        </Snackbar>
+      )}
+    </>
   );
 };
 
