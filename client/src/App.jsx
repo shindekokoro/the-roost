@@ -42,7 +42,7 @@ function App(error) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header />
-        <Container container="main" sx={{ mt: 2 }}>
+        <Container component="main" sx={{ mt: 2 }}>
           {error?.error || <Outlet />}
         </Container>
         <Box sx={{ pb: 7 }}>
