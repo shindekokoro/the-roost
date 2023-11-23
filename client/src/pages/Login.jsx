@@ -105,7 +105,7 @@ const Login = (props) => {
               >
                 Submit
               </Button>
-              <Button component={RouterLink} to="/Signup" variant="outlined">
+              <Button component={RouterLink} to="/signup" variant="outlined">
                 Signup
               </Button>
             </Grid>

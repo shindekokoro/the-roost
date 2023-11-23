@@ -117,7 +117,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Link
                     component={RouterLink}
-                    to={`/Login`}
+                    to={`/login`}
                     textAlign="center"
                     underline="none"
                   >
@@ -191,7 +191,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseEnemyMenu}>
                   <Link
                     component={RouterLink}
-                    to={`/Login`}
+                    to={`/login`}
                     textAlign="center"
                     underline="none"
                   >
