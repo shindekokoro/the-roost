@@ -1,7 +1,7 @@
 {
   "name": "the-roost",
   "version": "1.0.0",
-  "description": "",
+  "description": "RPG styled React Mobile App to conquer the Chicken Kingdom.",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -14,5 +14,8 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "git-a-readme": "^1.2.5"
   }
 }
