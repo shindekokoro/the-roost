@@ -105,12 +105,12 @@ FRONT END
  - [] persistent top nav, options vary based page or signed in status
  - [] landing page (call to action: signup, play today!)
    - [] when signed in options: start game, profile, leaderboard
- - [] login / signup
- - [] logout
+ - [x] login / signup
+ - [x] logout
  - [] profile (show your character)
    - [] component that queries "me"
    - [] start game button
- - [] any authentication errors redirect to login/signup
+ - [?] any authentication errors redirect to login/signup (This should be done, display's an error inline)
 
 -------------------------------------------------------------------
 

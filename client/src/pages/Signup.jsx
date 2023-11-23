@@ -1,35 +1,42 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Alert,
+  Button,
+  FormControl,
+  Grid,
+  Link,
+  OutlinedInput,
+  Snackbar,
+  Typography
+} from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
 import Auth from '../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
     username: '',
     email: '',
-    password: '',
+    password: ''
   });
-  const [addUser, { error, data }] = useMutation(ADD_USER);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     setFormState({
       ...formState,
-      [name]: value,
+      [name]: value
     });
   };
 
+  const [addUser, { error, data }] = useMutation(ADD_USER);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
 
     try {
       const { data } = await addUser({
-        variables: { ...formState },
+        variables: { ...formState }
       });
 
       Auth.login(data.addUser.token);
@@ -38,62 +45,86 @@ const Signup = () => {
     }
   };
 
-  return (
-    <main className="flex-row justify-center mb-4 vh-100">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your username"
-                  name="username"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+  const [open, setOpen] = useState(true);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
+    setOpen(false);
+  };
+
+  return (
+    <>
+      {data ? (
+        <Typography>
+          Success! You may now head{' '}
+          <Link component={RouterLink} to="/">
+            back to the homepage.
+          </Link>
+        </Typography>
+      ) : (
+        <Grid container>
+          <form onSubmit={handleFormSubmit}>
+            <Grid item>
+              <FormControl variant="filled" size="small">
+                <OutlinedInput
+                  placeholder="Your username"
+                  id="username-input"
+                  type="text"
+                  name="username"
+                  label="Username"
+                  defaultValue={formState.name}
+                  onChange={handleChange}
+                ></OutlinedInput>
+              </FormControl>
+              <br />
+              <FormControl variant="filled" size="small">
+                <OutlinedInput
+                  placeholder="Your email"
+                  id="email-input"
+                  type="email"
+                  name="email"
+                  label="E-Mail"
+                  defaultValue={formState.email}
+                  onChange={handleChange}
+                ></OutlinedInput>
+              </FormControl>
+              <br />
+              <FormControl variant="filled" size="small">
+                <OutlinedInput
+                  placeholder="Your Password"
+                  id="password-input"
+                  type="password"
+                  name="password"
+                  label="Password"
+                  defaultValue={formState.password}
+                  onChange={handleChange}
+                ></OutlinedInput>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <Button type="submit" variant="outlined">
+                Submit
+              </Button>
+            </Grid>
+          </form>
+        </Grid>
+      )}
+
+      {error && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          sx={{ position: 'fixed', bottom: 90 }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {error.message}
+          </Alert>
+        </Snackbar>
+      )}
+    </>
   );
 };
 

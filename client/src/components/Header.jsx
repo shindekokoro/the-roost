@@ -1,11 +1,10 @@
 import Auth from '../utils/auth';
 import { useState } from 'react';
-import { Link as RouterLink, useRouteError } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Box,
   Avatar,
-  Button,
   Menu,
   Toolbar,
   Container,
@@ -15,63 +14,36 @@ import {
   MenuItem,
   Link
 } from '@mui/material';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { GiImpLaugh } from 'react-icons/gi';
 
-// const Header = () => {
-//   const logout = (event) => {
-//     event.preventDefault();
-//     Auth.logout();
-//   };
-//   return (
-//     <Box component="header">
-//       <Container>
-//         <Box>
-//           <Link component={RouterLink} to="/">
-//             <Typography variant="h1">The Roost</Typography>
-//           </Link>
-//           <Typography variant="h4">Chickens Await!</Typography>
-//         </Box>
-//         <Box>
-//           {Auth.loggedIn() ? (
-//             <>
-//               <Link component={RouterLink} to="/me">
-//                 {Auth.getProfile().data.username}&apos;s profile
-//               </Link>
-//               <Button onClick={logout}>
-//                 Logout
-//               </Button>
-//             </>
-//           ) : ''}
-//         </Box>
-//       </Container>
-//     </Box>
-//   );
-// };
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const getTitle = (path) => {
+  switch (path) {
+    case '/':
+      return 'The Roost';
+    case '/Login':
+      return 'Login';
+    case '/Signup':
+      return 'Signup';
+    default:
+      return 'Error';
+  }
+};
 
 export default function Header() {
-  const error = useRouteError();
+  const currentPage = useLocation().pathname;
+  const title = getTitle(currentPage);
+
+  // Logout user and redirect to home route
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
+    window.location.href = './';
   };
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  // Set Menu State and Navigation Elements
+  const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -87,7 +59,7 @@ export default function Header() {
             to="/"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              // display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -96,26 +68,22 @@ export default function Header() {
               textDecoration: 'none'
             }}
           >
-            The Roost
+            {title}
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
+          {console.log(Auth.getProfile.data)}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip
+              title={
+                Auth.loggedIn()
+                  ? `${Auth.getProfile().data.username}'s settings`
+                  : 'Login'
+              }
+            >
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  alt="Chicken Little"
+                  alt={
+                    Auth.loggedIn() ? Auth.getProfile().data.username : 'Login'
+                  }
                   src="/static/images/avatar/2.jpg"
                 />
               </IconButton>
@@ -136,18 +104,32 @@ export default function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {Auth.loggedIn() ? (
+                userSettings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Link
+                      component={RouterLink}
+                      to={`/${setting}`}
+                      textAlign="center"
+                      underline="none"
+                      onClick={setting === 'Logout' ? logout : ''}
+                    >
+                      {setting}
+                    </Link>
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Link
                     component={RouterLink}
-                    to={`/${setting}`}
+                    to={`/Login`}
                     textAlign="center"
                     underline="none"
                   >
-                    {setting}
+                    Login
                   </Link>
                 </MenuItem>
-              ))}
+              )}
             </Menu>
           </Box>
         </Toolbar>
