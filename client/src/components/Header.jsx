@@ -19,10 +19,12 @@ const getTitle = (path) => {
   switch (path) {
     case '/':
       return 'The Roost';
-    case '/Login':
+    case '/login':
       return 'Login';
-    case '/Signup':
+    case '/signup':
       return 'Signup';
+    case '/profile':
+      return 'Viewing Your Profile';
     default:
       return 'Error';
   }
@@ -38,7 +40,8 @@ export default function Header() {
     Auth.logout();
     window.location.href = './';
   };
-  // Set Menu State and Navigation Elements
+
+  // Set Menu State and Navigation Elements for User
   const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
@@ -48,29 +51,21 @@ export default function Header() {
     setAnchorElUser(null);
   };
 
+  // Set Menu State and Navigation Elements for Enemy
+  const enemySettings = ['Profile'];
+  const [anchorElEnemy, setAnchorElEnemy] = useState(null);
+  const handleOpenEnemyMenu = (event) => {
+    setAnchorElEnemy(event.currentTarget);
+  };
+  const handleCloseEnemyMenu = () => {
+    setAnchorElEnemy(null);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Typography
-            variant="h5"
-            noWrap
-            component={RouterLink}
-            to="/"
-            sx={{
-              mr: 2,
-              // display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            {title}
-          </Typography>
-          {console.log(Auth.getProfile.data)}
+          {/* User Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip
               title={
@@ -94,12 +89,12 @@ export default function Header() {
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'right'
+                horizontal: 'left'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'right'
+                horizontal: 'left'
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -109,7 +104,7 @@ export default function Header() {
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Link
                       component={RouterLink}
-                      to={`/${setting}`}
+                      to={`/${setting.toLowerCase()}`}
                       textAlign="center"
                       underline="none"
                       onClick={setting === 'Logout' ? logout : ''}
@@ -122,7 +117,81 @@ export default function Header() {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Link
                     component={RouterLink}
-                    to={`/Login`}
+                    to={`/login`}
+                    textAlign="center"
+                    underline="none"
+                  >
+                    Login
+                  </Link>
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
+
+          {/* Page Title and 'Header' */}
+          <Typography
+            variant="h5"
+            noWrap
+            component={RouterLink}
+            to="/"
+            sx={{
+              mx: 2,
+              // display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              textAlign: 'center'
+            }}
+          >
+            {title}
+          </Typography>
+
+          {/* Enemy Menu */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Enemy">
+              <IconButton onClick={handleOpenEnemyMenu} sx={{ p: 0 }}>
+                <Avatar alt="Enemy" src="/static/images/avatar/1.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElEnemy}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+              open={Boolean(anchorElEnemy)}
+              onClose={handleCloseEnemyMenu}
+            >
+              {/* Show a login menu for enemy if user not logged it */}
+              {Auth.loggedIn() ? (
+                enemySettings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseEnemyMenu}>
+                    <Link
+                      component={RouterLink}
+                      to={`/${setting.toLowerCase()}`}
+                      textAlign="center"
+                      underline="none"
+                      onClick={setting === 'Logout' ? logout : ''}
+                    >
+                      {setting}
+                    </Link>
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem onClick={handleCloseEnemyMenu}>
+                  <Link
+                    component={RouterLink}
+                    to={`/login`}
                     textAlign="center"
                     underline="none"
                   >
