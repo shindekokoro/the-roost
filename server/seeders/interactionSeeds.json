@@ -1,0 +1,20 @@
+[
+  {
+    "description": "Interaction 1 description",
+    "background": "Interaction 1 background",
+    "name": "Interaction 1 name",
+    "options": []
+  },
+  {
+    "description": "Interaction 2 description",
+    "background": "Interaction 2 background",
+    "name": "Interaction 2 name",
+    "options": []
+  },
+  {
+    "description": "Interaction 3 description",
+    "background": "Interaction 3 background",
+    "name": "Interaction 3 name",
+    "options": []
+  }
+]

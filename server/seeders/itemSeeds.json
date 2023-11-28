@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Rusty Sword",
+    "description": "A rusty blade that has seen better days.",
+    "isEquipped": "false",
+    "strength": 1,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Rusty Hatchet",
+    "description": "A rusty hatchet that has seen better days.",
+    "isEquipped": "false",
+    "strength": 1,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Weak Egg Sling",
+    "description": "An egg sling that has seen better days.",
+    "isEquipped": "false",
+    "strength": 1,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Refurbished Sword",
+    "description": "The blade has been refurbished.",
+    "isEquipped": "false",
+    "strength": 2,
+    "defense": 0.5,
+    "constitution": 0
+  },
+  {
+    "name": "Refurbished Hatchet",
+    "description": "The hatchet has been refurbished.",
+    "isEquipped": "false",
+    "strength": 2.5,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Refurbished Egg Sling",
+    "description": "The egg sling has been refurbished.",
+    "isEquipped": "false",
+    "strength": 2.5,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Sharp Sword",
+    "description": "The blade has been sharpened.",
+    "isEquipped": "false",
+    "strength": 3,
+    "defense": 1,
+    "constitution": 0
+  },
+  {
+    "name": "Sharp Hatchet",
+    "description": "The hatchet has been sharpened.",
+    "isEquipped": "false",
+    "strength": 3,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Quick Egg Sling",
+    "description": "The egg sling has been modified to shoot faster.",
+    "isEquipped": "false",
+    "strength": 3.5,
+    "defense": 0,
+    "constitution": 0
+  },
+  {
+    "name": "Sturdy Sword",
+    "description": "Both the blade and handle have been reinforced.",
+    "isEquipped": "false",
+    "strength": 4,
+    "defense": 1.5,
+    "constitution": 1.5
+  },
+  {
+    "name": "Sturdy Hatchet",
+    "description": "Both the blade and handle have been reinforced.",
+    "isEquipped": "false",
+    "strength": 5,
+    "defense": 0,
+    "constitution": 1.5
+  },
+  {
+    "name": "Reinforced Egg Sling",
+    "description": "The egg sling has been reinforced with stronger materials.",
+    "isEquipped": "false",
+    "strength": 5,
+    "defense": 0.5,
+    "constitution": 0
+  }
+]

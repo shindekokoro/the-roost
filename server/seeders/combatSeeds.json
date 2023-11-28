@@ -1,0 +1,35 @@
+[
+  {
+    "description": "Combat description 1",
+    "background": "Combat background 1",
+    "name": "Combat Name 1",
+    "level": 1,
+    "strength": 1,
+    "defense": 1,
+    "constitution": 1,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "Combat description 2",
+    "background": "Combat background 2",
+    "name": "Combat Name 2",
+    "level": 2,
+    "strength": 2,
+    "defense": 2,
+    "constitution": 2,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "Combat description 3",
+    "background": "Combat background 3",
+    "name": "Combat Name 3",
+    "level": 3,
+    "strength": 3,
+    "defense": 3,
+    "constitution": 3,
+    "inventory": [],
+    "result": []
+  }
+]
