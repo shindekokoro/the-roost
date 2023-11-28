@@ -1,0 +1,32 @@
+[
+  {
+    "name": "John",
+    "level": 5,
+    "xp": 5000,
+    "strength": 10,
+    "defense": 10,
+    "constitution": 10,
+    "inventory": [],
+    "gold": 500
+  },
+  {
+    "name": "Jane",
+    "level": 5,
+    "xp": 5000,
+    "strength": 10,
+    "defense": 10,
+    "constitution": 10,
+    "inventory": [],
+    "gold": 500
+  },
+  {
+    "name": "Joe",
+    "level": 5,
+    "xp": 5000,
+    "strength": 10,
+    "defense": 10,
+    "constitution": 10,
+    "inventory": [],
+    "gold": 500
+  }
+]
