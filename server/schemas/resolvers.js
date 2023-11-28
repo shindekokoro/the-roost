@@ -7,38 +7,49 @@ const resolvers = {
       return User.find().populate('character').populate('items');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('character').populate('items');
+      return User.findOne({ username }).populate({
+        path: 'character',
+        populate: { path: 'items' }
+      });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('character').populate('items');
+        return User.findOne({ _id: context.user._id }).populate({
+          path: 'character',
+          populate: {
+            path: 'inventory',
+            model: 'items'
+          }
+        });
       }
       throw AuthenticationError;
     },
-    combat: async () => { 
+    combat: async () => {
       return Combat.find().populate('items').populate('combatResults');
     },
-    movement: async () => { 
-      return Movement.find().populate('interactionOptions').populate('interactionResults');
+    movement: async () => {
+      return Movement.find()
+        .populate('interactionOptions')
+        .populate('interactionResults');
     },
-    interaction: async () => { 
-      return Interaction.find().populate('interactionOptions').populate('interactionResults');
+    interaction: async () => {
+      return Interaction.find()
+        .populate('interactionOptions')
+        .populate('interactionResults');
     }
-
-  }, 
+  },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const character = await Character.create(
-        { name: username,
-          level: 1,
-          xp: 0,
-          strength: 1,
-          defense: 1,
-          constitution: 1,
-          gold: 0
-        }
-      )
+      const character = await Character.create({
+        name: username,
+        level: 1,
+        xp: 0,
+        strength: 1,
+        defense: 1,
+        constitution: 1,
+        gold: 0
+      });
       const user = await User.create({ username, email, password, character });
       const token = signToken(user);
       return { token, user };
@@ -70,8 +81,8 @@ const resolvers = {
         return updatedUser;
       }
       throw AuthenticationError;
-    },
-  },
+    }
+  }
 };
 
 module.exports = resolvers;
