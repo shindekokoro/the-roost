@@ -32,22 +32,21 @@ const Profile = () => {
     );
   }
 
+  let character = user.character[0];
   return (
     <Box>
       <Typography variant="body1">Username: {user.username}</Typography>
       <Typography variant="body1">Email: {user.email}</Typography>
       <Grid container>
-        {user.character.map((avatar) => {
           <Grid item>
-            <Typography variant="body2">Name: {avatar.name}</Typography>
-            <Typography variant="body2">Level: {avatar.level}</Typography>
-            <Typography variant="body2">Gold: {avatar.gold}</Typography>
-            <Typography variant="body2">Experience: {avatar.xp}</Typography>
-            <Typography variant="body2">Strength: {avatar.strength}</Typography>
-            <Typography variant="body2">Defense: {avatar.defense}</Typography>
-            <Typography variant="body2">Constitution: {avatar.constitution}</Typography>
+            <Typography variant="body2">Name: {character.name}</Typography>
+            <Typography variant="body2">Level: {character.level}</Typography>
+            <Typography variant="body2">Gold: {character.gold}</Typography>
+            <Typography variant="body2">Experience: {character.xp}</Typography>
+            <Typography variant="body2">Strength: {character.strength}</Typography>
+            <Typography variant="body2">Defense: {character.defense}</Typography>
+            <Typography variant="body2">Constitution: {character.constitution}</Typography>
           </Grid>;
-        })}
       </Grid>
     </Box>
   );
