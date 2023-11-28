@@ -5,8 +5,8 @@ const Interaction = require('./Interaction/Interaction.js');
 const InteractionOptions = require('./Interaction/InteractionOptions.js');
 const InteractionResults = require('./Interaction/InteractionResults.js');
 const Movement = require('./Movement/Movement.js');
-const MovementOptions = require('./Movement/MovemenResults.js');
-const MovemenResults = require('./Movement/MovemenResults.js');
+const MovementOptions = require('./Movement/MovementResults.js');
+const MovementResults = require('./Movement/MovementResults.js');
 const Items = require('./Items.js');
 const Character = require('./Character.js');
 
@@ -19,7 +19,7 @@ module.exports = {
     InteractionResults,  
     Movement,
     MovementOptions,
-    MovemenResults,
+    MovementResults,
     Items,
     Character
 };

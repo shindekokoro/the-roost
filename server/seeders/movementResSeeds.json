@@ -1,0 +1,17 @@
+[
+  {
+    "description": "Movement result 1 description",
+    "statToModify": "strength",
+    "nextEvent": "Movement 1 Name"
+  },
+  {
+    "description": "Movement result 2 description",
+    "statToModify": "defense",
+    "nextEvent": "Movement 2 Name"
+  },
+  {
+    "description": "Movement result 3 description",
+    "statToModify": "constitution",
+    "nextEvent": "Movement 3 Name"
+  }
+]
