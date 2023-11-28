@@ -55,21 +55,19 @@ const resolvers = {
         }
       }).exec();
     }
-
-  }, 
+  },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const character = await Character.create(
-        { name: username,
-          level: 1,
-          xp: 0,
-          strength: 1,
-          defense: 1,
-          constitution: 1,
-          gold: 0
-        }
-      )
+      const character = await Character.create({
+        name: username,
+        level: 1,
+        xp: 0,
+        strength: 1,
+        defense: 1,
+        constitution: 1,
+        gold: 0
+      });
       const user = await User.create({ username, email, password, character });
       const token = signToken(user);
       return { token, user };
@@ -103,8 +101,8 @@ const resolvers = {
         return updatedUser;
       }
       throw AuthenticationError;
-    },
-  },
+    }
+  }
 };
 
 module.exports = resolvers;

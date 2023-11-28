@@ -32,7 +32,6 @@ const Signup = () => {
   const [addUser, { error, data }] = useMutation(ADD_USER);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     try {
       const { data } = await addUser({
