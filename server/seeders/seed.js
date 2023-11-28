@@ -3,6 +3,7 @@ const { User, Combat, CombatResults, Interaction, InteractionOptions, Interactio
 
 const userSeeds = require('./userSeeds.json');
 const itemSeeds = require('./itemSeeds.json');
+const characterSeeds = require('./characterSeeds.json');
 
 const combatSeeds = require('./combatSeeds.json');
 const combatResSeeds = require('./combatResSeeds.json');
@@ -19,6 +20,7 @@ const movementResSeeds = require('./movementResSeeds.json');
 db.once('open', async () => {
   try {
     await User.create(userSeeds);
+    await Character.create(characterSeeds);
     await Items.create(itemSeeds);
     
     await Combat.create(combatSeeds);
