@@ -15,6 +15,6 @@ const movementResultSchema = new Schema ({
     }
 });
 
-const movementResults = model('movementResults', movementResultSchema);
+const MovementResults = model('movementResults', movementResultSchema);
 
-module.exports = movementResults;
+module.exports = MovementResults;
