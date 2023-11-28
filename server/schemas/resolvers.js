@@ -4,25 +4,25 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find();
+      return User.find().populate('character').populate('items');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username });
+      return User.findOne({ username }).populate('character').populate('items');
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id }).populate('character').populate('items');
       }
       throw AuthenticationError;
     },
     combat: async () => { 
-      return Combat.find();
+      return Combat.find().populate('items').populate('combatResults');
     },
     movement: async () => { 
-      return Movement.find();
+      return Movement.find().populate('interactionOptions').populate('interactionResults');
     },
     interaction: async () => { 
-      return Interaction.find();
+      return Interaction.find().populate('interactionOptions').populate('interactionResults');
     }
 
   }, 
