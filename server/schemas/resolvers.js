@@ -1,4 +1,4 @@
-const { User, Combat, Movement, Interaction } = require('../models');
+const { User, Combat, Movement, Interaction, Character } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -29,7 +29,17 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+      const character = await Character.create(
+        { name: username,
+          level: 1,
+          xp: 0,
+          strength: 1,
+          defense: 1,
+          constitution: 1,
+          gold: 0
+        }
+      )
+      const user = await User.create({ username, email, password, character });
       const token = signToken(user);
       return { token, user };
     },
