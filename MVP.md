@@ -102,25 +102,27 @@ GAMEPLAY
     - [] sample interaction events 
 
 FRONT END
- - [] persistent top nav, options vary based page or signed in status
- - [] landing page (call to action: signup, play today!)
-   - [] when signed in options: start game, profile, leaderboard
+ - [x] persistent top nav, options vary based page or signed in status
  - [x] login / signup
  - [x] logout
- - [] profile (show your character)
-   - [] component that queries "me"
-   - [] start game button
+ - [] profile (show your character stats)
+   - [x] component that queries "me"
  - [?] any authentication errors redirect to login/signup (This should be done, display's an error inline)
 
 -------------------------------------------------------------------
 
 PHASE 4
 
-GAMEPLAY
- - [] get the game version
-   - [] see if client needs to update
-   - [] get all events to client
-      - [] save events to local storage
- - [] get character data
+CLIENT
+ - [] get all events to client
+   - [] save events to local storage
+ - [x] get character data (comes down with the user object)
    - [] save character to local storage
- - [] show character data on the profile page
+      
+...
+
+
+-------------------------------------------------------------------
+
+POLISH
+ - [] landing page (call to action: signup, play today!)
