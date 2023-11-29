@@ -12,7 +12,7 @@ export const setLocalStorageData = (currentPlayer, combat, interaction, movement
 }
 
 export const getLocalStorageData = () => {
-    const currentPlayer = JSON.parse(currentPlayer = localStorage.getItem('roostPlayer'));
+    const currentPlayer = JSON.parse(localStorage.getItem('roostPlayer'));
     const combat = JSON.parse(localStorage.getItem('roostCombat'));
     const interaction = JSON.parse(localStorage.getItem('roostInteraction'));
     const movement = JSON.parse(localStorage.getItem('roostMovement'));
@@ -25,7 +25,19 @@ export const getLocalStorageData = () => {
     }
 }
 
+export const setEventContext = (data) => {
+    localStorage.setItem('eventContext', JSON.stringify(data));
+}
 
-
-
-
+export const getEventContext = () => {
+    let eventContext = JSON.parse(localStorage.getItem('eventContext'));
+    if (!eventContext) {
+        eventContext = {
+            characterHP: 10,
+            enemyHP: null,
+            currentEvent: null,
+        }
+        localStorage.setItem('eventContext', JSON.stringify(eventContext));
+    }
+    return eventContext;
+}

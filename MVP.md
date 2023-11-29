@@ -96,16 +96,16 @@ BACK END
  - [x] graphql resolvers
 
 GAMEPLAY
- - [] Seeds (images, etc)
-    - [] sample movement events 
-    - [] sample combat events 
-    - [] sample interaction events 
+ - [x] Sample Seeds (images, etc)
+    - [x] sample movement events 
+    - [x] sample combat events 
+    - [x] sample interaction events 
 
 FRONT END
  - [x] persistent top nav, options vary based page or signed in status
  - [x] login / signup
  - [x] logout
- - [] profile (show your character stats)
+ - [x] profile (show your character stats)
    - [x] component that queries "me"
  - [?] any authentication errors redirect to login/signup (This should be done, display's an error inline)
 
@@ -118,8 +118,12 @@ CLIENT
    - [] save events to local storage
  - [x] get character data (comes down with the user object)
    - [] save character to local storage
-      
-...
+ - [] start game button
+ - [] game component (parent of all game related components)
+   - [] get all event to local storage (pass -> children)
+   - [] get character 
+   - [] save character 
+
 
 
 -------------------------------------------------------------------
