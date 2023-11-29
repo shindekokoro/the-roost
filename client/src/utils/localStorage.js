@@ -25,7 +25,19 @@ export const getLocalStorageData = () => {
     }
 }
 
+export const setEventContext = (data) => {
+    localStorage.setItem('roostEventContext', JSON.stringify(data));
+}
 
-
-
-
+export const getEventContext = () => {
+    const eventContext = JSON.parse(localStorage.getItem('roostEventContext'));
+    if (eventContext === undefined) {
+        eventContext = {
+            characterHP: 10,
+            enemyHP: null,
+            currentEvent: null,
+        }
+        localStorage.setItem('eventContext', eventContext);
+    }
+    return eventContext;
+}
