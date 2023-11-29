@@ -4,7 +4,39 @@ import { useQuery } from '@apollo/client';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
-import { Box, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.primary.textContrast
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14
+  }
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0
+  }
+}));
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -32,22 +64,79 @@ const Profile = () => {
     );
   }
 
-  let character = user.character[0];
+  const characters = user.character;
+
   return (
     <Box>
       <Typography variant="body1">Username: {user.username}</Typography>
       <Typography variant="body1">Email: {user.email}</Typography>
-      <Grid container>
-          <Grid item>
-            <Typography variant="body2">Name: {character.name}</Typography>
-            <Typography variant="body2">Level: {character.level}</Typography>
-            <Typography variant="body2">Gold: {character.gold}</Typography>
-            <Typography variant="body2">Experience: {character.xp}</Typography>
-            <Typography variant="body2">Strength: {character.strength}</Typography>
-            <Typography variant="body2">Defense: {character.defense}</Typography>
-            <Typography variant="body2">Constitution: {character.constitution}</Typography>
-          </Grid>;
-      </Grid>
+
+      <TableContainer sx={{ maxWidth: '75%', marginTop: 5 }} component={Paper}>
+        <Table aria-label="User Characters">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Name</StyledTableCell>
+              {characters.map((character) => (
+                <>
+                  <StyledTableCell key={'Name ' + character.name} align="right">
+                    {character.name}
+                  </StyledTableCell>
+                </>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <StyledTableRow>
+              <StyledTableCell>Level</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'Level ' + row.name}>
+                  {row.level}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+            <StyledTableRow>
+              <StyledTableCell>XP</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'XP ' + row.name}>
+                  {row.xp}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+            <StyledTableRow>
+              <StyledTableCell>Gold</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'Gold ' + row.name}>
+                  {row.gold}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+            <StyledTableRow>
+              <StyledTableCell>Strength</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'STR ' + row.name}>
+                  {row.strength}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+            <StyledTableRow>
+              <StyledTableCell>Defense</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'DEF ' + row.name}>
+                  {row.defense}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+            <StyledTableRow>
+              <StyledTableCell>Constitution</StyledTableCell>
+              {characters.map((row) => (
+                <StyledTableCell align="right" key={'CON ' + row.name}>
+                  {row.constitution}
+                </StyledTableCell>
+              ))}
+            </StyledTableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
