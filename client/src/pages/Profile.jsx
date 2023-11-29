@@ -67,7 +67,7 @@ const Profile = () => {
   const characters = user.character;
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <Typography variant="body1">Username: {user.username}</Typography>
       <Typography variant="body1">Email: {user.email}</Typography>
 
