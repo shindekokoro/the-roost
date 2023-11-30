@@ -1,11 +1,12 @@
-[] User seed json
+[X] User seed json
 [X] Items seed json
 
-[] Combat seed json
-[] Combat res seed json
+[X] Combat seed json
+[X] Combat res seed json
 
-[] Interaction seed json
-[] Interaction op seed json
-[] Interaction res seed json
+[X] Interaction seed json
+[X] Interaction op seed json
+[X] Interaction res seed json
 
-[] 
+[X] Properly nest the necessary objectIDs in the relevant arrays
+    [x] Fix Movement/MovementOptions arrays not populating correctly

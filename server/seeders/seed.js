@@ -58,55 +58,28 @@ const seedNestedCombat = async () => {
   }
 }
 
-const seedNestedInteraction = async () => {
-  //nest the proper object IDs
-  const allInteraction = await Interaction.find();
-  const allInteractionOptions = await InteractionOptions.find();
-  const allInteractionResults = await InteractionResults.find();
+const seedNested = async (base, options, results) => {
+  const allBase = await base.find();
+  const allOptions = await options.find();
+  const allResults = await results.find();
 
-  for (let i = 0; i < allInteractionOptions.length; i++) {
-    allInteractionResults.forEach(async (element) => {
-      await InteractionOptions.findOneAndUpdate(
-        {_id:`${allInteractionOptions[i]._id}`},
-        {$push: {result:`${element._id}`}},
+  for (const option of allOptions) {
+    for (const result of allResults) {
+      await options.findOneAndUpdate(
+        {_id: option._id},
+        {$push: {result:result._id}},
         {new:true}
       );
-    });
+    }
   }
-  for (let j = 0; j < allInteraction.length; j++) {
-    allInteractionOptions.forEach(async (element) => {
-      await Interaction.findOneAndUpdate(
-        {_id:`${allInteraction[j]._id}`},
-        {$push: {options:`${element._id}`}},
+  for (const baseModel of allBase) {
+    for (const option of allOptions) {
+      await base.findOneAndUpdate(
+        {_id: baseModel._id},
+        {$push: {options:option._id}},
         {new:true}
       );
-    });
-  }
-}
-
-const seedNestedMovement = async () => {
-  //nest the proper object IDs
-  const allMovement = await Movement.find();
-  const allMovementOptions = await MovementOptions.find();
-  const allMovementResults = await MovementResults.find();
-
-  for (let i = 0; i < allMovementOptions.length; i++) {
-    allMovementResults.forEach(async (element) => {
-      await MovementOptions.findOneAndUpdate(
-        {_id:`${allMovementOptions[i]._id}`},
-        {$push: {result:`${element._id}`}},
-        {new:true}
-      );
-    });
-  }
-  for (let j = 0; j < allMovement.length; j++) {
-    allMovementOptions.forEach(async (element) => {
-      await Movement.findOneAndUpdate(
-        {_id:`${allMovement[j]._id}`},
-        {$push: {options:`${element._id}`}},
-        {new:true}
-      );
-    });
+    }
   }
 }
 
@@ -125,12 +98,13 @@ db.once('open', async () => {
     await Interaction.create(interactionSeeds);
     await InteractionOptions.create(interactionOpSeeds);
     await InteractionResults.create(interactionResSeeds);
-    await seedNestedInteraction();
+    await seedNested(Interaction, InteractionOptions, InteractionResults);
 
     await Movement.create(movementSeeds);
     await MovementOptions.create(movementOpSeeds);
     await MovementResults.create(movementResSeeds);
-    await seedNestedMovement();
+    await seedNested(Movement, MovementOptions, MovementResults);
+    
 
     console.log('Database seeded!');
     process.exit(0);
