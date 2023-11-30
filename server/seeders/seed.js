@@ -85,7 +85,8 @@ const seedNested = async (base, options, results) => {
 
 db.once('open', async () => {
   try {
-    db.dropDatabase("the-roost");
+    //only uncomment this in dev environment
+    //db.dropDatabase("the-roost");
     await User.create(userSeeds);
     await Character.create(characterSeeds);
     await Items.create(itemSeeds);
