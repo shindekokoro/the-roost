@@ -9,4 +9,4 @@
 [X] Interaction res seed json
 
 [X] Properly nest the necessary objectIDs in the relevant arrays
-    [] Fix Movement/MovementOptions arrays not populating correctly
+    [x] Fix Movement/MovementOptions arrays not populating correctly
