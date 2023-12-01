@@ -130,7 +130,7 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveCharacter(_id: ID!, character: CharacterObject!): User
+    saveCharacter(characterData: CharacterObject!): Character
   }
 `;
 

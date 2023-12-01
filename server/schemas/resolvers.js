@@ -92,13 +92,14 @@ const resolvers = {
     saveCharacter: async (parent, { characterData }, context) => {
       //rewrite this to save to character from context.user.username vs how it is now
       //will have to save char data and items too
+      console.log(characterData);
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user.id },
-          { $set: { character: characterData } },
+        const updatedCharacter = await Character.findByIdAndUpdate(
+          { _id: characterData._id },
+          { ...characterData },
           { new: true }
         );
-        return updatedUser;
+        return updatedCharacter;
       }
       throw AuthenticationError;
     }
