@@ -28,14 +28,14 @@
     "description": "The blade has been refurbished.",
     "isEquipped": "false",
     "strength": 2,
-    "defense": 0.5,
+    "defense": 1,
     "constitution": 0
   },
   {
     "name": "Refurbished Hatchet",
     "description": "The hatchet has been refurbished.",
     "isEquipped": "false",
-    "strength": 2.5,
+    "strength": 2,
     "defense": 0,
     "constitution": 0
   },
@@ -43,7 +43,7 @@
     "name": "Refurbished Egg Sling",
     "description": "The egg sling has been refurbished.",
     "isEquipped": "false",
-    "strength": 2.5,
+    "strength": 2,
     "defense": 0,
     "constitution": 0
   },
@@ -67,7 +67,7 @@
     "name": "Quick Egg Sling",
     "description": "The egg sling has been modified to shoot faster.",
     "isEquipped": "false",
-    "strength": 3.5,
+    "strength": 3,
     "defense": 0,
     "constitution": 0
   },
@@ -76,8 +76,8 @@
     "description": "Both the blade and handle have been reinforced.",
     "isEquipped": "false",
     "strength": 4,
-    "defense": 1.5,
-    "constitution": 1.5
+    "defense": 2,
+    "constitution": 2
   },
   {
     "name": "Sturdy Hatchet",
@@ -85,14 +85,14 @@
     "isEquipped": "false",
     "strength": 5,
     "defense": 0,
-    "constitution": 1.5
+    "constitution": 2
   },
   {
     "name": "Reinforced Egg Sling",
     "description": "The egg sling has been reinforced with stronger materials.",
     "isEquipped": "false",
     "strength": 5,
-    "defense": 0.5,
+    "defense": 1,
     "constitution": 0
   }
 ]
