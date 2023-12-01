@@ -1,14 +1,14 @@
 [
   {
-    "description": "Movement option 1",
+    "description": "Move Left",
     "result": []
   },
   {
-    "description": "Movement option 2",
+    "description": "Move Forward",
     "result": []
   },
   {
-    "description": "Movement option 3",
+    "description": "Move Right",
     "result": []
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "description": "Your fight with the evil chicken helps you learn their weaknesses. +1 to Strength",
+    "description": "Your fight with the fowl beast helps you learn their weaknesses. +1 to Strength",
     "statToModify": "strength",
     "statValue": 1,
     "nextEvent": "Movement Name 1"
