@@ -9,6 +9,10 @@ const movementResultSchema = new Schema ({
     statToModify:{
         type:String,
     },
+    //value to modify the stat above
+    statValue:{
+        type:Number
+    },
     //next event to serve up. pulled random from the frond end?
     nextEvent:{
         type:String,

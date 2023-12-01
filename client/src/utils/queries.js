@@ -110,6 +110,7 @@ export const QUERY_COMBAT_EVENTS = gql `query combat {
       _id
       description
       statToModify
+      statValue
       nextEvent
     }
   }
@@ -130,6 +131,7 @@ export const QUERY_MOVEMENT_EVENTS = gql`
           _id
           description
           statToModify
+          statValue
           nextEvent
         }
       }
@@ -151,6 +153,7 @@ export const QUERY_INTERACTION_EVENTS = gql`
           _id
           description
           statToModify
+          statValue
           nextEvent
         }
       }

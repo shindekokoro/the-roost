@@ -51,6 +51,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
@@ -72,6 +73,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
@@ -93,6 +95,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
