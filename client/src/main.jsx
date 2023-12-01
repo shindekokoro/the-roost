@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx';
-import { Error, Home, Signup, Login, Profile, Play } from './pages/index.js';
+import { Error, Home, Login, Logout, Profile, Play } from './pages/index.js';
 
 const router = createBrowserRouter([
   {
@@ -17,11 +17,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />
+        element: <Login signup={false} />
       },
       {
         path: '/signup',
-        element: <Signup />
+        element: <Login signup={true} />
+      },
+      {
+        path: '/logout',
+        element: <Logout />
       },
       {
         path: '/profiles/:username',
