@@ -35,7 +35,7 @@ const resolvers = {
       throw AuthenticationError;
     },
     combat: async () => { 
-      return Combat.find().populate('items').populate('combatResults').exec();
+      return await Combat.find().populate('inventory').populate('result').exec();
     },
     movement: async () => { 
       return Movement.find().populate({
