@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
   Alert,
   Button,
@@ -11,16 +11,29 @@ import {
   Typography
 } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
-
+import { LOGIN_USER, ADD_USER } from '../utils/mutations';
+import { Signup } from '../components';
 import Auth from '../utils/auth';
 
-const Login = (props) => {
-  const [login, { error, data }] = useMutation(LOGIN_USER);
-  const [formState, setFormState] = useState({ email: '', password: '' });
+const Login = ({ signup }) => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    signup = !signup
+  },[pathname]);
+
+  const [login, { error: loginError, data: loginData }] =
+    useMutation(LOGIN_USER);
+  const [addUser, { error: signupError, data: signupData }] =
+    useMutation(ADD_USER);
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+  const error = loginError || signupError || false;
+  const data = loginData || signupData;
 
   // update state based on form input changes
-
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -30,22 +43,25 @@ const Login = (props) => {
     });
   };
 
-  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
-      const { data } = await login({
-        variables: { ...formState }
-      });
+      const { data } = signup
+        ? await addUser({
+            variables: { ...formState }
+          })
+        : await login({
+            variables: { ...formState }
+          });
 
-      Auth.login(data.login.token);
+      Auth.login(data.login?.token || data.addUser?.token);
     } catch (e) {
       console.error(e);
     }
 
     // clear form values
     setFormState({
+      username: '',
       email: '',
       password: ''
     });
@@ -73,6 +89,12 @@ const Login = (props) => {
         <Grid container>
           <form onSubmit={handleFormSubmit}>
             <Grid item>
+              {signup ? (
+                <Signup formState={formState} handleChange={handleChange} />
+              ) : (
+                ''
+              )}
+              <br />
               <FormControl variant="filled" size="small">
                 <OutlinedInput
                   placeholder="Your email"
@@ -105,9 +127,17 @@ const Login = (props) => {
               >
                 Submit
               </Button>
-              <Button component={RouterLink} to="/signup" variant="outlined">
-                Signup
-              </Button>
+              {!signup ? (
+                <Button
+                  component={RouterLink}
+                  to="/signup"
+                  variant="outlined"
+                >
+                  Signup
+                </Button>
+              ) : (
+                ''
+              )}
             </Grid>
           </form>
         </Grid>
@@ -118,7 +148,7 @@ const Login = (props) => {
           open={open}
           autoHideDuration={6000}
           onClose={handleClose}
-          sx={{ bottom: 90 }}
+          sx={{ position: 'fixed', bottom: 90 }}
         >
           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
             {error.message}
