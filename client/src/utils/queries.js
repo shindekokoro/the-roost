@@ -87,33 +87,33 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_COMBAT_EVENTS = gql`
-  query combat {
-    combat {
+export const QUERY_COMBAT_EVENTS = gql `query combat {
+  combat {
+    _id
+    description
+    background
+    name
+    level
+    strength
+    defense
+    constitution
+    inventory {
       _id
-      description
-      background
+      isEquipped
       name
-      level
+      description
       strength
       defense
       constitution
-      inventory {
-        _id
-        name
-        description
-        strength
-        defense
-        constitution
-      }
-      result {
-        _id
-        description
-        statToModify
-        nextEvent
-      }
+    }
+    result {
+      _id
+      description
+      statToModify
+      nextEvent
     }
   }
+}
 `;
 
 export const QUERY_MOVEMENT_EVENTS = gql`
