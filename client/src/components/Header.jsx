@@ -23,23 +23,20 @@ const getTitle = (path) => {
       return 'Login';
     case '/signup':
       return 'Signup';
+    case '/logout':
+      return 'Logging Out...';
     case '/profile':
       return 'Viewing Your Profile';
+    case '/play':
+      return 'Enter the Coop';
     default:
       return 'Error';
   }
 };
 
 export default function Header() {
-  const currentPage = useLocation().pathname;
-  const title = getTitle(currentPage);
-
-  // Logout user and redirect to home route
-  const logout = (event) => {
-    event.preventDefault();
-    Auth.logout();
-    window.location.href = './';
-  };
+  const { pathname } = useLocation();
+  const title = getTitle(pathname);
 
   // Set Menu State and Navigation Elements for User
   const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -107,7 +104,6 @@ export default function Header() {
                       to={`/${setting.toLowerCase()}`}
                       textAlign="center"
                       underline="none"
-                      onClick={setting === 'Logout' ? logout : ''}
                     >
                       {setting}
                     </Link>
@@ -181,7 +177,6 @@ export default function Header() {
                       to={`/${setting.toLowerCase()}`}
                       textAlign="center"
                       underline="none"
-                      onClick={setting === 'Logout' ? logout : ''}
                     >
                       {setting}
                     </Link>
