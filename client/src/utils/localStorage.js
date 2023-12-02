@@ -17,6 +17,11 @@ export const getLocalStorageData = () => {
     const interaction = JSON.parse(localStorage.getItem('roostInteraction'));
     const movement = JSON.parse(localStorage.getItem('roostMovement'));
 
+    // if any of the data is missing, return false
+    if (!currentPlayer || !combat || !interaction || !movement) {
+        return false;
+    }
+
     return {
         currentPlayer,
         combat,
@@ -32,12 +37,16 @@ export const setEventContext = (data) => {
 export const getEventContext = () => {
     let eventContext = JSON.parse(localStorage.getItem('eventContext'));
     if (!eventContext) {
-        eventContext = {
-            characterHP: 10,
-            enemyHP: null,
-            currentEvent: null,
-        }
-        localStorage.setItem('eventContext', JSON.stringify(eventContext));
+        eventContext = false;
     }
     return eventContext;
+}
+
+// when the player dies, the death screen will clear the local storage, so that the player can start a new game
+export const clearLocalStorage = () => {
+    localStorage.removeItem('roostPlayer');
+    localStorage.removeItem('roostCombat');
+    localStorage.removeItem('roostInteraction');
+    localStorage.removeItem('roostMovement');
+    localStorage.removeItem('eventContext');
 }
