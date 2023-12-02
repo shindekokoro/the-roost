@@ -19,6 +19,8 @@ const getTitle = (path) => {
   switch (path) {
     case '/':
       return 'The Roost';
+    case '/highscores':
+      return 'High Scores';
     case '/login':
       return 'Login';
     case '/signup':
@@ -39,7 +41,7 @@ export default function Header() {
   const title = getTitle(pathname);
 
   // Set Menu State and Navigation Elements for User
-  const userSettings = ['Profile', 'Logout'];
+  const userSettings = ['Profile', 'HighScores', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
