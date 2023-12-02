@@ -56,7 +56,7 @@ const FadingBox = ({ showLoading, children }) => (
   </Fade>
 )
 
-export default function Home() {
+export default function Score() {
   const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
