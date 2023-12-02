@@ -43,13 +43,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const FadingBox = ({ showLoading, children }) => (
   <Fade in={showLoading} timeout={4000}>
-    <Box style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
+    <Box style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       height: '40vh',
-      }}
+    }}
     >
       {children}
     </Box>
@@ -90,15 +90,34 @@ export default function Home() {
     return user.character && user.character.length > 0;
   });
 
-  const sortedUsers = usersWithCharacters.sort((a, b) => {
-    const aLevel = Math.max(...a.character.map(character => character.level || 0));
-    const bLevel = Math.max(...b.character.map(character => character.level || 0));
+  const sortedUsers = data.users.sort((a, b) => {
+    // Function to get the richest character's level for a user
+    const getHighestLevel = (user) => {
+      const characterLevels = user.character.map((character) => character.level || 0);
+      return Math.max(...characterLevels, 0);
+    };
 
-    return bLevel - aLevel;
+    // Get the richest character's level for each user
+    const aRichestLevel = getHighestLevel(a);
+    const bRichestLevel = getHighestLevel(b);
+
+    // Sort in descending order based on the richest character's level
+    return bRichestLevel - aRichestLevel;
   });
 
+  const richestUserSort = usersWithCharacters.sort((a, b) => {
+    const aGold = Math.max(...a.character.map(character => character.gold || 0));
+    const bGold = Math.max(...b.character.map(character => character.gold || 0));
+
+    return bGold - aGold;
+  });
+
+  const richestUsers = richestUserSort.slice(0, 3);
+
   return (
-    <Container align="center" sx={{ display: 'flex', justifyContent: 'center', mt: '10%' }}>
+    <Container align="center" sx={{ flexDirection: 'column', justifyContent: 'center', mt: '10%' }}>
+
+      {/* High Score table */}
       <TableContainer sx={{ maxWidth: '75%', marginTop: 5, borderRadius: '15px', boxShadow: 15 }} component={Paper}>
         <Table aria-label="High Scores">
           <TableHead>
@@ -131,6 +150,45 @@ export default function Home() {
                 </StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].level}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {/* Biggest Bank Table */}
+      <TableContainer sx={{ maxWidth: '75%', marginTop: 5, borderRadius: '15px', boxShadow: 15 }} component={Paper}>
+        <Table aria-label="High Scores">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center" colSpan={4} component="th" scope="row" sx={{
+                borderBottom: 'none',
+              }}>
+                <Typography variant="h4">
+                  3 Biggest Banks
+                </Typography>
+              </StyledTableCell>
+            </TableRow>
+            <TableRow>
+              <StyledTableCell align="center" sx={{ width: '33.33%' }}>
+                Username
+              </StyledTableCell>
+              <StyledTableCell align="center" sx={{ width: '33.33%' }}>
+                Character Name
+              </StyledTableCell>
+              <StyledTableCell align="center" sx={{ width: '33.33%' }}>
+                Gold
+              </StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {richestUsers.map((user) => (
+              <StyledTableRow key={user._id}>
+                <StyledTableCell align="center" component="th" scope="row">
+                  {user.username}
+                </StyledTableCell>
+                <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
+                <StyledTableCell align="center">{user.character[0].gold}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

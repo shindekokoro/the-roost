@@ -102,6 +102,34 @@ const resolvers = {
         return updatedCharacter;
       }
       throw AuthenticationError;
+    },
+    newCharacter: async (parent, { characterData }, context) => {
+      console.log(characterData);
+      if (context.user) {
+        const newCharacter = await Character.create({
+          name: characterData.name,
+          level: 1,
+          xp: 0,
+          strength: 1,
+          defense: 1,
+          constitution: 1,
+          gold: 100,
+          inventory: []
+        });
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { character: newCharacter._id } },
+          { new: true }
+        ).populate({
+          path: 'character',
+          populate: {
+            path: 'inventory',
+            model: 'items'
+          }
+        }).exec();
+        return newCharacter;
+      }
+      throw AuthenticationError;
     }
   }
 };

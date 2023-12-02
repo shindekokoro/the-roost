@@ -142,6 +142,7 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     saveCharacter(characterData: CharacterObject!): Character
+    newCharacter(characterData: CharacterObject!): Character
   }
 `;
 
