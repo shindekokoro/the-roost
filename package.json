@@ -17,6 +17,7 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "git-a-readme": "^1.2.5"
+    "git-a-readme": "^1.2.5",
+    "vite": "^5.0.4"
   }
 }
