@@ -98,7 +98,7 @@ const resolvers = {
           { _id: characterData._id },
           { ...characterData },
           { new: true }
-        );
+        ).populate('inventory').exec();
         return updatedCharacter;
       }
       throw AuthenticationError;
