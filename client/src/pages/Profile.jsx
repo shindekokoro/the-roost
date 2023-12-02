@@ -63,6 +63,7 @@ const Profile = () => {
       });
 
       const savedCharacter = data.saveCharacter;
+
       console.log('Saved character:', savedCharacter);
     } catch (err) {
       console.error('Error saving character:', err);
@@ -74,6 +75,9 @@ const Profile = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
+    if (!newCharacterName) {
+      return;
+    }
     handleSaveCharacter();
     setNewCharacterName('');
   }
