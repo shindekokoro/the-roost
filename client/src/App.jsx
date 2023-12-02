@@ -10,7 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Box, Container } from '@mui/material';
 import theme from './theme';
 
-import { Header, Footer } from './components';
+import { Header } from './components';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -45,9 +45,6 @@ function App(error) {
         <Container component="main" sx={{ mt: 2 }}>
           {error?.error || <Outlet />}
         </Container>
-        <Box sx={{ pb: 7 }}>
-          <Footer />
-        </Box>
       </ThemeProvider>
     </ApolloProvider>
   );
