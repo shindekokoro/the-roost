@@ -39,7 +39,7 @@ export default function Header() {
   const title = getTitle(pathname);
 
   // Set Menu State and Navigation Elements for User
-  const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const userSettings = ['Profile', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   // Set Menu State and Navigation Elements for Enemy
-  const enemySettings = ['Profile'];
+  const enemySettings = ['Play'];
   const [anchorElEnemy, setAnchorElEnemy] = useState(null);
   const handleOpenEnemyMenu = (event) => {
     setAnchorElEnemy(event.currentTarget);
