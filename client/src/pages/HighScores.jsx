@@ -98,19 +98,19 @@ export default function Score() {
   const sortedUsers = usersWithCharacters.sort((a, b) => {
     // Function to get the richest character's level for a user
     const getHighestLevel = (user) => {
-      const characterLevels = user.character.map((character) => character.level || 0);
+      const characterLevels = (user.character || []).map((character) => character.level || 0);
       return Math.max(...characterLevels, 0);
     };
 
     // Get the richest character's level for each user
-    const aRichestLevel = getHighestLevel(a);
-    const bRichestLevel = getHighestLevel(b);
+    const aHighestLevel = getHighestLevel(a);
+    const bHighestLevel = getHighestLevel(b);
 
     // Sort in descending order based on the richest character's level
-    return bRichestLevel - aRichestLevel;
+    return bHighestLevel - aHighestLevel;
   });
 
-  const richestUserSort = usersWithCharacters.sort((a, b) => {
+  const richestUserSort = usersWithCharacters.slice().sort((a, b) => {
     const aGold = Math.max(...a.character.map(character => character.gold || 0));
     const bGold = Math.max(...b.character.map(character => character.gold || 0));
 
