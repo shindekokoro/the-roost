@@ -86,11 +86,16 @@ export default function Home() {
     )
   };
 
-  const usersWithCharacters = (data.users || []).filter(user => {
+  const users = data.users || [];
+  const usersWithCharacters = (users).filter(user => {
     return user.character && user.character.length > 0;
   });
 
-  const sortedUsers = data.users.sort((a, b) => {
+  if (users.length === 0) {
+    return <div>No data available.</div>
+  }
+
+  const sortedUsers = usersWithCharacters.sort((a, b) => {
     // Function to get the richest character's level for a user
     const getHighestLevel = (user) => {
       const characterLevels = user.character.map((character) => character.level || 0);
