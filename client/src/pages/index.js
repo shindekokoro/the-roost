@@ -5,5 +5,6 @@ import Login from './Login';
 import Logout from './Logout';
 import Profile from './Profile';
 import Play from './Play';
+import Death from './Death';
 
-export { Error, Home, Score, Login, Logout, Profile, Play };
+export { Error, Home, Score, Login, Logout, Profile, Play, Death };

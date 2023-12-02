@@ -31,6 +31,8 @@ const getTitle = (path) => {
       return 'Viewing Your Profile';
     case '/play':
       return 'Enter the Coop';
+    case '/death':
+      return 'GAME OVER';
     default:
       return 'Error';
   }
