@@ -67,7 +67,7 @@
   },
   {
     "description": "You have found the Chicken King's most trusted advisor, the Chicken General!",
-    "background": "/assets/enemies/zombie_turkeys.jpg",
+    "background": "/assets/enemies/chicken_general.jpg",
     "name": "Chicken General",
     "level": 10,
     "strength": 10,
