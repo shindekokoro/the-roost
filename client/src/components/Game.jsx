@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { SAVE_CHARACTER } from '../utils/mutations';
 import { Character } from '../components';
 import { useEffect, useState, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 
 
 export default function Game() {
@@ -44,17 +45,23 @@ export default function Game() {
      * Get a new event and set it in local storage and update state - this will cause the component to re-render
      * @returns {void}
      */
+    let isCombatEvent = false;
     const newEvent = () => {
         // reset the disable buttons ref so buttons will be enabled
         disableButtonsRef.current = false;
         // get a random event
         let event = getEvent();
         // set the event context in local storage
-        setEventContext({
-            characterHP: characterHP,
-            enemyHP: enemyHP,
-            currentEvent: event
-        })
+        if (!isCombatEvent) {
+            setEventContext({
+                characterHP: characterHP,
+                enemyHP: enemyHP,
+                currentEvent: event
+            });
+        }
+        // reset isCombatEvent
+        isCombatEvent = false;
+
         // update state
         setCurrentEvent(event);
     }
@@ -113,14 +120,130 @@ export default function Game() {
         // display a button to continue to the next event
         // could use css display none to hide the button until the event is over and then display it
         // update options to only have one option to continue to the next event
-        // for testing
+
         disableButtonsRef.current = true;
 
         eventResultMessageRef.current = description;
     }
 
+    const combatHandler = (event) => {
+        // render the event
+        console.log(event);
+        let description = event.description;
+        let background = event.background;
+        let results = event.result;
+        let player = data.currentPlayer[0];
+        let random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+        // player doesn't have a maxHP property, so it must be added
+        // TODO: after the end of a combat event we will update characterHP to re-render?
+        // maybe just ignore this? - not remembering player and enemy hp on refresh is fine?
+        player.hp = characterHP;
+        player.maxHP = player.constitution * 10;
+        // TODO: player.hp and player.maxHP needs to be tracked in local storage?
+        // enemy stats scale with player level, 1 every 4 levels
+        let enemy = { 
+            level: event.strength + event.defense + event.constitution,
+            name: event.name,
+            hp: event.constitution * 10,
+            maxHP: event.constitution * 10,
+            strength: Math.floor(event.strength + (player.level / 4)),
+            defense: Math.floor(event.defense + (player.level / 4)),
+            constitution: Math.floor(event.constitution + (player.level / 4)),
+            inventory: event.inventory,
+        }
 
-    const runNoCombatEvent = (event) => {
+        let enemyDeathHandler = () => {
+            if (enemy.hp <= 0) {
+                console.log(enemy.hp);
+                // enemy is dead
+                // TODO: display result description, button to continue to next event
+                console.log('Enemy is dead! Victory!');
+                let result = results[Math.floor(Math.random() * results.length)];
+                setEventContext({
+                    characterHP: player.hp,
+                    enemyHP: enemy.hp,
+                    currentEvent: event
+                })
+                // TODO: something is wrong
+                eventResultMessageRef.current = result.description;
+                disableButtonsRef.current = true;
+                isCombatEvent = true;
+                return true
+            }
+            return false
+        }
+
+        if (characterHP <= 0) {
+            // redirect to game over page
+            // TODO: make a game over page
+            // game over page will reset the characters hp in local storage?
+            return <Navigate to="/profile" />;
+        }
+
+        let attack = () => {
+            let hitPower = random(1, player.strength);
+            if (hitPower > enemy.defense) {
+                enemy.hp -= hitPower;
+                console.log(`You attack for ${hitPower}!`);
+                console.log(`${enemy.name} has ${enemy.hp} hp left!`);
+            }
+            console.log('You swing and missed!');
+            // TODO: disable the buttons while the event is running
+            setTimeout(() => {
+                enemyAttack();
+            }, 1000);
+        }
+
+        let enemyAttack = () => {
+            let hitPower = random(1, enemy.strength);
+            if (hitPower > player.defense) {
+                player.hp -= hitPower;
+                console.log(`Enemy attacks for ${hitPower}!`);
+                console.log(`You have ${player.hp} hp left!`);
+            }
+            console.log('Enemy attacks and misses!');
+        }
+
+        let defend = () => { 
+            // TODO: disable the buttons while the event is running
+            setTimeout(() => {
+                let hitPower = random(1, enemy.strength);
+                if (hitPower > player.defense * 2) {
+                    player.hp -= hitPower;
+                    console.log(`You defend and take ${hitPower} damage!`);
+                }
+                console.log('You block the enemies attack!');
+            }, 500);
+        }
+
+        let run = () => {
+            // let damage = Math.floor(Math.random() * 5);
+            // setCharacterHP(characterHP - damage);
+            console.log('coward!'); 
+        }
+
+        return (
+            <Box sx={{ backgroundImage: `url('../${background}')` }}>
+                {description}
+                <br />
+                <Character characterData={[enemy]} hp={enemy.hp} />
+                <br />
+                <Button onClick={() => attack()} disabled={disableButtonsRef.current} >
+                    Attack
+                </Button>
+                <Button onClick={() => defend()} disabled={disableButtonsRef.current} >
+                    Defend
+                </Button>
+                <Button onClick={() => run()} disabled={disableButtonsRef.current} >
+                    Run!
+                </Button>
+            </Box>
+        )
+    }
+    const runCombatEvent = combatHandler;
+
+
+    const nonCombatHandler = (event) => {
         // render the event
         let description = event.description;
         let background = event.background;
@@ -129,7 +252,7 @@ export default function Game() {
 
         console.log(options)
         return (
-            <Box sx={{ backgroundImage: `url('/${background}')` }}>
+            <Box sx={{ backgroundImage: `url('../${background}')` }}>
                 {name}
                 <br />
                 {description}
@@ -142,6 +265,8 @@ export default function Game() {
             </Box>
         )
     }
+    const runMovementEvent = nonCombatHandler;
+    const runInteractionEvent = nonCombatHandler;
 
     // take current event and run it
     const runEvent = (event) => {
@@ -149,15 +274,15 @@ export default function Game() {
         switch (event.__typename) {
             case 'Combat':
                 // run combat event
-                newEvent();
+                eventComponent = runCombatEvent(event);
                 break;
             case 'Interaction':
                 // run interaction event
-                eventComponent = runNoCombatEvent(event);
+                eventComponent = runInteractionEvent(event);
                 break;
             case 'Movement':
                 // run movement event
-                eventComponent = runNoCombatEvent(event);
+                eventComponent = runMovementEvent(event);
                 break;
             default:
                 console.error(`Invalid event type, expected 'Combat', 'Interaction', or 'Movement', got: ${event.__typename}`);
