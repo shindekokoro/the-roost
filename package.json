@@ -17,6 +17,7 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "git-a-readme": "^1.2.5"
   }
 }
