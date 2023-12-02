@@ -113,11 +113,9 @@ export default function Profile() {
           <TableRow>
             <StyledTableCell>Name</StyledTableCell>
             {characters.map((character) => (
-              <>
                 <StyledTableCell key={'Name ' + character.name} align="right">
                   {character.name}
                 </StyledTableCell>
-              </>
             ))}
           </TableRow>
         </TableHead>
