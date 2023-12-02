@@ -36,12 +36,16 @@ const getTitle = (path) => {
   }
 };
 
+String.prototype.toRoute = function () {
+  return this.toLowerCase().split(' ').join('');
+};
+
 export default function Header() {
   const { pathname } = useLocation();
   const title = getTitle(pathname);
 
   // Set Menu State and Navigation Elements for User
-  const userSettings = ['Profile', 'HighScores', 'Logout'];
+  const userSettings = ['Profile', 'Play', 'High Scores', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -103,7 +107,7 @@ export default function Header() {
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Link
                       component={RouterLink}
-                      to={`/${setting.toLowerCase()}`}
+                      to={`/${setting.toRoute()}`}
                       textAlign="center"
                       underline="none"
                     >
@@ -176,7 +180,7 @@ export default function Header() {
                   <MenuItem key={setting} onClick={handleCloseEnemyMenu}>
                     <Link
                       component={RouterLink}
-                      to={`/${setting.toLowerCase()}`}
+                      to={`/${setting.toRoute()}`}
                       textAlign="center"
                       underline="none"
                     >
