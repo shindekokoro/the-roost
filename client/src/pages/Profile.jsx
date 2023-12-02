@@ -43,7 +43,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
-const Profile = () => {
+export default function Profile() {
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -102,181 +102,108 @@ const Profile = () => {
   }
 
   const characters = user.character;
-
-  if (characters.length === 1) {
-    return (
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Typography variant="body1">Username: {user.username}</Typography>
-      <Typography variant="body1">Email: {user.email}</Typography>
-
-      <TableContainer sx={{ maxWidth: '75%', marginTop: 5 }} component={Paper}>
-        <Table aria-label="User Characters">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              {characters.map((character) => (
-                <>
-                  <StyledTableCell key={'Name ' + character.name} align="right">
-                    {character.name}
-                  </StyledTableCell>
-                </>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <StyledTableRow>
-              <StyledTableCell>Level</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'Level ' + row.name}>
-                  {row.level}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>XP</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'XP ' + row.name}>
-                  {row.xp}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>Gold</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'Gold ' + row.name}>
-                  {row.gold}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>Strength</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'STR ' + row.name}>
-                  {row.strength}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>Defense</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'DEF ' + row.name}>
-                  {row.defense}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>Constitution</StyledTableCell>
-              {characters.map((row) => (
-                <StyledTableCell align="right" key={'CON ' + row.name}>
-                  {row.constitution}
-                </StyledTableCell>
-              ))}
-            </StyledTableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* Add Character Modal */}
-      <Button variant="contained" onClick={handleOpen} sx={{ my: '5px' }}>
-        Create New Character
-      </Button>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      >
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          flexDirection: 'column'
-          }}
-        >
-          <Typography variant="h3" sx={{ my: '5px' }}>Create New Character</Typography>
-          <TextField
-            id="outlined-basic"
-            label="Character Name"
-            variant="outlined"
-            value={newCharacterName}
-            onChange={(e) => setNewCharacterName(e.target.value)}
-            sx={{ my: '5px' }}
-          />
-          <Button variant="contained" onClick={handleClose} sx={{ my: '5px' }}>Create</Button>
-        </Box>
-      </Modal>
-    </Box>
-    )
-  }
-
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Typography variant="body1">Username: {user.username}</Typography>
-      <Typography variant="body1">Email: {user.email}</Typography>
+    <Typography variant="body1">Username: {user.username}</Typography>
+    <Typography variant="body1">Email: {user.email}</Typography>
 
-      {/* Character Display Table */}
-      <TableContainer sx={{ maxWidth: '75%', my: 5 }} component={Paper}>
-        <Table aria-label="User Characters">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Level</StyledTableCell>
-              <StyledTableCell>XP</StyledTableCell>
-              <StyledTableCell>Gold</StyledTableCell>
-              <StyledTableCell>Strength</StyledTableCell>
-              <StyledTableCell>Defense</StyledTableCell>
-              <StyledTableCell>Constitution</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+    <TableContainer sx={{ maxWidth: '75%', marginTop: 5 }} component={Paper}>
+      <Table aria-label="User Characters">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Name</StyledTableCell>
             {characters.map((character) => (
-              <StyledTableRow key={character._id}>
-                <StyledTableCell>{character.name}</StyledTableCell>
-                <StyledTableCell align="right">{character.level}</StyledTableCell>
-                <StyledTableCell align="right">{character.xp}</StyledTableCell>
-                <StyledTableCell align="right">{character.gold}</StyledTableCell>
-                <StyledTableCell align="right">{character.strength}</StyledTableCell>
-                <StyledTableCell align="right">{character.defense}</StyledTableCell>
-                <StyledTableCell align="right">{character.constitution}</StyledTableCell>
-              </StyledTableRow>
+              <>
+                <StyledTableCell key={'Name ' + character.name} align="right">
+                  {character.name}
+                </StyledTableCell>
+              </>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <StyledTableRow>
+            <StyledTableCell>Level</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'Level ' + row.name}>
+                {row.level}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell>XP</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'XP ' + row.name}>
+                {row.xp}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell>Gold</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'Gold ' + row.name}>
+                {row.gold}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell>Strength</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'STR ' + row.name}>
+                {row.strength}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell>Defense</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'DEF ' + row.name}>
+                {row.defense}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell>Constitution</StyledTableCell>
+            {characters.map((row) => (
+              <StyledTableCell align="right" key={'CON ' + row.name}>
+                {row.constitution}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
 
-      {/* Add Character Modal */}
-      <Button variant="contained" onClick={handleOpen}>
-        Create New Character
-      </Button>
+    {/* Add Character Modal */}
+    <Button variant="outlined" onClick={handleOpen} sx={{ my: '5px' }}>
+      Create New Character
+    </Button>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        flexDirection: 'column'
+        }}
       >
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          flexDirection: 'column'
-          }}
-        >
-          <Typography variant="h3" sx={{ my: '5px' }}>Create New Character</Typography>
-          <TextField
-            id="outlined-basic"
-            label="Character Name"
-            variant="outlined"
-            value={newCharacterName}
-            onChange={(e) => setNewCharacterName(e.target.value)}
-            sx={{ my: '5px' }}
-          />
-          <Button variant="contained" onClick={handleClose} sx={{ my: '5px' }}>Create</Button>
-        </Box>
-      </Modal>
-    </Box>
-  );
+        <Typography variant="h3" sx={{ my: '5px' }}>Create New Character</Typography>
+        <TextField
+          id="outlined-basic"
+          label="Character Name"
+          variant="outlined"
+          value={newCharacterName}
+          onChange={(e) => setNewCharacterName(e.target.value)}
+          sx={{ my: '5px' }}
+        />
+        <Button variant="outlined" onClick={handleClose} sx={{ my: '5px' }}>Create</Button>
+      </Box>
+    </Modal>
+  </Box>
+  )
 };
-
-export default Profile;
