@@ -4,29 +4,49 @@
     "level": 5,
     "xp": 5000,
     "strength": 10,
-    "defense": 10,
+    "defense": 13,
     "constitution": 10,
     "inventory": [],
-    "gold": 500
+    "gold": 1300
   },
   {
     "name": "Jane",
-    "level": 5,
-    "xp": 5000,
+    "level": 69,
+    "xp": 6900,
     "strength": 10,
     "defense": 10,
-    "constitution": 10,
+    "constitution": 69,
     "inventory": [],
-    "gold": 500
+    "gold": 16
   },
   {
     "name": "Joe",
-    "level": 5,
-    "xp": 5000,
+    "level": 420,
+    "xp": 420000,
+    "strength": 105,
+    "defense": 60,
+    "constitution": 173,
+    "inventory": [],
+    "gold": 6000
+  },
+  {
+    "name": "Jill",
+    "level": 10,
+    "xp": 10000,
     "strength": 10,
     "defense": 10,
     "constitution": 10,
     "inventory": [],
-    "gold": 500
+    "gold": 700
+  },
+  {
+    "name": "Jill",
+    "level": 52,
+    "xp": 52237,
+    "strength": 28,
+    "defense": 27,
+    "constitution": 100,
+    "inventory": [],
+    "gold": 10000
   }
 ]

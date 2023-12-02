@@ -1,20 +1,32 @@
 [
   {
-    "description": "Movement 1 description",
-    "background": "movement 1 background string",
-    "name": "Movement 1 Name",
+    "description": "An ancient, musty hallway, somewhere inside the Roost",
+    "background": "/assets/environment/hallway1.jpg",
+    "name": "Spooky Roost Hallway",
     "options": []
   },
   {
-    "description": "Movement 2 description",
-    "background": "movement 2 background string",
-    "name": "Movement 2 Name",
+    "description": "A dimly lit, root-overgrown hallway",
+    "background": "/assets/environment/hallway2.jpg",
+    "name": "Overgrown Hallway",
     "options": []
   },
   {
-    "description": "Movement 3 description",
-    "background": "movement 3 background string",
-    "name": "Movement 3 Name",
+    "description": "An abandoned, old chicken coop",
+    "background": "/assets/environment/roost_room1.jpg",
+    "name": "Roost Room 1",
+    "options": []
+  },
+  {
+    "description": "An abandoned, old chicken coop",
+    "background": "/assets/environment/roost_room2.jpg",
+    "name": "Roost Room 2",
+    "options": []
+  },
+  {
+    "description": "You enter the Chicken King's chambers, but it seems the King is not here",
+    "background": "/assets/environment/roost_room1.jpg",
+    "name": "The Chicken King's chambers",
     "options": []
   }
 ]

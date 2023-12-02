@@ -1,17 +1,32 @@
 [
   {
-    "description": "Movement result 1 description",
+    "description": "You suddenly feel stronger. +1 to Strength",
     "statToModify": "strength",
+    "statValue": 1,
     "nextEvent": "Movement 1 Name"
   },
   {
-    "description": "Movement result 2 description",
+    "description": "+1 to Defense",
     "statToModify": "defense",
+    "statValue": 1,
     "nextEvent": "Movement 2 Name"
   },
   {
-    "description": "Movement result 3 description",
+    "description": "You feel strong and alive. +1 to Constitution",
     "statToModify": "constitution",
+    "statValue": 1,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Your knowledge of the Roost increases. +10 xp",
+    "statToModify": "xp",
+    "statValue": 10,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "You stumble upon some gold coins. +5 gold",
+    "statToModify": "gold",
+    "statValue": 5,
     "nextEvent": "Movement 3 Name"
   }
 ]

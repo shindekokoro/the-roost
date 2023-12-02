@@ -1,17 +1,32 @@
 [
   {
-    "description": "Combat result 1 description",
+    "description": "Your fight with the fowl beast helps you learn their weaknesses. +1 to Strength",
     "statToModify": "strength",
-    "nextEvent": "Movement 1 Name"
+    "statValue": 1,
+    "nextEvent": "Movement Name 1"
   },
   {
-    "description": "Combat result 2 description",
+    "description": "You learn a bit how to avoid their attacks. +1 to Defense",
     "statToModify": "defense",
-    "nextEvent": "Movement 2 Name"
+    "statValue": 1,
+    "nextEvent": "Movement Name 2"
   },
   {
-    "description": "Combat result 3 description",
+    "description": "Your will to continue increases. +1 to Constitution",
     "statToModify": "constitution",
+    "statValue": 1,
+    "nextEvent": "Movement Name 3"
+  },
+  {
+    "description": "Your knowledge of the Roost increases. +20 xp",
+    "statToModify": "xp",
+    "statValue": 20,
+    "nextEvent": "Movement 5 Name"
+  },
+  {
+    "description": "The fowl happened to drop some currency. +10 gold",
+    "statToModify": "gold",
+    "statValue": 10,
     "nextEvent": "Movement 3 Name"
   }
 ]

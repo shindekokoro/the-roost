@@ -19,6 +19,8 @@ const getTitle = (path) => {
   switch (path) {
     case '/':
       return 'The Roost';
+    case '/highscores':
+      return 'High Scores';
     case '/login':
       return 'Login';
     case '/signup':
@@ -29,9 +31,15 @@ const getTitle = (path) => {
       return 'Viewing Your Profile';
     case '/play':
       return 'Enter the Coop';
+    case '/death':
+      return 'GAME OVER';
     default:
       return 'Error';
   }
+};
+
+String.prototype.toRoute = function () {
+  return this.toLowerCase().split(' ').join('');
 };
 
 export default function Header() {
@@ -39,7 +47,7 @@ export default function Header() {
   const title = getTitle(pathname);
 
   // Set Menu State and Navigation Elements for User
-  const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const userSettings = ['Profile', 'Play', 'High Scores', 'Logout'];
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -49,7 +57,7 @@ export default function Header() {
   };
 
   // Set Menu State and Navigation Elements for Enemy
-  const enemySettings = ['Profile'];
+  const enemySettings = ['Play'];
   const [anchorElEnemy, setAnchorElEnemy] = useState(null);
   const handleOpenEnemyMenu = (event) => {
     setAnchorElEnemy(event.currentTarget);
@@ -101,7 +109,7 @@ export default function Header() {
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Link
                       component={RouterLink}
-                      to={`/${setting.toLowerCase()}`}
+                      to={`/${setting.toRoute()}`}
                       textAlign="center"
                       underline="none"
                     >
@@ -174,7 +182,7 @@ export default function Header() {
                   <MenuItem key={setting} onClick={handleCloseEnemyMenu}>
                     <Link
                       component={RouterLink}
-                      to={`/${setting.toLowerCase()}`}
+                      to={`/${setting.toRoute()}`}
                       textAlign="center"
                       underline="none"
                     >

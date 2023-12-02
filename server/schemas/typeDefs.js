@@ -1,4 +1,12 @@
 const typeDefs = `
+  type Users {
+    _id: ID
+    username: String!
+    email: String!
+    password: String!
+    character: [Character]
+  }
+
   type User {
     _id: ID
     username: String!
@@ -51,6 +59,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
@@ -72,6 +81,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
@@ -93,6 +103,7 @@ const typeDefs = `
     _id: ID
     description: String!
     statToModify: String
+    statValue: Int
     nextEvent: String
   }
 
@@ -130,7 +141,8 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveCharacter(_id: ID!, character: CharacterObject!): User
+    saveCharacter(characterData: CharacterObject!): Character
+    newCharacter(characterData: CharacterObject!): Character
   }
 `;
 

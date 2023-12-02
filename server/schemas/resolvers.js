@@ -92,13 +92,42 @@ const resolvers = {
     saveCharacter: async (parent, { characterData }, context) => {
       //rewrite this to save to character from context.user.username vs how it is now
       //will have to save char data and items too
+      console.log(characterData);
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user.id },
-          { $set: { character: characterData } },
+        const updatedCharacter = await Character.findByIdAndUpdate(
+          { _id: characterData._id },
+          { ...characterData },
           { new: true }
-        );
-        return updatedUser;
+        ).populate('inventory').exec();
+        return updatedCharacter;
+      }
+      throw AuthenticationError;
+    },
+    newCharacter: async (parent, { characterData }, context) => {
+      console.log(characterData);
+      if (context.user) {
+        const newCharacter = await Character.create({
+          name: characterData.name,
+          level: 1,
+          xp: 0,
+          strength: 1,
+          defense: 1,
+          constitution: 1,
+          gold: 100,
+          inventory: []
+        });
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { character: newCharacter._id } },
+          { new: true }
+        ).populate({
+          path: 'character',
+          populate: {
+            path: 'inventory',
+            model: 'items'
+          }
+        }).exec();
+        return newCharacter;
       }
       throw AuthenticationError;
     }

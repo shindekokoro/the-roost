@@ -30,7 +30,7 @@ theme = createTheme(theme, {
       styleOverrides: {
         body: {
           color: theme.palette.text.main,
-          backgroundImage: `url('../zombie_turkey_king.png')`,
+          backgroundImage: `url('/assets/environment/casterly_roost.jpg')`,
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
           backgroundPositionY: '52px',

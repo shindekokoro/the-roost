@@ -107,22 +107,25 @@ FRONT END
  - [x] logout
  - [x] profile (show your character stats)
    - [x] component that queries "me"
- - [?] any authentication errors redirect to login/signup (This should be done, display's an error inline)
+ - [x] any authentication errors redirect to login/signup
 
 -------------------------------------------------------------------
 
 PHASE 4
 
 CLIENT
- - [] get all events to client
-   - [] save events to local storage
+ - [x] get all events to client
+   - [x] save events to local storage
  - [x] get character data (comes down with the user object)
-   - [] save character to local storage
- - [] start game button
- - [] game component (parent of all game related components)
-   - [] get all event to local storage (pass -> children)
-   - [] get character 
-   - [] save character 
+   - [x] save character to local storage
+ - [x] start game button
+ - [x] game component (parent of all game related components)
+   - [x] get all event to local storage (pass -> children)
+   - [x] get character 
+   - [x] save character 
+   - [x] working movement/interaction events
+   - [] working combat events
+   - [] finalize combat event logic
 
 
 

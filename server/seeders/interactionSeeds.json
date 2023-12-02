@@ -1,20 +1,20 @@
 [
   {
-    "description": "Interaction 1 description",
-    "background": "Interaction 1 background",
-    "name": "Interaction 1 name",
+    "description": "You enter an abandoned part of the Roost. There might be something useful lying here among the straw. What do you do?",
+    "background": "/assets/environment/roost_room1.jpg",
+    "name": "An abandoned, old chicken coop",
     "options": []
   },
   {
-    "description": "Interaction 2 description",
-    "background": "Interaction 2 background",
-    "name": "Interaction 2 name",
+    "description": "You enter an abandoned part of the Roost. You wonder if there could be any gold or weapons here. What do you do?",
+    "background": "/assets/environment/roost_room2.jpg",
+    "name": "An empty part of the Roost",
     "options": []
   },
   {
-    "description": "Interaction 3 description",
-    "background": "Interaction 3 background",
-    "name": "Interaction 3 name",
+    "description": "You enter the Chicken King's chambers, but it seems the King is not here. You could try snooping",
+    "background": "/assets/environment/roost_room1.jpg",
+    "name": "The Chicken King's chambers",
     "options": []
   }
 ]

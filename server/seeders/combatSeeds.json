@@ -1,8 +1,8 @@
 [
   {
-    "description": "Combat description 1",
-    "background": "Combat background 1",
-    "name": "Combat Name 1",
+    "description": "A wild Chicken Warrior appears!",
+    "background": "/assets/enemies/chicken_warrior.jpg",
+    "name": "Chicken Warrior",
     "level": 1,
     "strength": 1,
     "defense": 1,
@@ -11,9 +11,9 @@
     "result": []
   },
   {
-    "description": "Combat description 2",
-    "background": "Combat background 2",
-    "name": "Combat Name 2",
+    "description": "You are ambushed by a Chicken Knight!",
+    "background": "/assets/enemies/chicken_knight.jpg",
+    "name": "Chicken Knight",
     "level": 2,
     "strength": 2,
     "defense": 2,
@@ -22,13 +22,68 @@
     "result": []
   },
   {
-    "description": "Combat description 3",
-    "background": "Combat background 3",
-    "name": "Combat Name 3",
+    "description": "Suddenly, there is a Zombie Turkey Minion lumbering towards you!",
+    "background": "/assets/enemies/zombie_turkey_minion.jpg",
+    "name": "Zombie Turkey Minion",
+    "level": 3,
+    "strength": 3,
+    "defense": 1,
+    "constitution": 2,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "You have been visited by an Evil Chicken Warrior!",
+    "background": "/assets/enemies/evil_warrior.jpg",
+    "name": "Evil Chicken Warrior",
     "level": 3,
     "strength": 3,
     "defense": 3,
-    "constitution": 3,
+    "constitution": 5,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "You suddenly discover the Chicken King himself!",
+    "background": "/assets/enemies/zombie_turkey_king.jpg",
+    "name": "Chicken King",
+    "level": 40,
+    "strength": 12,
+    "defense": 7,
+    "constitution": 45,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "You have been visited by the legendary Council of Roosters!",
+    "background": "/assets/enemies/zombie_turkeys.jpg",
+    "name": "Council of Roosters",
+    "level": 15,
+    "strength": 7,
+    "defense": 7,
+    "constitution": 15,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "You have found the Chicken King's most trusted advisor, the Chicken General!",
+    "background": "/assets/enemies/zombie_turkeys.jpg",
+    "name": "Chicken General",
+    "level": 10,
+    "strength": 10,
+    "defense": 6,
+    "constitution": 10,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "An angry Chicken Wizard surprises you!",
+    "background": "/assets/enemies/zombie_chicken_wizard_1.jpg",
+    "name": "Chicken Wizard",
+    "level": 5,
+    "strength": 6,
+    "defense": 5,
+    "constitution": 7,
     "inventory": [],
     "result": []
   }

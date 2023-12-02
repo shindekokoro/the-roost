@@ -25,10 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_CHARACTER = gql`
-  mutation saveCharacter($id: ID $characterData: CharacterInput!) {
-    saveCharacter(_id: $id characterData: $characterData) {
-      _id
-      character {
+  mutation saveCharacter($characterData: CharacterObject!) {
+    saveCharacter(characterData: $characterData) {
         _id
         name
         level
@@ -45,7 +43,30 @@ export const SAVE_CHARACTER = gql`
           strength
           defense
           constitution
-        }
+      }
+    }
+  }
+`;
+
+export const NEW_CHARACTER = gql`
+  mutation newCharacter($characterData: CharacterObject!) {
+    newCharacter(characterData: $characterData) {
+        _id
+        name
+        level
+        xp
+        strength
+        defense
+        constitution
+        gold
+        inventory {
+          _id
+          name
+          isEquipped
+          description
+          strength
+          defense
+          constitution
       }
     }
   }
