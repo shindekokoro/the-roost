@@ -35,7 +35,7 @@
   {
     "description": "You have been visited by an Evil Chicken Warrior!",
     "background": "/assets/enemies/evil_warrior.jpg",
-    "name": "Zombie Turkey Minion",
+    "name": "Evil Chicken Warrior",
     "level": 3,
     "strength": 3,
     "defense": 3,
@@ -46,7 +46,7 @@
   {
     "description": "You suddenly discover the Chicken King himself!",
     "background": "/assets/enemies/zombie_turkey_king.jpg",
-    "name": "Zombie Turkey Minion",
+    "name": "Chicken King",
     "level": 40,
     "strength": 12,
     "defense": 7,
@@ -57,7 +57,7 @@
   {
     "description": "You have been visited by the legendary Council of Roosters!",
     "background": "/assets/enemies/zombie_turkeys.jpg",
-    "name": "Zombie Turkey Minion",
+    "name": "Council of Roosters",
     "level": 15,
     "strength": 7,
     "defense": 7,
@@ -68,7 +68,7 @@
   {
     "description": "You have found the Chicken King's most trusted advisor, the Chicken General!",
     "background": "/assets/enemies/zombie_turkeys.jpg",
-    "name": "Zombie Turkey Minion",
+    "name": "Chicken General",
     "level": 10,
     "strength": 10,
     "defense": 6,
@@ -78,8 +78,8 @@
   },
   {
     "description": "An angry Chicken Wizard surprises you!",
-    "background": "/assets/enemies/zombie_turkeys.jpg",
-    "name": "Zombie Turkey Minion",
+    "background": "/assets/enemies/zombie_chicken_wizard_1.jpg",
+    "name": "Chicken Wizard",
     "level": 5,
     "strength": 6,
     "defense": 5,
