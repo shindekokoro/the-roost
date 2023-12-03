@@ -405,7 +405,7 @@ export default function Game() {
 
   return (
     <Box alignContent={'center'}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Character characterData={data.currentPlayer} hp={characterHP} />
         {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
       </Box>
