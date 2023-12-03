@@ -67,9 +67,30 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
+          {/* Page Title and 'Header' */}
+          <Typography
+            variant="h5"
+            noWrap
+            component={RouterLink}
+            to="/"
+            sx={{
+              mx: 2,
+              // display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              textAlign: 'center'
+            }}
+          >
+            {title}
+          </Typography>
+
           {/* User Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip
@@ -94,12 +115,12 @@ export default function Header() {
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -119,79 +140,6 @@ export default function Header() {
                 ))
               ) : (
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    component={RouterLink}
-                    to={`/login`}
-                    textAlign="center"
-                    underline="none"
-                  >
-                    Login
-                  </Link>
-                </MenuItem>
-              )}
-            </Menu>
-          </Box>
-
-          {/* Page Title and 'Header' */}
-          <Typography
-            variant="h5"
-            noWrap
-            component={RouterLink}
-            to="/"
-            sx={{
-              mx: 2,
-              // display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              textAlign: 'center'
-            }}
-          >
-            {title}
-          </Typography>
-
-          {/* Enemy Menu */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Enemy">
-              <IconButton onClick={handleOpenEnemyMenu} sx={{ p: 0 }}>
-                <Avatar alt="Enemy" src="/static/images/avatar/1.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElEnemy}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElEnemy)}
-              onClose={handleCloseEnemyMenu}
-            >
-              {/* Show a login menu for enemy if user not logged it */}
-              {Auth.loggedIn() ? (
-                enemySettings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseEnemyMenu}>
-                    <Link
-                      component={RouterLink}
-                      to={`/${setting.toRoute()}`}
-                      textAlign="center"
-                      underline="none"
-                    >
-                      {setting}
-                    </Link>
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem onClick={handleCloseEnemyMenu}>
                   <Link
                     component={RouterLink}
                     to={`/login`}

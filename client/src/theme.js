@@ -33,7 +33,6 @@ theme = createTheme(theme, {
           backgroundImage: `url('/assets/environment/casterly_roost.jpg')`,
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
-          backgroundPositionY: '52px',
           backgroundSize: 'cover'
         }
       }
