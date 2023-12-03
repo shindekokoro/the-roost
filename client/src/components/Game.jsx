@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import {
   setLocalStorageData,
   getLocalStorageData,
@@ -7,8 +7,8 @@ import {
 } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_CHARACTER } from '../utils/mutations';
-import { Character, Footer } from '../components';
-import { useEffect, useState, useRef } from 'react';
+import { Character, Footer, Enemy } from '../components';
+import { useState, useRef, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 export default function Game() {
@@ -51,24 +51,31 @@ export default function Game() {
    * Get a new event and set it in local storage and update state - this will cause the component to re-render
    * @returns {void}
    */
-  let isCombatEvent = false;
   const newEvent = () => {
     // reset the disable buttons ref so buttons will be enabled
     disableButtonsRef.current = false;
     // get a random event
     let event = getEvent();
-    // set the event context in local storage
-    if (!isCombatEvent) {
-      setEventContext({
-        characterHP: characterHP,
-        enemyHP: enemyHP,
-        currentEvent: event
-      });
+    let newEnemyHP;
+    if (event.__typename === 'Combat') {
+      newEnemyHP = event.constitution * 10;
+    } else {
+      newEnemyHP = null;
     }
-    // reset isCombatEvent
-    isCombatEvent = false;
+    let newCharacterHP = characterHP;
+    if (!newCharacterHP) {
+      newCharacterHP = data.currentPlayer[0].constitution * 10;
+    }
+    // set the event context in local storage)
+    setEventContext({
+      characterHP: newCharacterHP,
+      enemyHP: newEnemyHP,
+      currentEvent: event
+    });
 
     // update state
+    setCharacterHP(characterHP);
+    setEnemyHP(newEnemyHP);
     setCurrentEvent(event);
   };
 
@@ -80,11 +87,14 @@ export default function Game() {
   // for testing
   let eventComponent;
   /**
-   * Parses a array of results stored as a json string and returns and executes a random result
+   * Parses a array of results (if passed in as a json string) and returns and executes a random result
    */
-  const eventResult = (resultsString) => {
-    // parse the results string
-    let resultsArray = JSON.parse(resultsString);
+  const eventResult = (results) => {
+    let resultsArray = results;
+    // parse the results if its a string
+    if (typeof resultsArray === 'string') {
+      resultsArray = JSON.parse(results);
+    }
     // get a random result
     let result = resultsArray[Math.floor(Math.random() * resultsArray.length)];
     // spread the result data into variables
@@ -98,7 +108,7 @@ export default function Game() {
      * @param {number} statValue value to add to the stat e.g. 10, -5, etc. (negative values will decrease the stat)
      * @returns {object} updated character object from the database
      */
-    const modifyStat = async (statToModify, statValue) => {
+    const modifyStat = (statToModify, statValue) => {
       // get the character stored in local storage
       let { currentPlayer } = getLocalStorageData();
       let character = currentPlayer[0];
@@ -116,9 +126,9 @@ export default function Game() {
       // graphql definition of character does not include __typename, so it must be deleted before saving
       delete character.__typename;
       character.inventory.forEach((item) => delete item.__typename);
-      console.log(character);
+      //console.log(character);
       // save the character in the database
-      let updatedCharacter = await saveCharacter({
+      let updatedCharacter = saveCharacter({
         variables: { characterData: character }
       });
       return updatedCharacter;
@@ -126,80 +136,74 @@ export default function Game() {
     modifyStat(statToModify, statValue);
 
     // display the result description
-    console.log(description);
+    //console.log(description);
 
     // display a button to continue to the next event
     // could use css display none to hide the button until the event is over and then display it
     // update options to only have one option to continue to the next event
 
     disableButtonsRef.current = true;
-
     eventResultMessageRef.current = description;
   };
 
   const combatHandler = (event) => {
+    if (!enemyHP) {
+      // set enemy hp
+      setEventContext({
+        characterHP: data.currentPlayer[0].constitution * 10,
+        enemyHP: event.constitution * 10,
+        currentEvent: event
+      })
+      setEnemyHP(event.constitution * 10);
+    }
     // render the event
-    console.log(event);
+    //console.log(event);
     let description = event.description;
     let background = event.background;
     let results = event.result;
     let player = data.currentPlayer[0];
-    let random = (min, max) =>
-      Math.floor(Math.random() * (max - min + 1)) + min;
-    // player doesn't have a maxHP property, so it must be added
-    // TODO: after the end of a combat event we will update characterHP to re-render?
-    // maybe just ignore this? - not remembering player and enemy hp on refresh is fine?
-    player.hp = characterHP;
-    player.maxHP = player.constitution * 10;
-    // TODO: player.hp and player.maxHP needs to be tracked in local storage?
-    // enemy stats scale with player level, 1 every 4 levels
+    let random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    // TODO: enemy stats scale with player level, 1 every 4 levels
     let enemy = {
-      level: event.strength + event.defense + event.constitution,
+      level: parseInt(event.strength) + parseInt(event.defense) + parseInt(event.constitution),
       name: event.name,
-      hp: event.constitution * 10,
       maxHP: event.constitution * 10,
-      strength: Math.floor(event.strength + player.level / 4),
-      defense: Math.floor(event.defense + player.level / 4),
-      constitution: Math.floor(event.constitution + player.level / 4),
+      strength: event.strength,
+      defense: event.defense,
+      constitution: event.constitution,
       inventory: event.inventory
     };
 
     let enemyDeathHandler = () => {
-      if (enemy.hp <= 0) {
-        console.log(enemy.hp);
-        // enemy is dead
-        // TODO: display result description, button to continue to next event
-        console.log('Enemy is dead! Victory!');
-        let result = results[Math.floor(Math.random() * results.length)];
-        setEventContext({
-          characterHP: player.hp,
-          enemyHP: enemy.hp,
-          currentEvent: event
-        });
-        // TODO: something is wrong
-        eventResultMessageRef.current = result.description;
-        disableButtonsRef.current = true;
-        isCombatEvent = true;
-        return true;
-      }
-      return false;
+      // 
+      console.log('Enemy is dead! Victory!');
+
+      setEventContext({
+        characterHP: characterHP,
+        enemyHP: null,
+        currentEvent: null
+      });
+
+      // run the event result
+      eventResult(results)
     };
 
     if (characterHP <= 0) {
-      // redirect to game over page
-      // TODO: make a game over page
-      // game over page will reset the characters hp in local storage?
-      return <Navigate to="/profile" />;
+      return <Navigate to="/death" />;
     }
 
     let attack = () => {
       let hitPower = random(1, player.strength);
       if (hitPower > enemy.defense) {
-        enemy.hp -= hitPower;
+        if (enemyHP - hitPower <= 0) {
+          enemyDeathHandler();
+        } else {
+          setEnemyHP(enemyHP - hitPower);
+        }
         console.log(`You attack for ${hitPower}!`);
-        console.log(`${enemy.name} has ${enemy.hp} hp left!`);
+      } else {
+        console.log('You attack and miss!');
       }
-      console.log('You swing and missed!');
       // TODO: disable the buttons while the event is running
       setTimeout(() => {
         enemyAttack();
@@ -209,11 +213,11 @@ export default function Game() {
     let enemyAttack = () => {
       let hitPower = random(1, enemy.strength);
       if (hitPower > player.defense) {
-        player.hp -= hitPower;
+        setCharacterHP(characterHP - hitPower);
         console.log(`Enemy attacks for ${hitPower}!`);
-        console.log(`You have ${player.hp} hp left!`);
+      } else {
+        console.log('Enemy attacks and misses!');
       }
-      console.log('Enemy attacks and misses!');
     };
 
     let defend = () => {
@@ -221,7 +225,7 @@ export default function Game() {
       setTimeout(() => {
         let hitPower = random(1, enemy.strength);
         if (hitPower > player.defense * 2) {
-          player.hp -= hitPower;
+          setCharacterHP(characterHP - hitPower);
           console.log(`You defend and take ${hitPower} damage!`);
         }
         console.log('You block the enemies attack!');
@@ -229,9 +233,8 @@ export default function Game() {
     };
 
     let run = () => {
-      // let damage = Math.floor(Math.random() * 5);
-      // setCharacterHP(characterHP - damage);
       console.log('coward!');
+      newEvent();
     };
 
     const options = [
@@ -256,7 +259,7 @@ export default function Game() {
 
     return (
       <>
-        <Character characterData={[enemy]} hp={enemy.hp} position={'right'} />
+        <Enemy enemyData={enemy} hp={enemyHP} position={'right'} />
         <Box
           sx={{
             flexDirection: 'column',
@@ -273,7 +276,7 @@ export default function Game() {
           }}
         >
           <Typography>{description}</Typography>
-          <Footer options={options} combatResult={combatResult} />
+          <Footer options={options} combatResult={combatResult} disabled={disableButtonsRef.current} />
         </Box>
       </>
     );
@@ -287,7 +290,7 @@ export default function Game() {
     let name = event.name;
     let options = event.options;
 
-    console.log(options);
+    //console.log(options);
     return (
       <Box
         sx={{
@@ -306,7 +309,7 @@ export default function Game() {
       >
         <Typography variant="h5">{name}</Typography>
         <Typography variant="body1">{description}</Typography>
-        <Footer options={options} eventResult={eventResult} />
+        <Footer options={options} eventResult={eventResult} disabled={disableButtonsRef.current} />
       </Box>
     );
   };
@@ -341,7 +344,6 @@ export default function Game() {
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Character characterData={data.currentPlayer} hp={characterHP} />
         <Character characterData={data.currentPlayer} hp={characterHP} />
       </Box>
       <br />

@@ -17,12 +17,12 @@ import {
 import { GrRun } from 'react-icons/gr';
 import { RiErrorWarningFill } from 'react-icons/ri';
 
-export default function Footer({ options, eventResult, combatResult }) {
+export default function Footer({ options, eventResult, combatResult, disabled }) {
   const [value, setValue] = useState(0);
   const iconStyle = { width: '2em', height: '2em' };
 
   const getIcon = (description) => {
-    console.log(description);
+    //console.log(description);
     switch (description) {
       case 'Move Left':
         return <FaArrowLeft style={iconStyle} />;
@@ -46,8 +46,6 @@ export default function Footer({ options, eventResult, combatResult }) {
     }
   };
 
-  console.log(options);
-
   return (
     <Paper
       sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
@@ -60,16 +58,17 @@ export default function Footer({ options, eventResult, combatResult }) {
           setValue(newValue);
         }}
       >
-        {options.map((option, index) => (
+        { options.map((option, index) => (
           <BottomNavigationAction
             key={index}
-            onClick={
+            onClick={ 
               eventResult
                 ? () => eventResult(JSON.stringify(option.result))
                 : () => combatResult(option.description)
             }
             icon={getIcon(option.description)}
             label={option.description}
+            disabled={disabled}
           />
         ))}
       </BottomNavigation>
