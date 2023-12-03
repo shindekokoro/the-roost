@@ -68,8 +68,9 @@ export default function Header() {
 
   return (
     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
+      <Container maxWidth="lg" sx={{padding: '1em', }}>
+        
+        <Toolbar disableGutters sx={{display: 'inline', display:'flex', justifyContent: 'space-between'}}>
           {/* Page Title and 'Header' */}
           <Typography
             variant="h5"
@@ -77,18 +78,16 @@ export default function Header() {
             component={RouterLink}
             to="/"
             sx={{
-              mx: 2,
-              // display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
+              fontSize: '1rem',
+              fontFamily: 'verdana',
               textDecoration: 'none',
-              textAlign: 'center'
+              color: 'inherit',
             }}
           >
-            {title}
+            <img src="../placeholderlogo.png" style={{display: 'inline', height: '2rem'}} />
+            <span style={{fontSize: '0.75rem', padding: '0.5rem', position: 'relative', bottom: '3px'}}>
+              {title}
+            </span>
           </Typography>
 
           {/* User Menu */}
