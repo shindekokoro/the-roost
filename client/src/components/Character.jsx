@@ -11,7 +11,7 @@ import { FaHandFist, FaShieldHalved } from 'react-icons/fa6';
 
 export default function Character({ characterData, hp }) {
   return (
-    <Box sx={{ background: '#05050550', padding: 1, borderRadius: '10%' }}>
+    <Box sx={{padding: '1em', borderRadius: '0.25rem', background: 'rgba(0,0,0,0.5)'}}>
       <Typography variant="h6">{characterData[0].name}</Typography>
       <Typography variant="caption">
         <Typography>

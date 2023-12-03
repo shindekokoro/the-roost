@@ -48,7 +48,7 @@ export default function Footer({ options, eventResult, combatResult, disabled })
 
   return (
     <Paper
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
+      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '1rem', backgroundColor: '#1a1a19'}}
       elevation={3}
     >
       <BottomNavigation

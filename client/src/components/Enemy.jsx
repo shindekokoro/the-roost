@@ -8,9 +8,9 @@ export default function Enemy({ enemyData, hp }) {
     <Box
       sx={{
         textAlign: 'end',
-        background: '#05050550',
-        padding: 1,
-        borderRadius: '10%'
+        padding: '1em', 
+        borderRadius: '0.25rem', 
+        background: 'rgba(0,0,0,0.5)'
       }}
     >
       <Typography variant="h6">{enemyData.name}</Typography>

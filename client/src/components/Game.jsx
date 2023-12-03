@@ -266,19 +266,21 @@ export default function Game() {
       <>
         <Box
           sx={{
+            zIndex: -999,
+            position: 'absolute',
+            top: '0',
+            left: '0',
             flexDirection: 'column',
             display: 'flex',
             alignItems: 'center',
-            height: '50vh',
-            width: '90vw',
-            maxWidth: 'sm',
+            height: '100vh',
+            width: '100vw',
             backgroundImage: `url('../${background}')`,
             backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
-            borderRadius: '10%',
-            padding: '10px',
-            justifyContent: 'flex-end'
+            padding: '8rem 2rem',
+            justifyContent: 'flex-end',
           }}
         >
           {disableButtonsRef.current ? (
@@ -286,14 +288,14 @@ export default function Game() {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
               }}
             >
               <p>{eventResultMessageRef.current}</p>
               <Button
                 onClick={() => newEvent()}
                 variant="outlined"
-                sx={{ m: 5 }}
+                sx={{ m: '1rem' }}
               >
                 Continue
               </Button>
@@ -301,7 +303,10 @@ export default function Game() {
           ) : (
             <Box></Box>
           )}
-          <Typography>{description}</Typography>
+          <Box
+            sx={{ padding: '1em', borderRadius: '0.25rem', background: 'rgba(0,0,0,0.5)' }}>
+            <Typography>{description}</Typography>
+          </Box>
           <Footer
             options={options}
             combatResult={combatResult}
@@ -324,17 +329,20 @@ export default function Game() {
     return (
       <Box
         sx={{
+          zIndex: -999,
+          position: 'absolute',
+          top: '0',
+          left: '0',
           flexDirection: 'column',
           display: 'flex',
           alignItems: 'center',
-          height: '50vh',
-          width: '90vw',
-          maxWidth: 'sm',
+          height: '100vh',
+          width: '100vw',
           backgroundImage: `url('../${background}')`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          padding: '10px',
+          padding: '8rem 2rem',
           justifyContent: 'flex-end'
         }}
       >
@@ -343,19 +351,22 @@ export default function Game() {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              flexDirection: 'column'
+              flexDirection: 'column',
             }}
           >
             <p>{eventResultMessageRef.current}</p>
-            <Button onClick={() => newEvent()} variant="outlined" sx={{ m: 5 }}>
+            <Button onClick={() => newEvent()} variant="outlined" sx={{ m: '1rem' }}>
               Continue
             </Button>
           </Box>
         ) : (
           <Box></Box>
         )}
-        <Typography variant="h5">{name}</Typography>
-        <Typography variant="body1">{description}</Typography>
+        <Box
+          sx={{ padding: '1em', borderRadius: '0.25rem', background: 'rgba(0,0,0,0.5)' }}>
+          <Typography variant="h5">{name}</Typography>
+          <Typography variant="body1">{description}</Typography>
+        </Box>
         <Footer
           options={options}
           eventResult={eventResult}
@@ -398,15 +409,7 @@ export default function Game() {
         <Character characterData={data.currentPlayer} hp={characterHP} />
         {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
       </Box>
-      <Box
-        sx={{
-          position: 'relative',
-          top: '-10vh',
-          left: '10vw'
-        }}
-      >
-        <Box>{eventComponent}</Box>
-      </Box>
+      {eventComponent}
     </Box>
   );
 }
