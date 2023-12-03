@@ -12,9 +12,21 @@
     "options": []
   },
   {
-    "description": "You enter the Chicken King's chambers, but it seems the King is not here. You could try snooping",
+    "description": "You enter the Chicken King's chambers, but it seems the King is not here. You could try snooping around.",
     "background": "/assets/environment/kings_chambers.jpg",
     "name": "The Chicken King's chambers",
+    "options": []
+  },
+  {
+    "description": "You discover a Chicken Blacksmith, selling his wares. The bird eyes you suspiciously...",
+    "background": "/assets/environment/chicken_blacksmith.jpg",
+    "name": "Chicken Blacksmith",
+    "options": []
+  },
+  {
+    "description": "You suddenly discover a treasure chest, hidden away among the straw.",
+    "background": "/assets/environment/treasure_chest.jpg",
+    "name": "Treasure Chest",
     "options": []
   }
 ]
