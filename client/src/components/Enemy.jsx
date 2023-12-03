@@ -11,7 +11,6 @@ export default function Enemy({ enemyData, hp }) {
         STR: {enemyData.strength}<br />
         DEF: {enemyData.defense}<br />
         CON: {enemyData.constitution}<br />
-        Items: {enemyData.inventory.length}<br />
       </Typography>
     </Box>
   );

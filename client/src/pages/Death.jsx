@@ -1,7 +1,9 @@
 import { Link as ReactRouter } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
+import { setEventContext } from '../utils/localStorage';
 
 export default function Death() {
+  setEventContext(null);
   return (
     <Box
       sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}

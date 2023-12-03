@@ -13,7 +13,6 @@ export default function Character({ characterData, hp }) {
         DEF: {characterData[0].defense}<br />
         CON: {characterData[0].constitution}<br />
         Gold: {characterData[0].gold}<br />
-        Items: {characterData[0].inventory.length}<br />
       </Typography>
     </Box>
   );

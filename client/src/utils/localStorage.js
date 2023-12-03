@@ -33,7 +33,7 @@ export const getEventContext = () => {
     let eventContext = JSON.parse(localStorage.getItem('eventContext'));
     if (!eventContext) {
         eventContext = {
-            characterHP: 10,
+            characterHP: null,
             enemyHP: null,
             currentEvent: null,
         }

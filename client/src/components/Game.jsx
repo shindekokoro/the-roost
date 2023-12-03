@@ -36,9 +36,7 @@ export default function Game() {
    */
   const getEvent = () => {
     // options for the event type
-    //let eventOptions = ['combat', 'interaction', 'movement'];
-    //let eventOptions = ['interaction', 'movement'];
-    let eventOptions = ['combat'];
+    let eventOptions = ['combat', 'interaction', 'movement'];
     // get the event type
     const eventType =
       eventOptions[Math.floor(Math.random() * eventOptions.length)];
@@ -53,26 +51,31 @@ export default function Game() {
    * Get a new event and set it in local storage and update state - this will cause the component to re-render
    * @returns {void}
    */
-  let isCombatEvent = false;
   const newEvent = () => {
-    // TODO: refresh the footer component
-
     // reset the disable buttons ref so buttons will be enabled
     disableButtonsRef.current = false;
     // get a random event
     let event = getEvent();
-    // set the event context in local storage
-    if (!isCombatEvent) {
-      setEventContext({
-        characterHP: characterHP,
-        enemyHP: enemyHP,
-        currentEvent: event
-      });
+    let newEnemyHP;
+    if (event.__typename === 'Combat') {
+      newEnemyHP = event.constitution * 10;
+    } else {
+      newEnemyHP = null;
     }
-    // reset isCombatEvent
-    isCombatEvent = false;
+    let newCharacterHP = characterHP;
+    if (!newCharacterHP) {
+      newCharacterHP = data.currentPlayer[0].constitution * 10;
+    }
+    // set the event context in local storage)
+    setEventContext({
+      characterHP: newCharacterHP,
+      enemyHP: newEnemyHP,
+      currentEvent: event
+    });
 
     // update state
+    setCharacterHP(characterHP);
+    setEnemyHP(newEnemyHP);
     setCurrentEvent(event);
   };
 
@@ -84,11 +87,14 @@ export default function Game() {
   // for testing
   let eventComponent;
   /**
-   * Parses a array of results stored as a json string and returns and executes a random result
+   * Parses a array of results (if passed in as a json string) and returns and executes a random result
    */
-  const eventResult = (resultsString) => {
-    // parse the results string
-    let resultsArray = JSON.parse(resultsString);
+  const eventResult = (results) => {
+    let resultsArray = results;
+    // parse the results if its a string
+    if (typeof resultsArray === 'string') {
+      resultsArray = JSON.parse(results);
+    }
     // get a random result
     let result = resultsArray[Math.floor(Math.random() * resultsArray.length)];
     // spread the result data into variables
@@ -102,7 +108,7 @@ export default function Game() {
      * @param {number} statValue value to add to the stat e.g. 10, -5, etc. (negative values will decrease the stat)
      * @returns {object} updated character object from the database
      */
-    const modifyStat = async (statToModify, statValue) => {
+    const modifyStat = (statToModify, statValue) => {
       // get the character stored in local storage
       let { currentPlayer } = getLocalStorageData();
       let character = currentPlayer[0];
@@ -122,7 +128,7 @@ export default function Game() {
       character.inventory.forEach((item) => delete item.__typename);
       //console.log(character);
       // save the character in the database
-      let updatedCharacter = await saveCharacter({
+      let updatedCharacter = saveCharacter({
         variables: { characterData: character }
       });
       return updatedCharacter;
@@ -137,7 +143,6 @@ export default function Game() {
     // update options to only have one option to continue to the next event
 
     disableButtonsRef.current = true;
-
     eventResultMessageRef.current = description;
   };
 
@@ -160,49 +165,46 @@ export default function Game() {
     let random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     // TODO: enemy stats scale with player level, 1 every 4 levels
     let enemy = {
-      level: event.strength + event.defense + event.constitution,
+      level: parseInt(event.strength) + parseInt(event.defense) + parseInt(event.constitution),
       name: event.name,
       maxHP: event.constitution * 10,
       strength: event.strength,
       defense: event.defense,
       constitution: event.constitution,
       inventory: event.inventory
-    }; 
+    };
 
     let enemyDeathHandler = () => {
-      if (enemyHP <= 0) {
-        // enemy is dead
-        // TODO: display result description, button to continue to next event
-        console.log('Enemy is dead! Victory!');
+      // 
+      console.log('Enemy is dead! Victory!');
 
-        let result = results[Math.floor(Math.random() * results.length)];
+      setEventContext({
+        characterHP: characterHP,
+        enemyHP: null,
+        currentEvent: null
+      });
 
-        // TODO: something is wrong
-        eventResultMessageRef.current = result.description;
-        disableButtonsRef.current = true;
-        
-      }
-      return false;
+      // run the event result
+      eventResult(results)
     };
 
     if (characterHP <= 0) {
-      // redirect to game over page
-      // TODO: make a game over page
-      // game over page will reset the characters hp in local storage?
-      console.log('You are dead! Game Over!');
-      //return <Navigate to="/profile" />;
+      return <Navigate to="/death" />;
     }
 
     let attack = () => {
       let hitPower = random(1, player.strength);
       if (hitPower > enemy.defense) {
-        setEnemyHP(enemyHP - hitPower);
+        if (enemyHP - hitPower <= 0) {
+          enemyDeathHandler();
+        } else {
+          setEnemyHP(enemyHP - hitPower);
+        }
         console.log(`You attack for ${hitPower}!`);
       } else {
         console.log('You attack and miss!');
       }
       // TODO: disable the buttons while the event is running
-      enemyDeathHandler()
       setTimeout(() => {
         enemyAttack();
       }, 1000);
@@ -213,8 +215,7 @@ export default function Game() {
       if (hitPower > player.defense) {
         setCharacterHP(characterHP - hitPower);
         console.log(`Enemy attacks for ${hitPower}!`);
-      } else
-      {
+      } else {
         console.log('Enemy attacks and misses!');
       }
     };
@@ -232,9 +233,8 @@ export default function Game() {
     };
 
     let run = () => {
-      // let damage = Math.floor(Math.random() * 5);
-      // setCharacterHP(characterHP - damage);
       console.log('coward!');
+      newEvent();
     };
 
     const options = [
