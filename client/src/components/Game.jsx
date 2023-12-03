@@ -102,17 +102,6 @@ export default function Game() {
     }
   };
   // if there is no current event, get a new one
-  if (currentEvent === null) {
-    newEvent(
-      disableButtonsRef,
-      data,
-      characterHP,
-      setCharacterHP,
-      enemyHP,
-      setEnemyHP,
-      setCurrentEvent
-    );
-  }
   runEvent(currentEvent);
 
   return (
