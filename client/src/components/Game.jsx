@@ -14,6 +14,7 @@ import { Navigate } from 'react-router-dom';
 export default function Game() {
   // get all data from local storage: { currentPlayer, combat, interaction, movement }
   const data = getLocalStorageData();
+  let enemyData;
 
   // get event context from local storage {characterHP, enemyHP, currentEvent}
   const eventContext = getEventContext();
@@ -153,7 +154,7 @@ export default function Game() {
         characterHP: data.currentPlayer[0].constitution * 10,
         enemyHP: event.constitution * 10,
         currentEvent: event
-      })
+      });
       setEnemyHP(event.constitution * 10);
     }
     // render the event
@@ -162,10 +163,14 @@ export default function Game() {
     let background = event.background;
     let results = event.result;
     let player = data.currentPlayer[0];
-    let random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    let random = (min, max) =>
+      Math.floor(Math.random() * (max - min + 1)) + min;
     // TODO: enemy stats scale with player level, 1 every 4 levels
-    let enemy = {
-      level: parseInt(event.strength) + parseInt(event.defense) + parseInt(event.constitution),
+    enemyData = {
+      level:
+        parseInt(event.strength) +
+        parseInt(event.defense) +
+        parseInt(event.constitution),
       name: event.name,
       maxHP: event.constitution * 10,
       strength: event.strength,
@@ -175,7 +180,7 @@ export default function Game() {
     };
 
     let enemyDeathHandler = () => {
-      // 
+      //
       console.log('Enemy is dead! Victory!');
 
       setEventContext({
@@ -185,7 +190,7 @@ export default function Game() {
       });
 
       // run the event result
-      eventResult(results)
+      eventResult(results);
     };
 
     if (characterHP <= 0) {
@@ -194,7 +199,7 @@ export default function Game() {
 
     let attack = () => {
       let hitPower = random(1, player.strength);
-      if (hitPower > enemy.defense) {
+      if (hitPower > enemyData.defense) {
         if (enemyHP - hitPower <= 0) {
           enemyDeathHandler();
         } else {
@@ -211,7 +216,7 @@ export default function Game() {
     };
 
     let enemyAttack = () => {
-      let hitPower = random(1, enemy.strength);
+      let hitPower = random(1, enemyData.strength);
       if (hitPower > player.defense) {
         setCharacterHP(characterHP - hitPower);
         console.log(`Enemy attacks for ${hitPower}!`);
@@ -223,7 +228,7 @@ export default function Game() {
     let defend = () => {
       // TODO: disable the buttons while the event is running
       setTimeout(() => {
-        let hitPower = random(1, enemy.strength);
+        let hitPower = random(1, enemyData.strength);
         if (hitPower > player.defense * 2) {
           setCharacterHP(characterHP - hitPower);
           console.log(`You defend and take ${hitPower} damage!`);
@@ -259,24 +264,49 @@ export default function Game() {
 
     return (
       <>
-        <Enemy enemyData={enemy} hp={enemyHP} position={'right'} />
         <Box
           sx={{
             flexDirection: 'column',
-            display: 'inline-flex',
-            alignItems: 'end',
+            display: 'flex',
+            alignItems: 'center',
             height: '50vh',
             width: '90vw',
+            maxWidth: 'sm',
             backgroundImage: `url('../${background}')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
+            borderRadius: '10%',
             padding: '10px',
             justifyContent: 'flex-end'
           }}
         >
+          {disableButtonsRef.current ? (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column'
+              }}
+            >
+              <p>{eventResultMessageRef.current}</p>
+              <Button
+                onClick={() => newEvent()}
+                variant="outlined"
+                sx={{ m: 5 }}
+              >
+                Continue
+              </Button>
+            </Box>
+          ) : (
+            <Box></Box>
+          )}
           <Typography>{description}</Typography>
-          <Footer options={options} combatResult={combatResult} disabled={disableButtonsRef.current} />
+          <Footer
+            options={options}
+            combatResult={combatResult}
+            disabled={disableButtonsRef.current}
+          />
         </Box>
       </>
     );
@@ -295,10 +325,11 @@ export default function Game() {
       <Box
         sx={{
           flexDirection: 'column',
-          display: 'inline-flex',
-          alignItems: 'end',
+          display: 'flex',
+          alignItems: 'center',
           height: '50vh',
           width: '90vw',
+          maxWidth: 'sm',
           backgroundImage: `url('../${background}')`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -307,9 +338,29 @@ export default function Game() {
           justifyContent: 'flex-end'
         }}
       >
+        {disableButtonsRef.current ? (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}
+          >
+            <p>{eventResultMessageRef.current}</p>
+            <Button onClick={() => newEvent()} variant="outlined" sx={{ m: 5 }}>
+              Continue
+            </Button>
+          </Box>
+        ) : (
+          <Box></Box>
+        )}
         <Typography variant="h5">{name}</Typography>
         <Typography variant="body1">{description}</Typography>
-        <Footer options={options} eventResult={eventResult} disabled={disableButtonsRef.current} />
+        <Footer
+          options={options}
+          eventResult={eventResult}
+          disabled={disableButtonsRef.current}
+        />
       </Box>
     );
   };
@@ -342,30 +393,20 @@ export default function Game() {
   runEvent(currentEvent);
 
   return (
-    <Box>
+    <Box alignContent={'center'}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Character characterData={data.currentPlayer} hp={characterHP} />
+        {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
       </Box>
-      <br />
-
-      {eventComponent}
-      <br />
-      {disableButtonsRef.current ? (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column'
-          }}
-        >
-          <p>{eventResultMessageRef.current}</p>
-          <Button onClick={() => newEvent()} variant="outlined">
-            Continue
-          </Button>
-        </Box>
-      ) : (
-        <Box></Box>
-      )}
+      <Box
+        sx={{
+          position: 'relative',
+          top: '-10vh',
+          left: '10vw'
+        }}
+      >
+        <Box>{eventComponent}</Box>
+      </Box>
     </Box>
   );
 }
