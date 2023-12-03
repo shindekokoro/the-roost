@@ -8,6 +8,7 @@ import {
 } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_CHARACTER } from '../utils/mutations';
+import newEvent from '../utils/newEvent';
 
 export default function NonCombatHandler({ event, disableButtonsRef, eventResultMessageRef }) {
   // render the event
@@ -78,7 +79,6 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
     disableButtonsRef.current = true;
     eventResultMessageRef.current = description;
   };
-
   //console.log(options);
   return (
     <Box
@@ -105,12 +105,15 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
           sx={{
             display: 'flex',
             alignItems: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            borderRadius: '0.25rem',
+            background: 'rgba(0,0,0,0.5)',
+            marginBottom: '1em'
           }}
         >
           <p>{eventResultMessageRef.current}</p>
           <Button
-            onClick={() => newEvent()}
+            onClick={() => newEvent(disableButtonsRef, data)}
             variant="outlined"
             sx={{ m: '1rem' }}
           >
@@ -118,7 +121,7 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
           </Button>
         </Box>
       ) : (
-        <Box></Box>
+        <></>
       )}
       <Box
         sx={{

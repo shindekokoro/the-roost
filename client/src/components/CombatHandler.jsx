@@ -93,7 +93,7 @@ export default function combatHandler({ event, disableButtonsRef }) {
 
   let run = () => {
     console.log('coward!');
-    newEvent();
+    newEvent(disableButtonsRef, data);
   };
 
   const options = [
