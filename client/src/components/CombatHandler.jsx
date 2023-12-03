@@ -113,7 +113,15 @@ export default function combatHandler({
 
   let run = () => {
     console.log('coward!');
-    newEvent(disableButtonsRef, data);
+    newEvent(
+      disableButtonsRef,
+      data,
+      characterHP,
+      setCharacterHP,
+      enemyHP,
+      setEnemyHP,
+      setCurrentEvent
+    );
   };
 
   const options = [
