@@ -4,5 +4,16 @@ import Footer from './Footer';
 import Character from './Character';
 import Enemy from './Enemy';
 import Game from './Game';
+import CombatHandler from './CombatHandler';
+import NonCombatHandler from './NonCombatHandler';
 
-export { Signup, Header, Footer, Character, Enemy, Game };
+export {
+  Signup,
+  Header,
+  Footer,
+  Character,
+  Enemy,
+  Game,
+  CombatHandler,
+  NonCombatHandler
+};

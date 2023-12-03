@@ -70,7 +70,7 @@ export default function Header() {
     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
       <Container maxWidth="lg" sx={{padding: '1em', }}>
         
-        <Toolbar disableGutters sx={{display: 'inline', display:'flex', justifyContent: 'space-between'}}>
+        <Toolbar disableGutters sx={{display:'flex', justifyContent: 'space-between'}}>
           {/* Page Title and 'Header' */}
           <Typography
             variant="h5"
