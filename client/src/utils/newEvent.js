@@ -1,10 +1,13 @@
 import getEvent from './getEvent';
+import {
+  setEventContext
+} from '../utils/localStorage';
 
 /**
  * Get a new event and set it in local storage and update state - this will cause the component to re-render
  * @returns {void}
  */
-const newEvent = (disableButtonsRef, data) => {
+const newEvent = (disableButtonsRef, data, characterHP, setCharacterHP, enemyHP, setEnemyHP, setCurrentEvent) => {
   // reset the disable buttons ref so buttons will be enabled
   disableButtonsRef.current = false;
   // get a random event

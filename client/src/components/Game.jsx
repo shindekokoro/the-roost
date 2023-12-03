@@ -29,7 +29,15 @@ export default function Game() {
 
   // if there is no current event, get a new one
   if (currentEvent === null) {
-    newEvent(disableButtonsRef, data);
+    newEvent(
+      disableButtonsRef,
+      data,
+      characterHP,
+      setCharacterHP,
+      enemyHP,
+      setEnemyHP,
+      setCurrentEvent
+    );
   }
 
   // take current event and run it
@@ -48,6 +56,11 @@ export default function Game() {
             event={event}
             disableButtonsRef={disableButtonsRef}
             eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
           />
         );
         break;
@@ -58,6 +71,11 @@ export default function Game() {
             event={event}
             disableButtonsRef={disableButtonsRef}
             eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
           />
         );
         break;
@@ -68,6 +86,11 @@ export default function Game() {
             event={event}
             disableButtonsRef={disableButtonsRef}
             eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
           />
         );
         break;
@@ -78,11 +101,25 @@ export default function Game() {
         break;
     }
   };
+  // if there is no current event, get a new one
+  if (currentEvent === null) {
+    newEvent(
+      disableButtonsRef,
+      data,
+      characterHP,
+      setCharacterHP,
+      enemyHP,
+      setEnemyHP,
+      setCurrentEvent
+    );
+  }
   runEvent(currentEvent);
 
   return (
     <Box alignContent={'center'}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'space-between', zIndex: -99 }}
+      >
         <Character characterData={data.currentPlayer} hp={characterHP} />
         {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
       </Box>

@@ -2,15 +2,22 @@ import { Box, Button, Typography } from '@mui/material';
 import { Footer } from '../components';
 import {
   setLocalStorageData,
-  getLocalStorageData,
-  setEventContext,
-  getEventContext
+  getLocalStorageData
 } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_CHARACTER } from '../utils/mutations';
 import newEvent from '../utils/newEvent';
 
-export default function NonCombatHandler({ event, disableButtonsRef, eventResultMessageRef }) {
+export default function NonCombatHandler({
+  event,
+  disableButtonsRef,
+  eventResultMessageRef,
+  characterHP,
+  setCharacterHP,
+  enemyHP,
+  setEnemyHP,
+  setCurrentEvent
+}) {
   // render the event
   let description = event.description;
   let background = event.background;
@@ -19,10 +26,8 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
 
   // setup mutation to save character in database
   const [saveCharacter, { error }] = useMutation(SAVE_CHARACTER);
-
+  const data = getLocalStorageData();
   const eventResult = (results) => {
-    const data = getLocalStorageData();
-
     console.log(results);
     let resultsArray = results;
     // parse the results if its a string
@@ -78,6 +83,7 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
 
     disableButtonsRef.current = true;
     eventResultMessageRef.current = description;
+    console.log(data);
   };
   //console.log(options);
   return (
@@ -113,7 +119,17 @@ export default function NonCombatHandler({ event, disableButtonsRef, eventResult
         >
           <p>{eventResultMessageRef.current}</p>
           <Button
-            onClick={() => newEvent(disableButtonsRef, data)}
+            onClick={() =>
+              newEvent(
+                disableButtonsRef,
+                data,
+                characterHP,
+                setCharacterHP,
+                enemyHP,
+                setEnemyHP,
+                setCurrentEvent
+              )
+            }
             variant="outlined"
             sx={{ m: '1rem' }}
           >
