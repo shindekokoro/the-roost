@@ -13,7 +13,7 @@
   },
   {
     "description": "You enter the Chicken King's chambers, but it seems the King is not here. You could try snooping",
-    "background": "/assets/environment/roost_room1.jpg",
+    "background": "/assets/environment/kings_chambers.jpg",
     "name": "The Chicken King's chambers",
     "options": []
   }
