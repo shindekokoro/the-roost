@@ -109,8 +109,8 @@ export default function Game() {
       <Box
         sx={{ display: 'flex', justifyContent: 'space-between', zIndex: -99 }}
       >
-        {/* <Character characterData={data.currentPlayer} hp={characterHP} />
-        {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>} */}
+        <Character characterData={data.currentPlayer} hp={characterHP} />
+        {console.log(enemyData)}{enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
       </Box>
       {eventComponent}
     </Box>
