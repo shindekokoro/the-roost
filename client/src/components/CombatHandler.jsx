@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { Navigate } from 'react-router-dom';
-import { Footer } from '../components';
+import { Footer, CombatMessage } from '../components';
 import { useMutation } from '@apollo/client';
 import { SAVE_CHARACTER } from '../utils/mutations';
 import {
@@ -10,6 +10,7 @@ import {
   getLocalStorageData
 } from '../utils/localStorage';
 import newEvent from '../utils/newEvent';
+import { useRef } from 'react';
 
 export default function combatHandler({
   event,
@@ -53,9 +54,11 @@ export default function combatHandler({
     inventory: event.inventory
   };
 
+  const combatMessages = useRef([]);
+
   let enemyDeathHandler = () => {
     //
-    console.log('Enemy is dead! Victory!');
+    combatMessages.current.push('Enemy is dead! Victory!');
 
     setEventContext({
       characterHP: characterHP,
@@ -75,50 +78,54 @@ export default function combatHandler({
     let hitPower = random(1, player.strength);
     if (hitPower > enemyData.defense) {
       if (enemyHP - hitPower <= 0) {
+        combatMessages.current.push(`You attack for ${hitPower} and kill the enemy!`);
         enemyDeathHandler();
+        return;
       } else {
         setEnemyHP(enemyHP - hitPower);
       }
-      console.log(`You attack for ${hitPower}!`);
+      combatMessages.current.push(`You attack for ${hitPower}!`);
     } else {
-      console.log('You attack and miss!');
+      combatMessages.current.push('You attack and miss!');
     }
     // TODO: disable the buttons while the event is running
-    setTimeout(() => {
+    // removed the timeout for now
+    //setTimeout(() => {
       enemyAttack();
-    }, 1000);
+    //}, 1000);
   };
 
   let enemyAttack = () => {
     let hitPower = random(1, enemyData.strength);
     if (hitPower > player.defense) {
       setCharacterHP(characterHP - hitPower);
-      console.log(`Enemy attacks for ${hitPower}!`);
+      combatMessages.current.push(`Enemy attacks for ${hitPower}!`);
     } else {
-      console.log('Enemy attacks and misses!');
+      combatMessages.current.push('Enemy attacks and misses!');
     }
   };
 
   let defend = () => {
     // TODO: disable the buttons while the event is running
-    setTimeout(() => {
+    // removed the timeout for now
+    //setTimeout(() => {
       let hitPower = random(1, enemyData.strength);
       if (hitPower > player.defense * 2) {
         setCharacterHP(characterHP - hitPower);
-        console.log(`You defend and take ${hitPower} damage!`);
+        combatMessages.current.push(`You defend and take ${hitPower} damage!`);
       }
-      console.log('You block the enemies attack!');
-    }, 500);
+      combatMessages.current.push('You block the enemies attack!');
+    //}, 500);
   };
 
   let run = () => {
-    console.log('coward!');
+    console.log('Coward!');
     newEvent(disableButtonsRef, data);
   };
 
   const options = [
     { description: 'Attack' },
-    { description: 'Defend' },
+    //{ description: 'Defend' },
     { description: 'Run!' }
   ];
 
@@ -219,6 +226,7 @@ export default function combatHandler({
           justifyContent: 'flex-end'
         }}
       >
+        <CombatMessage messageArray={combatMessages.current} />
         {disableButtonsRef.current ? (
           <Box
             sx={{
@@ -229,7 +237,8 @@ export default function combatHandler({
           >
             <p>{eventResultMessageRef.current}</p>
             <Button
-              onClick={() =>
+              onClick={() => {
+                combatMessages.current = [];
                 newEvent(
                   disableButtonsRef,
                   data,
@@ -238,7 +247,7 @@ export default function combatHandler({
                   enemyHP,
                   setEnemyHP,
                   setCurrentEvent
-                )
+                )}
               }
               variant="outlined"
               sx={{ m: '1rem' }}

@@ -4,7 +4,7 @@
  */
 const getEvent = (data) => {
   // options for the event type
-  let eventOptions = ['combat', 'interaction', 'movement'];
+  let eventOptions = ['combat', ];
   // get the event type
   const eventType =
     eventOptions[Math.floor(Math.random() * eventOptions.length)];

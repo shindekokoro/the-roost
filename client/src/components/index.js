@@ -6,6 +6,7 @@ import Enemy from './Enemy';
 import Game from './Game';
 import CombatHandler from './CombatHandler';
 import NonCombatHandler from './NonCombatHandler';
+import CombatMessage from './CombatMessage';
 
 export {
   Signup,
@@ -15,5 +16,6 @@ export {
   Enemy,
   Game,
   CombatHandler,
-  NonCombatHandler
+  NonCombatHandler,
+  CombatMessage
 };
