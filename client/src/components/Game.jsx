@@ -9,34 +9,10 @@ import { Character, Enemy } from '../components';
 import { useState, useRef } from 'react';
 import { CombatHandler, NonCombatHandler } from '../components';
 import newEvent from '../utils/newEvent';
-import { useMutation } from '@apollo/client';
-import { SAVE_CHARACTER } from '../utils/mutations';
 
 export default function Game() {
-  const [saveCharacter, { error }] = useMutation(SAVE_CHARACTER);
-  const levelUP = async () => {
-    let level = data.currentPlayer.level
-    let xp = data.currentPlayer.xp
-    let xpToLevel = 100
-    let xpLevel = xp / xpToLevel
-    if (xpLevel > level) {
-      level = xpLevel
-      data.currentPlayer.level = level
-      data.currentPlayer.strength = level
-      data.currentPlayer.defense = level
-      data.currentPlayer.constitution = level
-      setLocalStorageData(data)
-      let updatedCharacter = await saveCharacter({
-        variables: { characterData: character }
-      });
-      return updatedCharacter
-    }
-  }
-
   // get all data from local storage: { currentPlayer, combat, interaction, movement }
   const data = getLocalStorageData();
-  // check if user has leveled up
-  levelUP();
 
   // get event context from local storage {characterHP, enemyHP, currentEvent}
   const eventContext = getEventContext();

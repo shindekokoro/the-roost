@@ -51,8 +51,25 @@ export default function NonCombatHandler({
       // get the character stored in local storage
       let { currentPlayer } = getLocalStorageData();
       let character = currentPlayer[0];
+      // level up function
+      let levelUp = () => {
+        // check if the character has enough xp to level up
+        let level = character.level;
+        let xp = character.xp;
+        let xpToLevelUp = 100;
+        let xpToNextLevel = xpToLevelUp * level;
+        if (xp >= xpToNextLevel) {
+          character.level += 1;
+          character.strength += 1;
+          character.defense += 1;
+          character.constitution += 1;
+          console.log('You leveled up!');
+        }
+      }
       // modify the stat
       character[statToModify] += statValue;
+      // check if the character has leveled up
+      levelUp();
       // update the character in local storage
       setLocalStorageData(
         [character],

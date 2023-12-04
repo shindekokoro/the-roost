@@ -97,7 +97,7 @@ export default function combatHandler({
     // TODO: disable the buttons while the event is running
     // removed the timeout for now
     //setTimeout(() => {
-      enemyAttack();
+    enemyAttack();
     //}, 1000);
   };
 
@@ -115,12 +115,12 @@ export default function combatHandler({
     // TODO: disable the buttons while the event is running
     // removed the timeout for now
     //setTimeout(() => {
-      let hitPower = random(1, enemyData.strength);
-      if (hitPower > player.defense * 2) {
-        setCharacterHP(characterHP - hitPower);
-        combatMessages.current.push(`You defend and take ${hitPower} damage!`);
-      }
-      combatMessages.current.push('You block the enemies attack!');
+    let hitPower = random(1, enemyData.strength);
+    if (hitPower > player.defense * 2) {
+      setCharacterHP(characterHP - hitPower);
+      combatMessages.current.push(`You defend and take ${hitPower} damage!`);
+    }
+    combatMessages.current.push('You block the enemies attack!');
     //}, 500);
   };
 
@@ -184,8 +184,25 @@ export default function combatHandler({
 
       console.log(currentPlayer);
       let character = currentPlayer[0];
+      // level up function
+      let levelUp = () => {
+        // check if the character has enough xp to level up
+        let level = character.level;
+        let xp = character.xp;
+        let xpToLevelUp = 100;
+        let xpToNextLevel = xpToLevelUp * level;
+        if (xp >= xpToNextLevel) {
+          character.level += 1;
+          character.strength += 1;
+          character.defense += 1;
+          character.constitution += 1;
+          console.log('You leveled up!');
+        }
+      }
       // modify the stat
       character[statToModify] += statValue;
+      // check if the character has leveled up
+      levelUp();
       // update the character in local storage
       setLocalStorageData(
         [character],
@@ -261,7 +278,8 @@ export default function combatHandler({
                   enemyHP,
                   setEnemyHP,
                   setCurrentEvent
-                )}
+                )
+              }
               }
               variant="outlined"
               sx={{ m: '1rem' }}
