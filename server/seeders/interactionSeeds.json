@@ -19,7 +19,7 @@
   },
   {
     "description": "You discover a Chicken Blacksmith, selling his wares. The bird eyes you suspiciously...",
-    "background": "/assets/environment/chicken_blacksmith.webp",
+    "background": "/assets/environment/chicken_blacksmith.jpg",
     "name": "Chicken Blacksmith",
     "options": []
   },
@@ -27,6 +27,78 @@
     "description": "You suddenly discover a treasure chest, hidden away among the straw.",
     "background": "/assets/environment/treasure_chest.jpg",
     "name": "Treasure Chest",
+    "options": []
+  },
+  {
+    "description": "You turn the corner into a long dark corridor. It's chilly here, and you can hear the wind howling outside.",
+    "background": "/assets/environment/hallway4.jpg",
+    "name": "A dark corridor",
+    "options": []
+  },
+  {
+    "description": "You enter a large hall. You can hear a fowl noise coming from the end of the hallway.",
+    "background": "/assets/environment/hallway1.jpg",
+    "name": "A large hall",
+    "options": []
+  },
+  {
+    "description": "You find yourself at the end of a long hallway. Where will you go from here?",
+    "background": "/assets/environment/hallway2.jpg",
+    "name": "The end of a hallway",
+    "options": []
+  },
+  {
+    "description": "You walk into a long hall. You can hear the wind howling outside.",
+    "background": "/assets/environment/hallway3.jpg",
+    "name": "A long hall",
+    "options": []
+  },
+  {
+    "description": "You've found the chicken nursery. There are chicks everywhere!",
+    "background": "/assets/environment/hallway5.jpg",
+    "name": "Fowl nursery",
+    "options": []
+  },
+  {
+    "description": "You enter an abandoned part of the Roost. You wonder if there could be any gold or weapons here. What do you do?",
+    "background": "/assets/environment/roost_room3.jpg",
+    "name": "An empty part of the Roost",
+    "options": []
+  },
+  {
+    "description": "You stumble upon a decrepit old room. There's a fowl smell coming from the corner.",
+    "background": "/assets/environment/roost_room4.jpg",
+    "name": "A decrepit old room",
+    "options": []
+  },
+  {
+    "description": "You enter an eerie room in the Roost. You wonder if there could be any gold or weapons here. What do you do?",
+    "background": "/assets/environment/roost_room5.jpg",
+    "name": "An eery room",
+    "options": []
+  },
+  {
+    "description": "You find a room full of chickens. They seem to be having a meeting. What will you do?",
+    "background": "/assets/environment/roost_room6.jpg",
+    "name": "A room full of chickens",
+    "options": []
+  },
+  {
+    "description": "You've discovered the Chicken temple. You can hear the sound of chanting coming from somewhere..",
+    "background": "/assets/environment/chicken_temple_room1.jpg",
+    "name": "The Chicken Temple",
+    "options": []
+  },
+  {
+    "description": "You've found another room in the Chicken Temple. The chanting sounds louder here.",
+    "background": "/assets/environment/chicken_temple_room2.jpg",
+    "name": "The Chicken Temple",
+    "options": []
+  },
+  {
+    "description": "You've discovered the Chicken Crypt. It smells horrible, and it feels as if you're being watched. What do you do?",
+    "background": "/assets/environment/chicken_crypt.jpg",
+    "name": "The Chicken Crypt",
     "options": []
   }
 ]
