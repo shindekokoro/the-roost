@@ -43,18 +43,22 @@ export default function combatHandler({
   let player = data.currentPlayer[0];
   let random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
   // TODO: enemy stats scale with player level, 1 every 4 levels
-  let enemyData = {
-    level:
-      parseInt(event.strength) +
-      parseInt(event.defense) +
-      parseInt(event.constitution),
-    name: event.name,
-    maxHP: event.constitution * 10,
-    strength: event.strength,
-    defense: event.defense,
-    constitution: event.constitution,
-    inventory: event.inventory
-  };
+  useEffect(() => {
+    setEnemyData({
+      level:
+        parseInt(event.strength) +
+        parseInt(event.defense) +
+        parseInt(event.constitution),
+      name: event.name,
+      maxHP: event.constitution * 10,
+      strength: event.strength,
+      defense: event.defense,
+      constitution: event.constitution,
+      inventory: event.inventory
+    });
+  }, [event]);
+
+  const combatMessages = useRef([]);
 
   let enemyDeathHandler = () => {
     //
