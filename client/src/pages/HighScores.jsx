@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -154,7 +154,9 @@ export default function Score() {
                 <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                   {user.username}
                 </StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link to={`/profiles/${user.username}`}>{user.character[0].name}</Link>
+                </StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].level}</StyledTableCell>
               </StyledTableRow>
             ))}
@@ -193,7 +195,9 @@ export default function Score() {
                 <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' }}}>
                   {user.username}
                 </StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link to={`/profiles/${user.username}`}>{user.character[0].name}</Link>
+                </StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].gold}</StyledTableCell>
               </StyledTableRow>
             ))}
