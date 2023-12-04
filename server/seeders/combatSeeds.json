@@ -86,5 +86,93 @@
     "constitution": 5,
     "inventory": [],
     "result": []
+  },
+  {
+    "description": "A large Chicken Brawler stomps into view!",
+    "background": "/assets/enemies/chicken_brawler.jpg",
+    "name": "Chicken Brawler",
+    "level": 10,
+    "strength": 20,
+    "defense": 10,
+    "constitution": 10,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "A rotting Chicken Zombie shambles towards you!",
+    "background": "/assets/enemies/rotting_zombie.jpg",
+    "name": "Melting Zombie",
+    "level": 1,
+    "strength": 1,
+    "defense": 1,
+    "constitution": 1,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "One of the Chicken King's warpriests appears, muttering something under his breath.",
+    "background": "/assets/enemies/chicken_warpriest1.jpg",
+    "name": "Chicken Warpriest",
+    "level": 10,
+    "strength": 20,
+    "defense": 3,
+    "constitution": 10,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "One of the Chicken King's warpriests appears, muttering something under his breath.",
+    "background": "/assets/enemies/chicken_warpriest2.jpg",
+    "name": "Chicken Warpriest",
+    "level": 10,
+    "strength": 20,
+    "defense": 3,
+    "constitution": 10,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "A smol Chicken Minion ambles towards you. It looks like it's trying to be intimidating.",
+    "background": "/assets/enemies/chicken_minion.jpg",
+    "name": "Chicken Minion",
+    "level": 1,
+    "strength": 1,
+    "defense": 1,
+    "constitution": 1,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "A powerful-looking Chicken Warrior appears! It looks like it's ready to fight.",
+    "background": "/assets/enemies/chicken_warrior_2.jpg",
+    "name": "Chicken Warrior",
+    "level": 15,
+    "strength": 15,
+    "defense": 15,
+    "constitution": 15,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "A Chicken Warrior stomps towards you angrily. Why's its head so skinny tho?",
+    "background": "/assets/enemies/chicken_warrior_3.jpg",
+    "name": "Chicken Warrior",
+    "level": 20,
+    "strength": 20,
+    "defense": 20,
+    "constitution": 20,
+    "inventory": [],
+    "result": []
+  },
+  {
+    "description": "One of the Chicken King's assassins tries to sneak up behind you!",
+    "background": "/assets/enemies/chicken_assassin.jpg",
+    "name": "Chicken Assassin",
+    "level": 20,
+    "strength": 20,
+    "defense": 15,
+    "constitution": 20,
+    "inventory": [],
+    "result": []
   }
 ]
