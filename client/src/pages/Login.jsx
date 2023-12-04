@@ -18,8 +18,8 @@ import Auth from '../utils/auth';
 const Login = ({ signup }) => {
   const { pathname } = useLocation();
   useEffect(() => {
-    signup = !signup
-  },[pathname]);
+    signup = !signup;
+  }, [pathname]);
 
   const [login, { error: loginError, data: loginData }] =
     useMutation(LOGIN_USER);
@@ -128,11 +128,7 @@ const Login = ({ signup }) => {
                 Submit
               </Button>
               {!signup ? (
-                <Button
-                  component={RouterLink}
-                  to="/signup"
-                  variant="outlined"
-                >
+                <Button component={RouterLink} to="/signup" variant="outlined">
                   Signup
                 </Button>
               ) : (

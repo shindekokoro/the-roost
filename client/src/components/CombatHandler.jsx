@@ -83,7 +83,9 @@ export default function combatHandler({
     let hitPower = random(1, player.strength);
     if (hitPower > enemyData.defense) {
       if (enemyHP - hitPower <= 0) {
-        combatMessages.current.push(`You attack for ${hitPower} and kill the enemy!`);
+        combatMessages.current.push(
+          `You attack for ${hitPower} and kill the enemy!`
+        );
         enemyDeathHandler();
         return;
       } else {
@@ -198,7 +200,7 @@ export default function combatHandler({
           character.constitution += 1;
           console.log('You leveled up!');
         }
-      }
+      };
       // modify the stat
       character[statToModify] += statValue;
       // check if the character has leveled up
@@ -278,9 +280,8 @@ export default function combatHandler({
                   enemyHP,
                   setEnemyHP,
                   setCurrentEvent
-                )
-              }
-              }
+                );
+              }}
               variant="outlined"
               sx={{ m: '1rem' }}
             >

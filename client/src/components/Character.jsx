@@ -40,7 +40,7 @@ export default function Character({ characterData, hp }) {
 
     setState({ ...state, [anchor]: open });
   };
-
+  console.log(character.constitution * 10, hp);
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}

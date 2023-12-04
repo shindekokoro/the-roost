@@ -8,9 +8,7 @@ export default function ErrorPage() {
   return (
     <Container>
       <Typography variant="h1">{error.status}</Typography>
-      <Typography variant="body1">
-        {error?.statusText}
-      </Typography>
+      <Typography variant="body1">{error?.statusText}</Typography>
     </Container>
   );
 }

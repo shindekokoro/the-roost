@@ -65,7 +65,7 @@ export default function NonCombatHandler({
           character.constitution += 1;
           console.log('You leveled up!');
         }
-      }
+      };
       // modify the stat
       character[statToModify] += statValue;
       // check if the character has leveled up
