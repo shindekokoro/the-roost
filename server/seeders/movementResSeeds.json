@@ -1,20 +1,20 @@
 [
   {
-    "description": "You suddenly feel stronger. +1 to Strength",
-    "statToModify": "strength",
-    "statValue": 1,
+    "description": "You suddenly feel stronger. +10 xp",
+    "statToModify": "xp",
+    "statValue": 10,
     "nextEvent": "Movement 1 Name"
   },
   {
-    "description": "+1 to Defense",
-    "statToModify": "defense",
-    "statValue": 1,
+    "description": "You continue to navigate the Roost. +10xp",
+    "statToModify": "xp",
+    "statValue": 10,
     "nextEvent": "Movement 2 Name"
   },
   {
-    "description": "You feel strong and alive. +1 to Constitution",
-    "statToModify": "constitution",
-    "statValue": 1,
+    "description": "You feel strong and alive. +10 xp",
+    "statToModify": "xp",
+    "statValue": 10,
     "nextEvent": "Movement 3 Name"
   },
   {

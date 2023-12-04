@@ -48,6 +48,7 @@ const FadingBox = ({ showLoading, children }) => (
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      textAlign: 'center',
       height: '40vh',
     }}
     >
@@ -136,7 +137,7 @@ export default function Score() {
               </StyledTableCell>
             </TableRow>
             <TableRow>
-              <StyledTableCell align="center" sx={{ width: '33.33%' }}>
+              <StyledTableCell align="center" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                 Username
               </StyledTableCell>
               <StyledTableCell align="center" sx={{ width: '33.33%' }}>
@@ -150,7 +151,7 @@ export default function Score() {
           <TableBody>
             {sortedUsers.map((user) => (
               <StyledTableRow key={user._id}>
-                <StyledTableCell align="center" component="th" scope="row">
+                <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                   {user.username}
                 </StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
@@ -175,7 +176,7 @@ export default function Score() {
               </StyledTableCell>
             </TableRow>
             <TableRow>
-              <StyledTableCell align="center" sx={{ width: '33.33%' }}>
+              <StyledTableCell align="center" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                 Username
               </StyledTableCell>
               <StyledTableCell align="center" sx={{ width: '33.33%' }}>
@@ -189,7 +190,7 @@ export default function Score() {
           <TableBody>
             {richestUsers.map((user) => (
               <StyledTableRow key={user._id}>
-                <StyledTableCell align="center" component="th" scope="row">
+                <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' }}}>
                   {user.username}
                 </StyledTableCell>
                 <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>

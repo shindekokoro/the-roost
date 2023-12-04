@@ -1,20 +1,20 @@
 [
   {
-    "description": "You suddenly feel stronger. +2 to Strength",
-    "statToModify": "strength",
-    "statValue": 2,
+    "description": "You suddenly feel stronger. +20xp",
+    "statToModify": "xp",
+    "statValue": 20,
     "nextEvent": "Movement Name 1"
   },
   {
-    "description": "The situation leaves you feeling exhausted. -1 to Defense",
-    "statToModify": "defense",
-    "statValue": -1,
+    "description": "The situation leaves you a bit more knowledgeable. +10 xp",
+    "statToModify": "xp",
+    "statValue": 10,
     "nextEvent": "Movement Name 2"
   },
   {
-    "description": "Your will to continue increases. +1 to Constitution",
-    "statToModify": "constitution",
-    "statValue": 1,
+    "description": "Your knowledge of the Roost increases. +10 xp",
+    "statToModify": "xp",
+    "statValue": 20,
     "nextEvent": "Movement Name 3"
   },
   {

@@ -102,7 +102,7 @@ const Login = ({ signup }) => {
                   type="email"
                   name="email"
                   label="E-Mail"
-                  defaultValue={formState.email}
+                  value={formState.email}
                   onChange={handleChange}
                 ></OutlinedInput>
               </FormControl>
@@ -114,7 +114,7 @@ const Login = ({ signup }) => {
                   type="password"
                   name="password"
                   label="Password"
-                  defaultValue={formState.password}
+                  value={formState.password}
                   onChange={handleChange}
                 ></OutlinedInput>
               </FormControl>

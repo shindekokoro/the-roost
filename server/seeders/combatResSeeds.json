@@ -1,32 +1,98 @@
 [
   {
-    "description": "Your fight with the fowl beast helps you learn their weaknesses. +1 to Strength",
-    "statToModify": "strength",
-    "statValue": 1,
+    "description": "Your fight with the fowl beast helps you learn their weaknesses. +100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
     "nextEvent": "Movement Name 1"
   },
   {
-    "description": "You learn a bit how to avoid their attacks. +1 to Defense",
-    "statToModify": "defense",
-    "statValue": 1,
+    "description": "You learn a bit how to avoid their attacks. +75 xp",
+    "statToModify": "xp",
+    "statValue": 75,
     "nextEvent": "Movement Name 2"
   },
   {
-    "description": "Your will to continue increases. +1 to Constitution",
-    "statToModify": "constitution",
-    "statValue": 1,
+    "description": "You discover some gold after the fight. +100 gold",
+    "statToModify": "gold",
+    "statValue": 100,
     "nextEvent": "Movement Name 3"
   },
   {
-    "description": "Your knowledge of the Roost increases. +20 xp",
+    "description": "Your knowledge of the Roost increases. +200 xp",
     "statToModify": "xp",
-    "statValue": 20,
+    "statValue": 200,
     "nextEvent": "Movement 5 Name"
   },
   {
-    "description": "The fowl happened to drop some currency. +10 gold",
+    "description": "The fowl happened to drop some currency. +100 gold",
     "statToModify": "gold",
-    "statValue": 10,
+    "statValue": 100,
     "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "You confiscate the fowl beast's wealth. +100 gold",
+    "statToModify": "gold",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Despite the bird's best efforts, you manage to take some gold with you. +100 gold",
+    "statToModify": "gold",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Success! +100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "You discover the chicken's personal stash. +100 gold",
+    "statToModify": "gold",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "+100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "The encounter leaves you feeling strong and powerful. +100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Well done! +100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Victory! +150 xp",
+    "statToModify": "xp",
+    "statValue": 150,
+    "nextEvent": "Movement 3 Name"
+  },
+  {
+    "description": "Your knowledge of the Roost increases. +100 xp",
+    "statToModify": "xp",
+    "statValue": 100,
+    "nextEvent": "Movement 5 Name"
+  },
+  {
+    "description": "You gain valuable knowledge of the Roost. +200 xp",
+    "statToModify": "xp",
+    "statValue": 200,
+    "nextEvent": "Movement 5 Name"
+  },
+  {
+    "description": "Spoils go to the victor. +200 gold",
+    "statToModify": "gold",
+    "statValue": 200,
+    "nextEvent": "Movement 5 Name"
   }
 ]
