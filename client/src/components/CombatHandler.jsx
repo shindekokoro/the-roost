@@ -10,7 +10,7 @@ import {
   getLocalStorageData
 } from '../utils/localStorage';
 import newEvent from '../utils/newEvent';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function combatHandler({
   event,
@@ -20,7 +20,9 @@ export default function combatHandler({
   setCharacterHP,
   enemyHP,
   setEnemyHP,
-  setCurrentEvent
+  setCurrentEvent,
+  enemyData,
+  setEnemyData
 }) {
   if (!enemyHP) {
     // set enemy hp
@@ -53,8 +55,6 @@ export default function combatHandler({
     constitution: event.constitution,
     inventory: event.inventory
   };
-
-  const combatMessages = useRef([]);
 
   let enemyDeathHandler = () => {
     //

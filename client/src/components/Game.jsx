@@ -13,7 +13,6 @@ import newEvent from '../utils/newEvent';
 export default function Game() {
   // get all data from local storage: { currentPlayer, combat, interaction, movement }
   const data = getLocalStorageData();
-  let enemyData;
 
   // get event context from local storage {characterHP, enemyHP, currentEvent}
   const eventContext = getEventContext();
@@ -22,6 +21,15 @@ export default function Game() {
   const [characterHP, setCharacterHP] = useState(eventContext.characterHP);
   const [enemyHP, setEnemyHP] = useState(eventContext.enemyHP);
   const [currentEvent, setCurrentEvent] = useState(eventContext.currentEvent);
+  const [enemyData, setEnemyData] = useState({
+    level: 0,
+    name: '',
+    maxHP: 0,
+    strength: 0,
+    defense: 0,
+    constitution: 0,
+    inventory: []
+  });
 
   // set up state to disable buttons while event is running
   const disableButtonsRef = useRef(false);
@@ -45,13 +53,12 @@ export default function Game() {
   const RunInteractionEvent = NonCombatHandler;
 
   // for testing
-  let eventComponent;
   const runEvent = (event) => {
     // check the event type
     switch (event.__typename) {
       case 'Combat':
         // run combat event
-        eventComponent = (
+        return (
           <CombatHandler
             event={event}
             disableButtonsRef={disableButtonsRef}
@@ -61,12 +68,13 @@ export default function Game() {
             enemyHP={enemyHP}
             setEnemyHP={setEnemyHP}
             setCurrentEvent={setCurrentEvent}
+            enemyData={enemyData}
+            setEnemyData={setEnemyData}
           />
         );
-        break;
       case 'Interaction':
         // run interaction event
-        eventComponent = (
+        return (
           <RunInteractionEvent
             event={event}
             disableButtonsRef={disableButtonsRef}
@@ -78,10 +86,9 @@ export default function Game() {
             setCurrentEvent={setCurrentEvent}
           />
         );
-        break;
       case 'Movement':
         // run movement event
-        eventComponent = (
+        return (
           <RunMovementEvent
             event={event}
             disableButtonsRef={disableButtonsRef}
@@ -93,16 +100,15 @@ export default function Game() {
             setCurrentEvent={setCurrentEvent}
           />
         );
-        break;
+
       default:
         console.error(
           `Invalid event type, expected 'Combat', 'Interaction', or 'Movement', got: ${event.__typename}`
         );
-        break;
+        return <Error />;
     }
   };
   // if there is no current event, get a new one
-  runEvent(currentEvent);
 
   return (
     <Box alignContent={'center'}>
@@ -110,9 +116,9 @@ export default function Game() {
         sx={{ display: 'flex', justifyContent: 'space-between', zIndex: -99 }}
       >
         <Character characterData={data.currentPlayer} hp={characterHP} />
-        {/* {console.log(enemyData) */}{enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
+        <Enemy enemyData={enemyData} hp={enemyHP} />
       </Box>
-      {eventComponent}
+      {runEvent(currentEvent)}
     </Box>
   );
 }
