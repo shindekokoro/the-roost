@@ -19,6 +19,7 @@ import {
 } from 'react-icons/gi';
 import { AiOutlineNumber } from 'react-icons/ai';
 import { FaHandFist, FaShieldHalved } from 'react-icons/fa6';
+console.log("test");
 
 export default function Character({ characterData, hp }) {
   let character = characterData[0];
