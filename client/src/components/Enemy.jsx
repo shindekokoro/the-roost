@@ -4,12 +4,15 @@ import { AiOutlineNumber } from 'react-icons/ai';
 import { FaHandFist, FaShieldHalved } from 'react-icons/fa6';
 
 export default function Enemy({ enemyData, hp }) {
+  if (hp < 1) {
+    return <></>;
+  }
   return (
     <Box
       sx={{
         textAlign: 'end',
-        padding: '1em', 
-        borderRadius: '0.25rem', 
+        padding: '1em',
+        borderRadius: '0.25rem',
         background: 'rgba(0,0,0,0.5)'
       }}
     >
