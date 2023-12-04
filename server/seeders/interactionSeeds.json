@@ -19,7 +19,7 @@
   },
   {
     "description": "You discover a Chicken Blacksmith, selling his wares. The bird eyes you suspiciously...",
-    "background": "/assets/environment/chicken_blacksmith.jpg",
+    "background": "/assets/environment/chicken_blacksmith.webp",
     "name": "Chicken Blacksmith",
     "options": []
   },

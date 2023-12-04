@@ -1,20 +1,18 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import {
   setLocalStorageData,
   getLocalStorageData,
   setEventContext,
   getEventContext
 } from '../utils/localStorage';
-import { useMutation } from '@apollo/client';
-import { SAVE_CHARACTER } from '../utils/mutations';
-import { Character, Footer, Enemy } from '../components';
-import { useState, useRef, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Character, Enemy } from '../components';
+import { useState, useRef } from 'react';
+import { CombatHandler, NonCombatHandler } from '../components';
+import newEvent from '../utils/newEvent';
 
 export default function Game() {
   // get all data from local storage: { currentPlayer, combat, interaction, movement }
   const data = getLocalStorageData();
-  let enemyData;
 
   // get event context from local storage {characterHP, enemyHP, currentEvent}
   const eventContext = getEventContext();
@@ -23,393 +21,104 @@ export default function Game() {
   const [characterHP, setCharacterHP] = useState(eventContext.characterHP);
   const [enemyHP, setEnemyHP] = useState(eventContext.enemyHP);
   const [currentEvent, setCurrentEvent] = useState(eventContext.currentEvent);
+  const [enemyData, setEnemyData] = useState({
+    level: 0,
+    name: '',
+    maxHP: 0,
+    strength: 0,
+    defense: 0,
+    constitution: 0,
+    inventory: []
+  });
 
   // set up state to disable buttons while event is running
   const disableButtonsRef = useRef(false);
   const eventResultMessageRef = useRef('Event Result');
 
-  // setup mutation to save character in database
-  const [saveCharacter, { error }] = useMutation(SAVE_CHARACTER);
-
-  /**
-   * Get a random event of a random type
-   * @returns {object} event object {characterHP, enemyHP, currentEvent}
-   */
-  const getEvent = () => {
-    // options for the event type
-    let eventOptions = ['combat', 'interaction', 'movement'];
-    // get the event type
-    const eventType =
-      eventOptions[Math.floor(Math.random() * eventOptions.length)];
-    // get the event
-    const event =
-      data[eventType][Math.floor(Math.random() * data[eventType].length)];
-    // return the event
-    return event;
-  };
-
-  /**
-   * Get a new event and set it in local storage and update state - this will cause the component to re-render
-   * @returns {void}
-   */
-  const newEvent = () => {
-    // reset the disable buttons ref so buttons will be enabled
-    disableButtonsRef.current = false;
-    // get a random event
-    let event = getEvent();
-    let newEnemyHP;
-    if (event.__typename === 'Combat') {
-      newEnemyHP = event.constitution * 10;
-    } else {
-      newEnemyHP = null;
-    }
-    let newCharacterHP = characterHP;
-    if (!newCharacterHP) {
-      newCharacterHP = data.currentPlayer[0].constitution * 10;
-    }
-    // set the event context in local storage)
-    setEventContext({
-      characterHP: newCharacterHP,
-      enemyHP: newEnemyHP,
-      currentEvent: event
-    });
-
-    // update state
-    setCharacterHP(characterHP);
-    setEnemyHP(newEnemyHP);
-    setCurrentEvent(event);
-  };
-
   // if there is no current event, get a new one
   if (currentEvent === null) {
-    newEvent();
+    newEvent(
+      disableButtonsRef,
+      data,
+      characterHP,
+      setCharacterHP,
+      enemyHP,
+      setEnemyHP,
+      setCurrentEvent
+    );
   }
 
-  // for testing
-  let eventComponent;
-  /**
-   * Parses a array of results (if passed in as a json string) and returns and executes a random result
-   */
-  const eventResult = (results) => {
-    let resultsArray = results;
-    // parse the results if its a string
-    if (typeof resultsArray === 'string') {
-      resultsArray = JSON.parse(results);
-    }
-    // get a random result
-    let result = resultsArray[Math.floor(Math.random() * resultsArray.length)];
-    // spread the result data into variables
-    let { description, nextEvent, statToModify, statValue } = result;
-    // display the result data
-    console.table({ description, nextEvent, statToModify, statValue });
-
-    /**
-     * Updates the character's stats in local storage, the global data object, and the database
-     * @param {string} statToModify one of the character db properties e.g. hp, attack, defense, gold, etc.
-     * @param {number} statValue value to add to the stat e.g. 10, -5, etc. (negative values will decrease the stat)
-     * @returns {object} updated character object from the database
-     */
-    const modifyStat = (statToModify, statValue) => {
-      // get the character stored in local storage
-      let { currentPlayer } = getLocalStorageData();
-      let character = currentPlayer[0];
-      // modify the stat
-      character[statToModify] += statValue;
-      // update the character in local storage
-      setLocalStorageData(
-        [character],
-        data.combat,
-        data.interaction,
-        data.movement
-      );
-      // update the global data object
-      data.currentPlayer = [character];
-      // graphql definition of character does not include __typename, so it must be deleted before saving
-      delete character.__typename;
-      character.inventory.forEach((item) => delete item.__typename);
-      //console.log(character);
-      // save the character in the database
-      let updatedCharacter = saveCharacter({
-        variables: { characterData: character }
-      });
-      return updatedCharacter;
-    };
-    modifyStat(statToModify, statValue);
-
-    // display the result description
-    //console.log(description);
-
-    // display a button to continue to the next event
-    // could use css display none to hide the button until the event is over and then display it
-    // update options to only have one option to continue to the next event
-
-    disableButtonsRef.current = true;
-    eventResultMessageRef.current = description;
-  };
-
-  const combatHandler = (event) => {
-    if (!enemyHP) {
-      // set enemy hp
-      setEventContext({
-        characterHP: data.currentPlayer[0].constitution * 10,
-        enemyHP: event.constitution * 10,
-        currentEvent: event
-      });
-      setEnemyHP(event.constitution * 10);
-    }
-    // render the event
-    //console.log(event);
-    let description = event.description;
-    let background = event.background;
-    let results = event.result;
-    let player = data.currentPlayer[0];
-    let random = (min, max) =>
-      Math.floor(Math.random() * (max - min + 1)) + min;
-    // TODO: enemy stats scale with player level, 1 every 4 levels
-    enemyData = {
-      level:
-        parseInt(event.strength) +
-        parseInt(event.defense) +
-        parseInt(event.constitution),
-      name: event.name,
-      maxHP: event.constitution * 10,
-      strength: event.strength,
-      defense: event.defense,
-      constitution: event.constitution,
-      inventory: event.inventory
-    };
-
-    let enemyDeathHandler = () => {
-      //
-      console.log('Enemy is dead! Victory!');
-
-      setEventContext({
-        characterHP: characterHP,
-        enemyHP: null,
-        currentEvent: null
-      });
-
-      // run the event result
-      eventResult(results);
-    };
-
-    if (characterHP <= 0) {
-      return <Navigate to="/death" />;
-    }
-
-    let attack = () => {
-      let hitPower = random(1, player.strength);
-      if (hitPower > enemyData.defense) {
-        if (enemyHP - hitPower <= 0) {
-          enemyDeathHandler();
-        } else {
-          setEnemyHP(enemyHP - hitPower);
-        }
-        console.log(`You attack for ${hitPower}!`);
-      } else {
-        console.log('You attack and miss!');
-      }
-      // TODO: disable the buttons while the event is running
-      setTimeout(() => {
-        enemyAttack();
-      }, 1000);
-    };
-
-    let enemyAttack = () => {
-      let hitPower = random(1, enemyData.strength);
-      if (hitPower > player.defense) {
-        setCharacterHP(characterHP - hitPower);
-        console.log(`Enemy attacks for ${hitPower}!`);
-      } else {
-        console.log('Enemy attacks and misses!');
-      }
-    };
-
-    let defend = () => {
-      // TODO: disable the buttons while the event is running
-      setTimeout(() => {
-        let hitPower = random(1, enemyData.strength);
-        if (hitPower > player.defense * 2) {
-          setCharacterHP(characterHP - hitPower);
-          console.log(`You defend and take ${hitPower} damage!`);
-        }
-        console.log('You block the enemies attack!');
-      }, 500);
-    };
-
-    let run = () => {
-      console.log('coward!');
-      newEvent();
-    };
-
-    const options = [
-      { description: 'Attack' },
-      { description: 'Defend' },
-      { description: 'Run!' }
-    ];
-
-    const combatResult = (option) => {
-      switch (option) {
-        case 'Attack':
-          return attack();
-        case 'Defend':
-          return defend();
-        case 'Run!':
-          return run();
-        default:
-          console.error('Combat Error, no option supplied.');
-          break;
-      }
-    };
-
-    return (
-      <>
-        <Box
-          sx={{
-            zIndex: -999,
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            flexDirection: 'column',
-            display: 'flex',
-            alignItems: 'center',
-            height: '100vh',
-            width: '100vw',
-            backgroundImage: `url('../${background}')`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            padding: '8rem 2rem',
-            justifyContent: 'flex-end',
-          }}
-        >
-          {disableButtonsRef.current ? (
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}
-            >
-              <p>{eventResultMessageRef.current}</p>
-              <Button
-                onClick={() => newEvent()}
-                variant="outlined"
-                sx={{ m: '1rem' }}
-              >
-                Continue
-              </Button>
-            </Box>
-          ) : (
-            <Box></Box>
-          )}
-          <Box
-            sx={{ padding: '1em', borderRadius: '0.25rem', background: 'rgba(0,0,0,0.5)' }}>
-            <Typography>{description}</Typography>
-          </Box>
-          <Footer
-            options={options}
-            combatResult={combatResult}
-            disabled={disableButtonsRef.current}
-          />
-        </Box>
-      </>
-    );
-  };
-  const runCombatEvent = combatHandler;
-
-  const nonCombatHandler = (event) => {
-    // render the event
-    let description = event.description;
-    let background = event.background;
-    let name = event.name;
-    let options = event.options;
-
-    //console.log(options);
-    return (
-      <Box
-        sx={{
-          zIndex: -999,
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          flexDirection: 'column',
-          display: 'flex',
-          alignItems: 'center',
-          height: '100vh',
-          width: '100vw',
-          backgroundImage: `url('../${background}')`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          padding: '8rem 2rem',
-          justifyContent: 'flex-end'
-        }}
-      >
-        {disableButtonsRef.current ? (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            <p>{eventResultMessageRef.current}</p>
-            <Button onClick={() => newEvent()} variant="outlined" sx={{ m: '1rem' }}>
-              Continue
-            </Button>
-          </Box>
-        ) : (
-          <Box></Box>
-        )}
-        <Box
-          sx={{ padding: '1em', borderRadius: '0.25rem', background: 'rgba(0,0,0,0.5)' }}>
-          <Typography variant="h5">{name}</Typography>
-          <Typography variant="body1">{description}</Typography>
-        </Box>
-        <Footer
-          options={options}
-          eventResult={eventResult}
-          disabled={disableButtonsRef.current}
-        />
-      </Box>
-    );
-  };
-  const runMovementEvent = nonCombatHandler;
-  const runInteractionEvent = nonCombatHandler;
-
   // take current event and run it
+  const RunMovementEvent = NonCombatHandler;
+  const RunInteractionEvent = NonCombatHandler;
+
+  // for testing
   const runEvent = (event) => {
     // check the event type
     switch (event.__typename) {
       case 'Combat':
         // run combat event
-        eventComponent = runCombatEvent(event);
-        break;
+        return (
+          <CombatHandler
+            event={event}
+            disableButtonsRef={disableButtonsRef}
+            eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
+            enemyData={enemyData}
+            setEnemyData={setEnemyData}
+          />
+        );
       case 'Interaction':
         // run interaction event
-        eventComponent = runInteractionEvent(event);
-        break;
+        return (
+          <RunInteractionEvent
+            event={event}
+            disableButtonsRef={disableButtonsRef}
+            eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
+          />
+        );
       case 'Movement':
         // run movement event
-        eventComponent = runMovementEvent(event);
-        break;
+        return (
+          <RunMovementEvent
+            event={event}
+            disableButtonsRef={disableButtonsRef}
+            eventResultMessageRef={eventResultMessageRef}
+            characterHP={characterHP}
+            setCharacterHP={setCharacterHP}
+            enemyHP={enemyHP}
+            setEnemyHP={setEnemyHP}
+            setCurrentEvent={setCurrentEvent}
+          />
+        );
+
       default:
         console.error(
           `Invalid event type, expected 'Combat', 'Interaction', or 'Movement', got: ${event.__typename}`
         );
-        break;
+        return <Error />;
     }
   };
-  runEvent(currentEvent);
+  // if there is no current event, get a new one
 
   return (
     <Box alignContent={'center'}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'space-between', zIndex: -99 }}
+      >
         <Character characterData={data.currentPlayer} hp={characterHP} />
-        {enemyData ? <Enemy enemyData={enemyData} hp={enemyHP} /> : <></>}
+        <Enemy enemyData={enemyData} hp={enemyHP} />
       </Box>
-      {eventComponent}
+      {runEvent(currentEvent)}
     </Box>
   );
 }

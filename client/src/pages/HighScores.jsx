@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -43,19 +43,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const FadingBox = ({ showLoading, children }) => (
   <Fade in={showLoading} timeout={4000}>
-    <Box style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      height: '40vh',
-    }}
+    <Box
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        height: '40vh'
+      }}
     >
       {children}
     </Box>
   </Fade>
-)
+);
 
 export default function Score() {
   const [showLoading, setShowLoading] = useState(true);
@@ -73,33 +74,39 @@ export default function Score() {
   if (showLoading || loading) {
     return (
       <FadingBox showLoading={showLoading}>
-        <Typography variant="h3" color="white" sx={{
-          fontWeight: 'bold',
-          fontSize: '2rem',
-          backgroundColor: '#b22100',
-          borderRadius: '10px',
-          padding: '10px',
-        }}>
+        <Typography
+          variant="h3"
+          color="white"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: '2rem',
+            backgroundColor: '#b22100',
+            borderRadius: '10px',
+            padding: '10px'
+          }}
+        >
           Loading High Scores...
         </Typography>
         <CircularProgress sx={{ mt: '10px' }} />
       </FadingBox>
-    )
-  };
+    );
+  }
 
   const users = data.users || [];
-  const usersWithCharacters = (users).filter(user => {
+  const usersWithCharacters = users.filter((user) => {
     return user.character && user.character.length > 0;
   });
 
   if (users.length === 0) {
-    return <div>No data available.</div>
+    return <div>No data available.</div>;
   }
 
   const sortedUsers = usersWithCharacters.sort((a, b) => {
     // Function to get the richest character's level for a user
     const getHighestLevel = (user) => {
-      const characterLevels = (user.character || []).map((character) => character.level || 0);
+      const characterLevels = (user.character || []).map(
+        (character) => character.level || 0
+      );
       return Math.max(...characterLevels, 0);
     };
 
@@ -112,8 +119,12 @@ export default function Score() {
   });
 
   const richestUserSort = usersWithCharacters.slice().sort((a, b) => {
-    const aGold = Math.max(...a.character.map(character => character.gold || 0));
-    const bGold = Math.max(...b.character.map(character => character.gold || 0));
+    const aGold = Math.max(
+      ...a.character.map((character) => character.gold || 0)
+    );
+    const bGold = Math.max(
+      ...b.character.map((character) => character.gold || 0)
+    );
 
     return bGold - aGold;
   });
@@ -121,23 +132,40 @@ export default function Score() {
   const richestUsers = richestUserSort.slice(0, 3);
 
   return (
-    <Container align="center" sx={{ flexDirection: 'column', justifyContent: 'center', mt: '10%' }}>
-
+    <Container
+      align="center"
+      sx={{ flexDirection: 'column', justifyContent: 'center', mt: '10%' }}
+    >
       {/* High Score table */}
-      <TableContainer sx={{ maxWidth: '75%', marginTop: 5, borderRadius: '15px', boxShadow: 15 }} component={Paper}>
+      <TableContainer
+        sx={{
+          maxWidth: '75%',
+          marginTop: 5,
+          borderRadius: '15px',
+          boxShadow: 15
+        }}
+        component={Paper}
+      >
         <Table aria-label="High Scores">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center" colSpan={4} component="th" scope="row" sx={{
-                borderBottom: 'none',
-              }}>
-                <Typography variant="h4">
-                  Current High Scores
-                </Typography>
+              <StyledTableCell
+                align="center"
+                colSpan={4}
+                component="th"
+                scope="row"
+                sx={{
+                  borderBottom: 'none'
+                }}
+              >
+                <Typography variant="h4">Current High Scores</Typography>
               </StyledTableCell>
             </TableRow>
             <TableRow>
-              <StyledTableCell align="center" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+              <StyledTableCell
+                align="center"
+                sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+              >
                 Username
               </StyledTableCell>
               <StyledTableCell align="center" sx={{ width: '33.33%' }}>
@@ -151,11 +179,22 @@ export default function Score() {
           <TableBody>
             {sortedUsers.map((user) => (
               <StyledTableRow key={user._id}>
-                <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+                <StyledTableCell
+                  align="center"
+                  component="th"
+                  scope="row"
+                  sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+                >
                   {user.username}
                 </StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].level}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link to={`/profiles/${user.username}`}>
+                    {user.character[0].name}
+                  </Link>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {user.character[0].level}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -163,20 +202,35 @@ export default function Score() {
       </TableContainer>
 
       {/* Biggest Bank Table */}
-      <TableContainer sx={{ maxWidth: '75%', marginTop: 5, borderRadius: '15px', boxShadow: 15 }} component={Paper}>
+      <TableContainer
+        sx={{
+          maxWidth: '75%',
+          marginTop: 5,
+          borderRadius: '15px',
+          boxShadow: 15
+        }}
+        component={Paper}
+      >
         <Table aria-label="High Scores">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center" colSpan={4} component="th" scope="row" sx={{
-                borderBottom: 'none',
-              }}>
-                <Typography variant="h4">
-                  3 Biggest Banks
-                </Typography>
+              <StyledTableCell
+                align="center"
+                colSpan={4}
+                component="th"
+                scope="row"
+                sx={{
+                  borderBottom: 'none'
+                }}
+              >
+                <Typography variant="h4">3 Biggest Banks</Typography>
               </StyledTableCell>
             </TableRow>
             <TableRow>
-              <StyledTableCell align="center" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+              <StyledTableCell
+                align="center"
+                sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+              >
                 Username
               </StyledTableCell>
               <StyledTableCell align="center" sx={{ width: '33.33%' }}>
@@ -190,17 +244,27 @@ export default function Score() {
           <TableBody>
             {richestUsers.map((user) => (
               <StyledTableRow key={user._id}>
-                <StyledTableCell align="center" component="th" scope="row" sx={{ display: { xs: 'none', sm: 'none', md: 'block' }}}>
+                <StyledTableCell
+                  align="center"
+                  component="th"
+                  scope="row"
+                  sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+                >
                   {user.username}
                 </StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].name}</StyledTableCell>
-                <StyledTableCell align="center">{user.character[0].gold}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Link to={`/profiles/${user.username}`}>
+                    {user.character[0].name}
+                  </Link>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {user.character[0].gold}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </Container>
-  )
+  );
 }
-

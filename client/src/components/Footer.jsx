@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
 
 import {
   GiAncientSword,
@@ -17,7 +16,12 @@ import {
 import { GrRun } from 'react-icons/gr';
 import { RiErrorWarningFill } from 'react-icons/ri';
 
-export default function Footer({ options, eventResult, combatResult, disabled }) {
+export default function Footer({
+  options,
+  disabled,
+  eventResult,
+  combatResult
+}) {
   const [value, setValue] = useState(0);
   const iconStyle = { width: '2em', height: '2em' };
 
@@ -48,7 +52,14 @@ export default function Footer({ options, eventResult, combatResult, disabled })
 
   return (
     <Paper
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '1rem', backgroundColor: '#1a1a19'}}
+      sx={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '1rem',
+        backgroundColor: '#1a1a19'
+      }}
       elevation={3}
     >
       <BottomNavigation
@@ -58,10 +69,10 @@ export default function Footer({ options, eventResult, combatResult, disabled })
           setValue(newValue);
         }}
       >
-        { options.map((option, index) => (
+        {options.map((option, index) => (
           <BottomNavigationAction
             key={index}
-            onClick={ 
+            onClick={
               eventResult
                 ? () => eventResult(JSON.stringify(option.result))
                 : () => combatResult(option.description)
