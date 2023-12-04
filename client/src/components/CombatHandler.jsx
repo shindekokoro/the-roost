@@ -10,7 +10,7 @@ import {
   getLocalStorageData
 } from '../utils/localStorage';
 import newEvent from '../utils/newEvent';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function combatHandler({
   event,
@@ -59,6 +59,7 @@ export default function combatHandler({
   }, [event]);
 
   const combatMessages = useRef([]);
+  const [missState, setMissState] = useState(0);
 
   let enemyDeathHandler = () => {
     //
@@ -91,6 +92,7 @@ export default function combatHandler({
       combatMessages.current.push(`You attack for ${hitPower}!`);
     } else {
       combatMessages.current.push('You attack and miss!');
+      setMissState(enemyHP);
     }
     // TODO: disable the buttons while the event is running
     // removed the timeout for now

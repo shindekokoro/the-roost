@@ -4,7 +4,6 @@ import { AiOutlineNumber } from 'react-icons/ai';
 import { FaHandFist, FaShieldHalved } from 'react-icons/fa6';
 
 export default function Enemy({ enemyData, hp }) {
-  console.log(enemyData);
   if (hp < 1) {
     return <></>;
   }
