@@ -86,8 +86,23 @@ const Login = ({ signup }) => {
           </Link>
         </Typography>
       ) : (
-        <Grid container>
-          <form onSubmit={handleFormSubmit}>
+        <Grid
+          container
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            padding: '1em 0em 3em 0em'
+          }}
+        >
+          <form
+            onSubmit={handleFormSubmit}
+            style={{
+              borderRadius: '0.4rem',
+              background: 'rgba(0,0,0,0.5)',
+              padding: '1em 1em 2em 1em'
+            }}
+          >
             <Grid item>
               {signup ? (
                 <Signup formState={formState} handleChange={handleChange} />
