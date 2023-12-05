@@ -42,21 +42,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const FadingBox = ({ showLoading, children }) => (
-  <Fade in={showLoading} timeout={4000}>
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        height: '40vh'
-      }}
+  <Fade in={showLoading} timeout={2500}>
+    <Box style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      height: '40vh',
+    }}
     >
       {children}
     </Box>
   </Fade>
-);
+)
 
 export default function Score() {
   const [showLoading, setShowLoading] = useState(true);
@@ -64,7 +63,7 @@ export default function Score() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 5000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
