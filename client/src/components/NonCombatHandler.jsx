@@ -131,7 +131,8 @@ export default function NonCombatHandler({
             flexDirection: 'column',
             borderRadius: '0.25rem',
             background: 'rgba(0,0,0,0.5)',
-            marginBottom: '1em'
+            marginBottom: '1em',
+            padding: 1
           }}
         >
           <p>{eventResultMessageRef.current}</p>
