@@ -16,23 +16,23 @@ export default function Death() {
         to="/play"
         variant="outlined"
         sx={{ m: 1 }}
-        >
+      >
         Play Again
       </Button>
-      <Button 
-        component={ReactRouter} 
-        to="/highscores" 
-        variant="outlined" 
+      <Button
+        component={ReactRouter}
+        to="/highscores"
+        variant="outlined"
         sx={{ m: 1 }}
-        >
+      >
         High Scores
       </Button>
-      <Button 
-        component={ReactRouter} 
-        to="/profile" 
-        variant="outlined" 
+      <Button
+        component={ReactRouter}
+        to="/profile"
+        variant="outlined"
         sx={{ m: 1 }}
-        >
+      >
         Profile
       </Button>
     </Box>

@@ -26,7 +26,7 @@ export const QUERY_USERS = gql`
         }
       }
     }
-  } 
+  }
 `;
 
 export const QUERY_USER = gql`
@@ -87,34 +87,35 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_COMBAT_EVENTS = gql `query combat {
-  combat {
-    _id
-    description
-    background
-    name
-    level
-    strength
-    defense
-    constitution
-    inventory {
+export const QUERY_COMBAT_EVENTS = gql`
+  query combat {
+    combat {
       _id
-      isEquipped
-      name
       description
+      background
+      name
+      level
       strength
       defense
       constitution
-    }
-    result {
-      _id
-      description
-      statToModify
-      statValue
-      nextEvent
+      inventory {
+        _id
+        isEquipped
+        name
+        description
+        strength
+        defense
+        constitution
+      }
+      result {
+        _id
+        description
+        statToModify
+        statValue
+        nextEvent
+      }
     }
   }
-}
 `;
 
 export const QUERY_MOVEMENT_EVENTS = gql`

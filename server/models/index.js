@@ -10,16 +10,16 @@ const MovementResults = require('./Movement/MovementResults.js');
 const Items = require('./Items.js');
 const Character = require('./Character.js');
 
-module.exports = { 
-    User, 
-    Combat, 
-    CombatResults,
-    Interaction, 
-    InteractionOptions, 
-    InteractionResults,  
-    Movement,
-    MovementOptions,
-    MovementResults,
-    Items,
-    Character
+module.exports = {
+  User,
+  Combat,
+  CombatResults,
+  Interaction,
+  InteractionOptions,
+  InteractionResults,
+  Movement,
+  MovementOptions,
+  MovementResults,
+  Items,
+  Character
 };

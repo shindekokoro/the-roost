@@ -4,56 +4,68 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate({
-        path: 'character',
-        populate: {
-          path: 'inventory',
-          model: 'items'
-        }
-      }).exec();
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate({
-        path: 'character',
-        populate: {
-          path: 'inventory',
-          model: 'items'
-        }
-      }).exec();
-    },
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate({
+      return User.find()
+        .populate({
           path: 'character',
           populate: {
             path: 'inventory',
             model: 'items'
           }
-        }).exec();
-
+        })
+        .exec();
+    },
+    user: async (parent, { username }) => {
+      return User.findOne({ username })
+        .populate({
+          path: 'character',
+          populate: {
+            path: 'inventory',
+            model: 'items'
+          }
+        })
+        .exec();
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id })
+          .populate({
+            path: 'character',
+            populate: {
+              path: 'inventory',
+              model: 'items'
+            }
+          })
+          .exec();
       }
       throw AuthenticationError;
     },
-    combat: async () => { 
-      return await Combat.find().populate('inventory').populate('result').exec();
+    combat: async () => {
+      return await Combat.find()
+        .populate('inventory')
+        .populate('result')
+        .exec();
     },
-    movement: async () => { 
-      return Movement.find().populate({
-        path: 'options',
-        populate: {
-          path: 'result',
-          model: 'movementResults'
-        }
-      }).exec();
+    movement: async () => {
+      return Movement.find()
+        .populate({
+          path: 'options',
+          populate: {
+            path: 'result',
+            model: 'movementResults'
+          }
+        })
+        .exec();
     },
-    interaction: async () => { 
-      return Interaction.find().populate({
-        path: 'options',
-        populate: {
-          path: 'result',
-          model: 'interactionResults'
-        }
-      }).exec();
+    interaction: async () => {
+      return Interaction.find()
+        .populate({
+          path: 'options',
+          populate: {
+            path: 'result',
+            model: 'interactionResults'
+          }
+        })
+        .exec();
     }
   },
 
@@ -98,7 +110,9 @@ const resolvers = {
           { _id: characterData._id },
           { ...characterData },
           { new: true }
-        ).populate('inventory').exec();
+        )
+          .populate('inventory')
+          .exec();
         return updatedCharacter;
       }
       throw AuthenticationError;
@@ -120,13 +134,15 @@ const resolvers = {
           { _id: context.user._id },
           { $push: { character: newCharacter._id } },
           { new: true }
-        ).populate({
-          path: 'character',
-          populate: {
-            path: 'inventory',
-            model: 'items'
-          }
-        }).exec();
+        )
+          .populate({
+            path: 'character',
+            populate: {
+              path: 'inventory',
+              model: 'items'
+            }
+          })
+          .exec();
         return newCharacter;
       }
       throw AuthenticationError;
