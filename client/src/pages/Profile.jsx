@@ -107,7 +107,7 @@ export default function Profile() {
       sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
     >
       <Typography variant="body1">Username: {user.username}</Typography>
-      <Typography variant="body1">Email: {user.email}</Typography>
+      {/* <Typography variant="body1">Email: {user.email}</Typography>*/}
 
       <TableContainer sx={{ maxWidth: '75%', marginTop: 5 }} component={Paper}>
         <Table aria-label="User Characters">
