@@ -48,11 +48,11 @@ const Login = ({ signup }) => {
     try {
       const { data } = signup
         ? await addUser({
-            variables: { ...formState }
-          })
+          variables: { ...formState }
+        })
         : await login({
-            variables: { ...formState }
-          });
+          variables: { ...formState }
+        });
 
       Auth.login(data.login?.token || data.addUser?.token);
     } catch (e) {
