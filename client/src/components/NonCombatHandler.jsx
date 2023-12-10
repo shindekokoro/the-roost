@@ -119,7 +119,7 @@ export default function NonCombatHandler({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        padding: '8rem 2rem',
+        padding: { md: '9rem 2rem', xs: '12rem 2rem' },
         justifyContent: 'flex-end'
       }}
     >
@@ -131,11 +131,13 @@ export default function NonCombatHandler({
             flexDirection: 'column',
             borderRadius: '0.25rem',
             background: 'rgba(0,0,0,0.5)',
-            marginBottom: '1em',
+            marginBottom: { md: '1em', xs: '.5em' },
             padding: 1
           }}
         >
-          <p>{eventResultMessageRef.current}</p>
+          <Typography variant="body2">
+            {eventResultMessageRef.current}
+          </Typography>
           <Button
             onClick={() =>
               newEvent(
