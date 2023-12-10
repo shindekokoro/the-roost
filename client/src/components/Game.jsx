@@ -1,13 +1,9 @@
 import { Box } from '@mui/material';
-import {
-  setLocalStorageData,
-  getLocalStorageData,
-  setEventContext,
-  getEventContext
-} from '../utils/localStorage';
+import { getLocalStorageData, getEventContext } from '../utils/localStorage';
 import { Character, Enemy } from '../components';
 import { useState, useRef } from 'react';
 import { CombatHandler, NonCombatHandler } from '../components';
+import { Error } from '../pages';
 import newEvent from '../utils/newEvent';
 
 export default function Game() {
@@ -56,56 +52,56 @@ export default function Game() {
   const runEvent = (event) => {
     // check the event type
     switch (event.__typename) {
-      case 'Combat':
-        // run combat event
-        return (
-          <CombatHandler
-            event={event}
-            disableButtonsRef={disableButtonsRef}
-            eventResultMessageRef={eventResultMessageRef}
-            characterHP={characterHP}
-            setCharacterHP={setCharacterHP}
-            enemyHP={enemyHP}
-            setEnemyHP={setEnemyHP}
-            setCurrentEvent={setCurrentEvent}
-            enemyData={enemyData}
-            setEnemyData={setEnemyData}
-          />
-        );
-      case 'Interaction':
-        // run interaction event
-        return (
-          <RunInteractionEvent
-            event={event}
-            disableButtonsRef={disableButtonsRef}
-            eventResultMessageRef={eventResultMessageRef}
-            characterHP={characterHP}
-            setCharacterHP={setCharacterHP}
-            enemyHP={enemyHP}
-            setEnemyHP={setEnemyHP}
-            setCurrentEvent={setCurrentEvent}
-          />
-        );
-      case 'Movement':
-        // run movement event
-        return (
-          <RunMovementEvent
-            event={event}
-            disableButtonsRef={disableButtonsRef}
-            eventResultMessageRef={eventResultMessageRef}
-            characterHP={characterHP}
-            setCharacterHP={setCharacterHP}
-            enemyHP={enemyHP}
-            setEnemyHP={setEnemyHP}
-            setCurrentEvent={setCurrentEvent}
-          />
-        );
+    case 'Combat':
+      // run combat event
+      return (
+        <CombatHandler
+          event={event}
+          disableButtonsRef={disableButtonsRef}
+          eventResultMessageRef={eventResultMessageRef}
+          characterHP={characterHP}
+          setCharacterHP={setCharacterHP}
+          enemyHP={enemyHP}
+          setEnemyHP={setEnemyHP}
+          setCurrentEvent={setCurrentEvent}
+          enemyData={enemyData}
+          setEnemyData={setEnemyData}
+        />
+      );
+    case 'Interaction':
+      // run interaction event
+      return (
+        <RunInteractionEvent
+          event={event}
+          disableButtonsRef={disableButtonsRef}
+          eventResultMessageRef={eventResultMessageRef}
+          characterHP={characterHP}
+          setCharacterHP={setCharacterHP}
+          enemyHP={enemyHP}
+          setEnemyHP={setEnemyHP}
+          setCurrentEvent={setCurrentEvent}
+        />
+      );
+    case 'Movement':
+      // run movement event
+      return (
+        <RunMovementEvent
+          event={event}
+          disableButtonsRef={disableButtonsRef}
+          eventResultMessageRef={eventResultMessageRef}
+          characterHP={characterHP}
+          setCharacterHP={setCharacterHP}
+          enemyHP={enemyHP}
+          setEnemyHP={setEnemyHP}
+          setCurrentEvent={setCurrentEvent}
+        />
+      );
 
-      default:
-        console.error(
-          `Invalid event type, expected 'Combat', 'Interaction', or 'Movement', got: ${event.__typename}`
-        );
-        return <Error />;
+    default:
+      console.error(
+        `Invalid event type, expected 'Combat', 'Interaction', or 'Movement', got: ${event.__typename}`
+      );
+      return <Error />;
     }
   };
   // if there is no current event, get a new one
