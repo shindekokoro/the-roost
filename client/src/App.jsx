@@ -7,7 +7,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box, Container } from '@mui/material';
+import { CssBaseline, Container } from '@mui/material';
 import theme from './theme';
 
 import { Header } from './components';
