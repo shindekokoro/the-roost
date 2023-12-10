@@ -134,7 +134,7 @@ export default function Score() {
   return (
     <Container
       align="center"
-      sx={{ flexDirection: 'column', justifyContent: 'center', mt: '10%' }}
+      sx={{ flexDirection: 'column', justifyContent: 'center' }}
     >
       {/* High Score table */}
       <TableContainer
@@ -164,7 +164,7 @@ export default function Score() {
             <TableRow>
               <StyledTableCell
                 align="center"
-                sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+                sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, borderBottom: 'none' }}
               >
                 Username
               </StyledTableCell>
@@ -205,7 +205,7 @@ export default function Score() {
       <TableContainer
         sx={{
           maxWidth: '75%',
-          marginTop: 5,
+          margin: '20px 0px',
           borderRadius: '15px',
           boxShadow: 15
         }}
@@ -229,7 +229,7 @@ export default function Score() {
             <TableRow>
               <StyledTableCell
                 align="center"
-                sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+                sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, borderBottom: 'none' }}
               >
                 Username
               </StyledTableCell>
