@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-
-import {
-  GiAncientSword,
-  GiMove,
-  GiHeartShield,
-  GiEvilHand
-} from 'react-icons/gi';
+import { GiAncientSword, GiHeartShield, GiEvilHand } from 'react-icons/gi';
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -28,25 +22,25 @@ export default function Footer({
   const getIcon = (description) => {
     //console.log(description);
     switch (description) {
-      case 'Move Left':
-        return <FaArrowLeft style={iconStyle} />;
-      case 'Move Right':
-        return <FaArrowRight style={iconStyle} />;
-      case 'Move Forward':
-        return <FaArrowUp style={iconStyle} />;
-      case 'Move Back':
-        return <FaArrowDown style={iconStyle} />;
-      case 'Attack':
-        return <GiAncientSword style={iconStyle} />;
-      case 'Defend':
-        return <GiHeartShield style={iconStyle} />;
-      case 'Interact':
-        return <GiEvilHand style={iconStyle} />;
-      case 'Run!':
-      case 'Run away':
-        return <GrRun style={iconStyle} />;
-      default:
-        return <RiErrorWarningFill style={iconStyle} />;
+    case 'Move Left':
+      return <FaArrowLeft style={iconStyle} />;
+    case 'Move Right':
+      return <FaArrowRight style={iconStyle} />;
+    case 'Move Forward':
+      return <FaArrowUp style={iconStyle} />;
+    case 'Move Back':
+      return <FaArrowDown style={iconStyle} />;
+    case 'Attack':
+      return <GiAncientSword style={iconStyle} />;
+    case 'Defend':
+      return <GiHeartShield style={iconStyle} />;
+    case 'Interact':
+      return <GiEvilHand style={iconStyle} />;
+    case 'Run!':
+    case 'Run away':
+      return <GrRun style={iconStyle} />;
+    default:
+      return <RiErrorWarningFill style={iconStyle} />;
     }
   };
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Fade from '@mui/material/Fade';
 
@@ -43,19 +43,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const FadingBox = ({ showLoading, children }) => (
   <Fade in={showLoading} timeout={2500}>
-    <Box style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      height: '40vh',
-    }}
+    <Box
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        height: '40vh'
+      }}
     >
       {children}
     </Box>
   </Fade>
-)
+);
 
 export default function Score() {
   const [showLoading, setShowLoading] = useState(true);

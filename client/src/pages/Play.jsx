@@ -1,12 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material';
 import { Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {
-  setLocalStorageData,
-  getLocalStorageData,
-  setEventContext,
-  getEventContext
-} from '../utils/localStorage';
+import { setLocalStorageData } from '../utils/localStorage';
 import {
   QUERY_ME,
   QUERY_COMBAT_EVENTS,
