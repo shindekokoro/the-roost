@@ -12,7 +12,7 @@ import {
 import newEvent from '../utils/newEvent';
 import { useEffect, useRef, useState } from 'react';
 
-export default function combatHandler({
+export default function CombatHandler({
   event,
   disableButtonsRef,
   eventResultMessageRef,
@@ -147,15 +147,15 @@ export default function combatHandler({
 
   const combatResult = (option) => {
     switch (option) {
-      case 'Attack':
-        return attack();
-      case 'Defend':
-        return defend();
-      case 'Run!':
-        return run();
-      default:
-        console.error('Combat Error, no option supplied.');
-        break;
+    case 'Attack':
+      return attack();
+    case 'Defend':
+      return defend();
+    case 'Run!':
+      return run();
+    default:
+      console.error('Combat Error, no option supplied.');
+      break;
     }
   };
 

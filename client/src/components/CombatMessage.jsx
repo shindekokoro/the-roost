@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import { useState } from 'react';
 
 export default function CombatMessage({ messageArray }) {
   if (messageArray.length > 2) {

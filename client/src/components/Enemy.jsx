@@ -10,13 +10,7 @@ import {
   Typography,
   Paper
 } from '@mui/material';
-import {
-  GiHealthPotion,
-  GiAbacus,
-  GiWisdom,
-  GiGoldBar,
-  GiOpenTreasureChest
-} from 'react-icons/gi';
+import { GiHealthPotion, GiWisdom, GiOpenTreasureChest } from 'react-icons/gi';
 import { AiOutlineNumber } from 'react-icons/ai';
 import { FaHandFist, FaShieldHalved } from 'react-icons/fa6';
 

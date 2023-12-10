@@ -8,18 +8,32 @@
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "seed": "node server/seeders/seed.js"
+    "seed": "node server/seeders/seed.js",
+    "lint": "eslint client/src --ext js,jsx --report-unused-disable-directives --max-warnings 10",
+    "lint-fix": "eslint client/src --ext js,jsx --report-unused-disable-directives --max-warnings 10 --fix",
+    "fix": "yarn format && yarn lint:fix",
+    "format": "prettier --write 'client/src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint --fix 'client/src/**/*.{js,jsx,ts,tsx}'",
+    "fix:eslint": "eslint client/src --ext .js,.ts,.jsx,.tsx --fix",
+    "fix:prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
     "@vitejs/plugin-react": "^4.2.0",
+    "dotenv": "^16.3.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "git-a-readme": "^1.2.5",
+    "prettier": "^3.1.0",
     "vite": "^5.0.4"
   }
 }

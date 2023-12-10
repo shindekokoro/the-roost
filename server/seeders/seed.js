@@ -10,7 +10,7 @@ const {
   MovementOptions,
   MovementResults,
   Items,
-  Character
+  Character,
 } = require('../models');
 
 const userSeeds = require('./userSeeds.json');
@@ -97,31 +97,27 @@ const seedNested = async (base, options, results) => {
 };
 
 db.once('open', async () => {
-  try {
-    //only uncomment this in dev environment
-    db.dropDatabase('the-roost');
-    await User.create(userSeeds);
-    await Character.create(characterSeeds);
-    await Items.create(itemSeeds);
-    await seedNestedUsers();
+  //only uncomment this in dev environment
+  db.dropDatabase('the-roost');
+  await User.create(userSeeds);
+  await Character.create(characterSeeds);
+  await Items.create(itemSeeds);
+  await seedNestedUsers();
 
-    await Combat.create(combatSeeds);
-    await CombatResults.create(combatResSeeds);
-    await seedNestedCombat();
+  await Combat.create(combatSeeds);
+  await CombatResults.create(combatResSeeds);
+  await seedNestedCombat();
 
-    await Interaction.create(interactionSeeds);
-    await InteractionOptions.create(interactionOpSeeds);
-    await InteractionResults.create(interactionResSeeds);
-    await seedNested(Interaction, InteractionOptions, InteractionResults);
+  await Interaction.create(interactionSeeds);
+  await InteractionOptions.create(interactionOpSeeds);
+  await InteractionResults.create(interactionResSeeds);
+  await seedNested(Interaction, InteractionOptions, InteractionResults);
 
-    await Movement.create(movementSeeds);
-    await MovementOptions.create(movementOpSeeds);
-    await MovementResults.create(movementResSeeds);
-    await seedNested(Movement, MovementOptions, MovementResults);
+  await Movement.create(movementSeeds);
+  await MovementOptions.create(movementOpSeeds);
+  await MovementResults.create(movementResSeeds);
+  await seedNested(Movement, MovementOptions, MovementResults);
 
-    console.log('Database seeded!');
-    process.exit(0);
-  } catch (err) {
-    throw err;
-  }
+  console.log('Database seeded!');
+  process.exit(0);
 });
