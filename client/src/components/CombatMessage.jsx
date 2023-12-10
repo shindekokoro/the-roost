@@ -19,7 +19,7 @@ export default function CombatMessage({ messageArray }) {
             flexDirection: 'column',
             borderRadius: '0.25rem',
             background: 'rgba(0,0,0,0.5)',
-            marginBottom: '1em',
+            marginBottom: { md: '1em', xs: '.5em' },
             padding: 1
           }}
           color={index % 2 ? '#ff542e' : '#fde7e7'}
