@@ -1,9 +1,4 @@
-export const setLocalStorageData = (
-  currentPlayer,
-  combat,
-  interaction,
-  movement
-) => {
+const setLocalStorageData = (currentPlayer, combat, interaction, movement) => {
   if (!currentPlayer || !combat || !interaction || !movement) {
     return { message: 'no valid data received' };
   }
@@ -16,7 +11,7 @@ export const setLocalStorageData = (
   return { message: 'items saved to storage' };
 };
 
-export const getLocalStorageData = () => {
+const getLocalStorageData = () => {
   const currentPlayer = JSON.parse(localStorage.getItem('roostPlayer'));
   const combat = JSON.parse(localStorage.getItem('roostCombat'));
   const interaction = JSON.parse(localStorage.getItem('roostInteraction'));
@@ -30,11 +25,11 @@ export const getLocalStorageData = () => {
   };
 };
 
-export const setEventContext = (data) => {
+const setEventContext = (data) => {
   localStorage.setItem('eventContext', JSON.stringify(data));
 };
 
-export const getEventContext = () => {
+const getEventContext = () => {
   let eventContext = JSON.parse(localStorage.getItem('eventContext'));
   if (!eventContext) {
     eventContext = {
@@ -45,4 +40,11 @@ export const getEventContext = () => {
     localStorage.setItem('eventContext', JSON.stringify(eventContext));
   }
   return eventContext;
+};
+
+export {
+  getEventContext,
+  setEventContext,
+  getLocalStorageData,
+  setLocalStorageData
 };
