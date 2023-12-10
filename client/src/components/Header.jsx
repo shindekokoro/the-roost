@@ -17,24 +17,24 @@ import {
 
 const getTitle = (path) => {
   switch (path) {
-    case '/':
-      return 'The Roost';
-    case '/highscores':
-      return 'High Scores';
-    case '/login':
-      return 'Login';
-    case '/signup':
-      return 'Signup';
-    case '/logout':
-      return 'Logging Out...';
-    case '/profile':
-      return 'Viewing Your Profile';
-    case '/play':
-      return 'Enter the Coop';
-    case '/death':
-      return 'GAME OVER';
-    default:
-      return 'Error';
+  case '/':
+    return 'The Roost';
+  case '/highscores':
+    return 'High Scores';
+  case '/login':
+    return 'Login';
+  case '/signup':
+    return 'Signup';
+  case '/logout':
+    return 'Logging Out...';
+  case '/profile':
+    return 'Viewing Your Profile';
+  case '/play':
+    return 'Enter the Coop';
+  case '/death':
+    return 'GAME OVER';
+  default:
+    return 'Error';
   }
 };
 
@@ -57,14 +57,14 @@ export default function Header() {
   };
 
   // Set Menu State and Navigation Elements for Enemy
-  const enemySettings = ['Play'];
-  const [anchorElEnemy, setAnchorElEnemy] = useState(null);
-  const handleOpenEnemyMenu = (event) => {
-    setAnchorElEnemy(event.currentTarget);
-  };
-  const handleCloseEnemyMenu = () => {
-    setAnchorElEnemy(null);
-  };
+  // const enemySettings = ['Play'];
+  // const [anchorElEnemy, setAnchorElEnemy] = useState(null);
+  // const handleOpenEnemyMenu = (event) => {
+  //   setAnchorElEnemy(event.currentTarget);
+  // };
+  // const handleCloseEnemyMenu = () => {
+  //   setAnchorElEnemy(null);
+  // };
 
   return (
     <AppBar
